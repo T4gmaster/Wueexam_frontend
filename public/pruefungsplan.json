@@ -1,0 +1,18 @@
+[
+    {
+    "DATE": "14.03.2021",   
+    "EXAM": "Anwendungsorientierte Informatik",
+    "EXAM_ID": 50,
+    "LAST_NAME": "Grosskreuz",
+    "FIRST_NAME": "Kevin",
+    "MATRICULATION_NUMBER": "2001571"
+    },
+    {
+    "DATE": "15.03.2021",        
+    "EXAM": "Einfuehrung BWL",
+    "EXAM_ID": 90,
+    "LAST_NAME": "Sarpei",
+    "FIRST_NAME": "Hans",
+    "MATRICULATION_NUMBER": "2101570"
+    }
+]

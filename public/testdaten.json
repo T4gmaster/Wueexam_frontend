@@ -1,0 +1,11 @@
+[
+    {
+    "id": 1,    
+    "pruefung": "Anwendungsorientierte Informatik",
+    "teilnehmer": 50,
+    "aufsicht": "Kevin Grosskreuz",
+    "datum": "14.03.2021",
+    "uhrzeit": "11:00",
+    "raum": "Audimax"
+    }
+]       
