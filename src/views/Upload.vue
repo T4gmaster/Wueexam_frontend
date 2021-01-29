@@ -9,7 +9,7 @@ Tut: https://serversideup.net/uploading-files-vuejs-axios/
   </div>
   <p></p>
   <div>
-    <button class="togglebutton" v-on:click="toggleFunction()">Prüfungsplan anzeigen</button>
+    <button class="togglebutton" v-on:click="toggleFunction()">Anmeldeliste anzeigen</button>
   </div>
   <div id="myDIV" style="display:none">
     <div id="app" class="small-test">

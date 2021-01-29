@@ -14,12 +14,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="anmeldeliste in anmeldeliste" v-bind:key="anmeldeliste.Prüfung">
-          <th scope="row">{{anmeldeliste.Prüfungs-ID}}</th>
-          <td>{{anmeldeliste.Nachname}}</td>
-          <td>{{anmeldeliste.Vorname}}</td>
-          <td>{{anmeldeliste.Matrikelnummer}}</td>
-          <td>{{anmeldeliste.Studiengang}}</td>
+        <tr v-for="anmeldeliste in anmeldeliste" v-bind:key="anmeldeliste.EXAM">
+          <th scope="row">{{anmeldeliste.EXAM}}</th>
+          <td>{{anmeldeliste.EXAM_ID}}</td>
+          <td>{{anmeldeliste.LAST_NAME}}</td>
+          <td>{{anmeldeliste.FIRST_NAME}}</td>
+          <td>{{anmeldeliste.MATRICULATION_NUMBER}}</td>
+          <td>{{anmeldeliste.COURSE}}</td>
         </tr>
       </tbody>
     </table>
