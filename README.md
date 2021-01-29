@@ -25,9 +25,10 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
 ### Docker-Compose
-...
+```
 docker-compose pull
-...
-...
+```
+
+```
 docker-compose up
-...
+```
