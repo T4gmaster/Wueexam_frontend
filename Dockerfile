@@ -1,25 +1,30 @@
 # Choose the Image which has Node installed already
 FROM node:lts-alpine
 
-# install simple http server for serving static content
-#RUN npm install -g http-server
+
 
 # make the 'app' folder the current working directory
 WORKDIR /app
 
-#ENV PATH /app/node_modules/.bin:$PATH
+ENV PATH /app/node_modules/.bin:$PATH
 
 # copy both 'package.json' and 'package-lock.json' (if available)
-COPY package*.json ./app
+COPY package.json ./app
+COPY package-lock.json ./app
+
+COPY . .
 
 # install project dependencies
+RUN npm install
 RUN npm install vue
+#RUN npm install @vue/cli@3.7.0 -g
+#RUN vue add bootstrap-vue
 
 # copy project files and folders to the current working directory (i.e. 'app' folder)
-COPY . .
+
 
 # build app for production with minification
 RUN npm run build
 
-#EXPOSE 8080
+##EXPOSE
 CMD ["npm","run","serve"]
