@@ -7,10 +7,10 @@ FROM node:lts-alpine
 # make the 'app' folder the current working directory
 WORKDIR /app
 
-ENV PATH /app/node_modules/.bin:$PATH
+#ENV PATH /app/node_modules/.bin:$PATH
 
 # copy both 'package.json' and 'package-lock.json' (if available)
-COPY package*.json ./
+COPY package*.json ./app
 
 # install project dependencies
 RUN npm install vue
