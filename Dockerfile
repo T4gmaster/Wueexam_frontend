@@ -1,7 +1,7 @@
 # Choose the Image which has Node installed already
 FROM node:lts-alpine
 
-
+EXPOSE 8080
 
 # make the 'app' folder the current working directory
 WORKDIR /app
@@ -16,8 +16,7 @@ COPY . .
 
 # install project dependencies
 RUN npm install
-RUN npm install vue
-#RUN npm install @vue/cli@3.7.0 -g
+RUN npm install @vue/cli@3.7.0 -g
 #RUN vue add bootstrap-vue
 
 # copy project files and folders to the current working directory (i.e. 'app' folder)

@@ -2,9 +2,9 @@
 <p></p>
   <div class="grid-container">
     <div>
-      <a target="_blank" href="https://wuestudy.zv.uni-wuerzburg.de/"><button class= "kachel" id="k1">WueStudy</button></a>
+      <a target="_blank" href="https://wuestudy.zv.uni-wuerzburg.de/"><button class= "kachel" id="k1">Basbane</button></a>
     </div>
-    <div> 
+    <div>
       <a href="http://localhost:8081/upload"><button class= "kachel">Upload Prüfungsanmeldung</button></a>
     </div>
     <div>
@@ -29,7 +29,7 @@
 export default {
   name: "Home",
   components: {
-    
+
   }
 };
 </script>
