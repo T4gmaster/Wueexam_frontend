@@ -1,6 +1,8 @@
 <template lang="html">
 <p></p>
   <div>
+    <button class="togglebutton" v-on:click="start()"><i class="fa fa-play"></i> Start Solver</button>
+    <button class="togglebutton" v-on:click="stop()"><i class="fa fa-stop"></i> Stop Solver</button>
     <button class="togglebutton" v-on:click="toggleFunction()">Prüfungsplan anzeigen</button>
   </div>
   <div id="myDIV" style="display:none">
@@ -12,6 +14,7 @@
 
 <script>
 import WueExamResultTable from '@/components/WueExamResultTable.vue';
+import axios from "axios";
 
 export default {
   name: 'app',
@@ -26,6 +29,38 @@ export default {
       } else {
         x.style.display = "none";
       }
+    },
+    start(){
+      let formData = new FormData();
+      formData.append('file', this.file);
+      axios.get('http://localhost:5000/pruefungsansicht',
+      formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      .then(function () {
+        console.log('Solver wurde gestartet');
+      })
+      .catch(function(){
+        console.log('Problem beim Starten des Solvers');
+      });
+    },
+    stop(){
+      let formData = new FormData();
+      formData.append('file', this.file);
+      axios.get('http://localhost:5000/pruefungsansicht',
+      formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      .then(function () {
+        console.log('Solver wurde gestoppt');
+      })
+      .catch(function(){
+        console.log('Problem beim Stoppen des Solvers');
+      });
     }
   }
 }  
