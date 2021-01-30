@@ -2,7 +2,7 @@
 <p></p>
   <div class="grid-container">
     <div>
-      <a target="_blank" href="https://wuestudy.zv.uni-wuerzburg.de/"><button class= "kachel" id="k1">Basbane</button></a>
+      <a target="_blank" href="https://wuestudy.zv.uni-wuerzburg.de/"><button class= "kachel" id="k1">wuestudy</button></a>
     </div>
     <div>
       <a href="http://localhost:8081/upload"><button class= "kachel">Upload Prüfungsanmeldung</button></a>
