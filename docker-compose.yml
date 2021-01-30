@@ -1,0 +1,39 @@
+##FILE under construction LUC ####
+version: '3.7'
+
+services:
+
+  frontend:
+    #container_name: frontend   #we will not use this because it hampers scalability
+    image: t4gmaster/wueexam_frontend
+    #volumes:
+    #  - '.:/app'
+    #  - '.:/app/node_modules'
+    ports:
+      - '8081:8080'
+    links:
+      - logic
+      - optimization
+    restart: always
+    #depends on         -> used if something needs to be set up before frontend
+
+  logic:
+    #container_name: backend #not used: same as above
+    image: t4gmaster/wueexam_logic
+    #volumes:
+    #  - './backend:/backend'
+    ports:
+      - "5000:5000"
+
+  optimization:
+    image: t4gmaster/wueexam_optimization
+    #volumes:
+    #  - "./backend:/backend"
+    #  - "./functions:/optimization/functions"
+    ports:            #bin mir unsicher ob das Sinnn macht
+      - "5001:5001"
+
+
+
+
+#doku: https://docs.docker.com/compose/compose-file/compose-file-v3/
