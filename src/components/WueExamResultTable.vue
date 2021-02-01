@@ -5,22 +5,17 @@
     <table id="myTable">
       <thead>
         <tr class = "header">
+          <th scope="col">Tag</th>
           <th scope="col">Datum</th>
-          <th scope="col">Prüfung</th>
           <th scope="col">PrüfungsID</th>
-          <th scope="col">Nachname</th>
-          <th scope="col">Vorname</th>
-          <th scope="col">Matrikelnummer</th>    
+          <th scope="col">Prüfung</th>   
         </tr>
       </thead>
       <tbody>
-        <tr v-for="pruefungsplan in pruefungsplan" v-bind:key="pruefungsplan.DATE"> 
-          <th scope="row">{{pruefungsplan.DATE}}</th>
-          <td>{{pruefungsplan.EXAM}}</td>
-          <td>{{pruefungsplan.EXAM_ID}}</td>
-          <td>{{pruefungsplan.LAST_NAME}}</td>
-          <td>{{pruefungsplan.FIRST_NAME}}</td>
-          <td>{{pruefungsplan.MATRICULATION_NUMBER}}</td>                              
+        <tr v-for="pruefungsplan in pruefungsplan" v-bind:key="pruefungsplan.day_id"> 
+          <th scope="row">{{pruefungsplan.day_date}}</th>
+          <td>{{pruefungsplan.exam_id}}</td>
+          <td>{{pruefungsplan.exam_name}}</td>                             
         </tr>
       </tbody>
     </table> 
