@@ -1,6 +1,7 @@
 .DS_Store
 node_modules
 /dist
+Dockerfile_local
 
 
 # local env files

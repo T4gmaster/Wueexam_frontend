@@ -13,7 +13,8 @@
       </thead>
       <tbody>
         <tr v-for="pruefungsplan in pruefungsplan" v-bind:key="pruefungsplan.day_id"> 
-          <th scope="row">{{pruefungsplan.day_date}}</th>
+          <th scope="row">{{pruefungsplan.day_id}}</th>
+          <td>{{pruefungsplan.day_date}}</td>
           <td>{{pruefungsplan.exam_id}}</td>
           <td>{{pruefungsplan.exam_name}}</td>                             
         </tr>
