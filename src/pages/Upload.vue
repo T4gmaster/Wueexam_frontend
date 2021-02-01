@@ -17,6 +17,7 @@
       </div>
     </div>
   </div>
+    <router-link to=/pruefungsparamter tag="button" class="continue">Weiter</router-link>
   <div>
     <enrollment-table />
   </div>
@@ -95,5 +96,10 @@ export default {
 }
 .submit:hover {
   background-color: #ddddeb;
+}
+.continue {
+  float: right;
+  height: 35px;
+  width: 125px;
 }
 </style>

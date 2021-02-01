@@ -1,8 +1,7 @@
 <template>
   <div>
     <h2>Prüfungsplan:</h2>
-    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Suche nach Prüfung..." title="Type in a name">
-    <button v-on:click="downloadFile(), say('Download wurde gestartet')" class="btn"><i class="fa fa-download"></i> Download Prüfungsplan</button>
+    <button v-on:click="downloadFile(), say('Download wurde gestartet')" class = "btn" ><i class="fa fa-download"></i> Download Prüfungsplan</button>
     <table id="myTable">
       <thead>
         <tr class = "header">
@@ -50,24 +49,6 @@
           console.log(error)
         })
       },
-      myFunction() {
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("myInput");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("myTable");
-        tr = table.getElementsByTagName("tr");
-        for (i = 0; i < tr.length; i++) {
-          td = tr[i].getElementsByTagName("td")[0];
-          if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-              tr[i].style.display = "";
-            } else {
-              tr[i].style.display = "none";
-            }
-          }       
-        }
-      },
       say: function(msg) {
         alert(msg);
       },
@@ -95,16 +76,6 @@
 </script>
 
 <style scoped>
-#myInput {
-  background-position: 10px 10px;
-  background-repeat: no-repeat;
-  width: 50%;
-  height: 40px;
-  font-size: 16px;
-  border: 1px solid #ddd;
-  margin-bottom: 12px;
-  text-align: left;
-}
 #myTable {
   border-collapse: collapse;
   width: 80%;
@@ -130,13 +101,13 @@
   background-color: DodgerBlue;
   color: white;
   height: 40px;
-  width: 225px;
+  width: 300px;
   border: 1px solid #ddd;
   cursor: pointer;
   margin-bottom: 12px;
-  margin-left: auto;
-  margin-right: auto;
-  font-size: 16px;
+  float: right;
+  margin-right: 100px;
+  font-size: 13px;
 }
 .btn:hover {
   background-color: RoyalBlue;

@@ -3,21 +3,22 @@ import DashboardLayout from "@/layout/dashboard/DashboardLayout.vue";
 import NotFound from "@/pages/NotFoundPage.vue";
 
 // Admin pages
-import Dashboard from "@/pages/Dashboard.vue";
-import Icons from "@/pages/Icons.vue";
-import TableList from "@/pages/TableList.vue";
+import Home from "@/pages/Home.vue";
+import Solver from "@/pages/Solver.vue";
+import Upload from "@/pages/Upload.vue";
 import Pruefungsplan from "@/pages/Pruefungsplan.vue";
+import Pruefungsparameter from "@/pages/Prüfungsparameter.vue";
 
 const routes = [
   {
     path: "/",
     component: DashboardLayout,
-    redirect: "/dashboard",
+    redirect: "/home",
     children: [
       {
-        path: "dashboard",
-        name: "dashboard",
-        component: Dashboard
+        path: "home",
+        name: "home",
+        component: Home
       },
       {
         path: "pruefungsplan",
@@ -25,14 +26,19 @@ const routes = [
         component: Pruefungsplan
       },
       {
-        path: "icons",
-        name: "icons",
-        component: Icons
+        path: "solver",
+        name: "solver",
+        component: Solver
       },
       {
-        path: "table-list",
-        name: "table-list",
-        component: TableList
+        path: "upload",
+        name: "upload",
+        component: Upload
+      },
+      {
+        path: "pruefungsparamter",
+        name: "pruefungsparamter",
+        component: Pruefungsparameter
       }
     ]
   },

@@ -1,7 +1,7 @@
 <template>
 <div>
-  <p-button>Start Solver</p-button>
-  <p-button>Stop Solver</p-button>
+  <button>Start Solver</button>
+  <button>Stop Solver</button>
 </div>
 
 </template>

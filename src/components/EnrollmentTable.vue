@@ -1,7 +1,6 @@
 <template>
   <div>
     <h2>Anmeldeliste:</h2>
-    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Suche nach Prüfung..." title="Type in a name">
     <table id="myTable">
       <thead>
         <tr class = "header">
@@ -48,24 +47,6 @@
         .catch(error => {
           console.log(error)
         })
-      },
-      myFunction() {
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("myInput");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("myTable");
-        tr = table.getElementsByTagName("tr");
-        for (i = 0; i < tr.length; i++) {
-          td = tr[i].getElementsByTagName("td")[0];
-          if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-              tr[i].style.display = "";
-            } else {
-              tr[i].style.display = "none";
-            }
-          }
-        }
       }
     },
     created() {
@@ -75,16 +56,6 @@
 </script>
 
 <style scoped>
-#myInput {
-  background-position: 10px 10px;
-  background-repeat: no-repeat;
-  width: 50%;
-  height: 40px;
-  font-size: 16px;
-  border: 1px solid #ddd;
-  margin-bottom: 12px;
-  text-align: left;
-}
 #myTable {
   border-collapse: collapse;
   width: 80%;

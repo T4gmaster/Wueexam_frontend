@@ -5,21 +5,18 @@
       <a target="_blank" href="https://wuestudy.zv.uni-wuerzburg.de/"><button class= "kachel" id="k1">WueStudy</button></a>
     </div>
     <div>
-      <a href="http://localhost:8081/upload"><button class= "kachel">Upload Prüfungsanmeldung</button></a>
+      <router-link to=/upload tag="button" class= "kachel">Neuen Prüfungsplan erstellen</router-link>
     </div>
     <div>
-      <a href="http://localhost:8081/pruefungsplan"><button class= "kachel">Prüfungsplan</button></a>
-    </div>
-    <div>
-      <a href="http://localhost:8081/pruefungsplan"><button class= "kachel">Prüfungsplan</button></a>
-    </div>
-    <div>
-      <a href="http://localhost:8081/pruefungsplan"><button class= "kachel">Prüfungsplan</button></a>
-    </div>
-    <div>
-      <a href="http://localhost:8081/pruefungsplan"><button class= "kachel">Prüfungsplan</button></a>
+      <router-link to=/pruefungsplan tag="button" class= "kachel">Erstellte Prüfungspläne anzeigen</router-link>
     </div>
   </div>
+  <p/>
+  <stats-cards>
+    <div>
+      <button class= "langerbutton">zur Dokumentation / How to</button>
+    </div>
+  </stats-cards>
 </div>
 
   </div>
@@ -87,5 +84,14 @@ export default {
   grid-gap: 2px;
   background-color: #0000000;
   padding: 10px;
+}
+.langerbutton {
+  height: 40px;
+  width: 400px;
+  border: 1px solid #000000;
+  cursor: pointer;
+}
+.langerbutton:hover {
+  background-color: #ddddeb;
 }
 </style>

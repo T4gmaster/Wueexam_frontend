@@ -2,10 +2,11 @@
   <div class="wrapper">
     <side-bar>
       <template slot="links">
-        <sidebar-link to="/dashboard" name="Dashboard" icon="ti-panel"/>
-        <sidebar-link to="/table-list" name="Tabellen" icon="ti-view-list-alt"/>
-        <sidebar-link to="/icons" name="Solver" icon="ti-harddrives"/>
-        <sidebar-link to="/pruefungsplan" name="Prüfungsplan" icon="ti-harddrives"/>
+        <sidebar-link to="/home" name="Home" icon="ti-home"/>
+        <sidebar-link to="/upload" name="Prüfungsanmeldungen" icon="ti-upload"/>
+        <sidebar-link to="/pruefungsparamter" name="Prüfungsparameter" icon="ti-panel"/>
+        <sidebar-link to="/solver" name="Solver" icon="ti-harddrives"/>
+        <sidebar-link to="/pruefungsplan" name="Prüfungsplan" icon="ti-layout"/>
       </template>
       <mobile-menu>
         <li class="nav-item">
