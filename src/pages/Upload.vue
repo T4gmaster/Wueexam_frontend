@@ -60,32 +60,32 @@ export default {
         subTitle: "Here is a subtitle for this table",
         columns: [...tableColumns1],
         data: [...tableData1]
-      },
-      methods: {
-        handleFileUpload(){
-          this.file = this.$refs.file.files[0];
-          console.log('Datei wurde ausgewählt.', this.file);
-        },
-        submitFile(){
-          let formData = new FormData();
-          formData.append('file', this.file);
-          axios.post('http://localhost:5000/uploader',
-          formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data'
-            }
-          })
-          .then(function () {
-            console.log('Datei wurde hochgeladen');
-          })
-          .catch(function(){
-            console.log('Problem beim Hochladen der Datei');
-          });
-        },
       }
-    };
+    }
+  },
+  methods: {
+    handleFileUpload(){
+      this.file = this.$refs.file.files[0];
+      console.log('Datei wurde ausgewählt.', this.file);
+    },
+    submitFile(){
+      let formData = new FormData();
+      formData.append('file', this.file);
+      axios.post('http://localhost:5000/uploader',
+      formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      .then(function () {
+        console.log('Datei wurde hochgeladen');
+      })
+      .catch(function(){
+        console.log('Problem beim Hochladen der Datei');
+      });
+    }
   }
-};
+}
 </script>
 <style>
 .submit {
