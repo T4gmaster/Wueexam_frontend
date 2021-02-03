@@ -15,6 +15,7 @@
  */
 import Vue from "vue";
 import App from "./App";
+import "./plugins/bootstrap-vue";
 import router from "./router/index";
 
 import PaperDashboard from "./plugins/paperDashboard";

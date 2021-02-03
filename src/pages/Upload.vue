@@ -1,9 +1,11 @@
 <template>
 <div>
+<div>
   <div>
     <input type="file" id="file" ref="file" v-on:change="handleFileUpload()">
     <button class="submit" v-on:click="submitFile()">Hochladen</button>
   </div>
+<!--
   <div>
     <div class="row">
       <div class="col-12">
@@ -16,11 +18,13 @@
         </card>
       </div>
     </div>
+-->
   </div>
     <router-link to=/pruefungsparamter tag="button" class="continue">Weiter</router-link>
   <div>
     <enrollment-table />
   </div>
+</div>
 </div>
 </template>
 <script>
@@ -49,7 +53,6 @@ const tableData1 = [
 
 export default {
   components: {
-    PaperTable,
     EnrollmentTable
   },
   data() {
