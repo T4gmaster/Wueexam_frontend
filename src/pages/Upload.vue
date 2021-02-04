@@ -109,16 +109,7 @@ import axios from 'axios';
   export default {
     data() {
       return {
-        items:
-         [
-          {EXAM: 'Mathe', EXAM_ID: "123445", LAST_NAME: "Becker", FIRST_NAME: "Luc", MATRICULATION_NUMBER: "2110670", COURSE: "Wirtschaftsinformatik" },
-          {EXAM: 'Mathe', EXAM_ID: "123445", LAST_NAME: "Becker", FIRST_NAME: "Luc", MATRICULATION_NUMBER: "2110670", COURSE: "Wirtschaftsinformatik" },
-          {EXAM: 'Mathe', EXAM_ID: "123445", LAST_NAME: "Becker", FIRST_NAME: "Luc", MATRICULATION_NUMBER: "2110670", COURSE: "Wirtschaftsinformatik" },
-          {EXAM: 'Mathe', EXAM_ID: "123445", LAST_NAME: "Becker", FIRST_NAME: "Luc", MATRICULATION_NUMBER: "2110670", COURSE: "Wirtschaftsinformatik" },
-          {EXAM: 'Mathe', EXAM_ID: "123445", LAST_NAME: "Becker", FIRST_NAME: "Luc", MATRICULATION_NUMBER: "2110670", COURSE: "Wirtschaftsinformatik" },
-          {EXAM: 'Mathe', EXAM_ID: "123445", LAST_NAME: "Becker", FIRST_NAME: "Luc", MATRICULATION_NUMBER: "2110670", COURSE: "Wirtschaftsinformatik" },
-          {EXAM: 'QWF', EXAM_ID: "456789", LAST_NAME: "König", FIRST_NAME: "Adrian", MATRICULATION_NUMBER: "1108187", COURSE: "Wirtschaftsinformatik" }
-
+        items:[
         ],
         fields: [
           { key: 'EXAM', label: 'Prüfung', sortable: true, sortDirection: 'desc' },
@@ -168,9 +159,6 @@ import axios from 'axios';
           console.log(error)
         })
       },
-      created() {
-        this.getData()
-      },
       handleFileUpload(){
       this.file = this.$refs.file.files[0];
       console.log('Datei wurde ausgewählt.', this.file);
@@ -191,6 +179,9 @@ import axios from 'axios';
           console.log('Problem beim Hochladen der Datei');
         });
       }
+    },
+    created() {
+      this.getData()
     }
   }
 </script>
