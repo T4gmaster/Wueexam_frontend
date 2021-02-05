@@ -1,0 +1,44 @@
+[
+   {
+      "Fach": "Decission Support Systems",
+      "Teilnehmer": 40,
+      "Lehrstuhl": "Prof. Flath",
+      "Studiengang": "Master"
+   },
+   {
+      "Fach": "Integrierte Informationsverarbeitung",
+      "Teilnehmer": 100,
+      "Lehrstuhl": "Prof. Winkelmann",
+      "Studiengang": "Master"
+   },
+   {
+      "Fach": "E-Business Strategies",
+      "Teilnehmer": 130,
+      "Lehrstuhl": "Prof. Thiesse",
+      "Studiengang": "Master"
+   },
+   {
+      "Fach": "Ökonometrie I",
+      "Teilnehmer": 15,
+      "Lehrstuhl": "Prof Kukuk",
+      "Studiengang": "Master"
+   },
+   {
+      "Fach": "IT-Management",
+      "Teilnehmer": 80,
+      "Lehrstuhl": "Prof. Thiesse",
+      "Studiengang": "Master"
+   },
+   {
+      "Fach": "Mathematik für Gurus",
+      "Teilnehmer": 4,
+      "Lehrstuhl": "Prof. Göb",
+      "Studiengang": "Bachelor"
+   },
+   {
+      "Fach": "Lustige Videos drehen",
+      "Teilnehmer": 32,
+      "Lehrstuhl": "Prof. Otto",
+      "Studiengang": "Bachelor"
+   }
+]
