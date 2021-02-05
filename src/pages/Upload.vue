@@ -1,14 +1,5 @@
 <template>
 <div>
-  <div>
-    <div>
-      <input type="file" id="file" ref="file" v-on:change="handleFileUpload()">
-      <button class="submit" v-on:click="submitFile()">Hochladen</button>
-    </div>
-    <div>
-      <router-link to=/pruefungsparamter tag="button" class="continue">Weiter</router-link>
-    </div>
-  </div>
   <b-container fluid>
     <!-- User Interface controls -->
     <b-row>
@@ -36,6 +27,14 @@
         </b-form-group>
       </b-col>
 
+      <b-col sm="5" md="6" class="my-1">
+        <input type="file" id="file" ref="file" v-on:change="handleFileUpload()">
+        <b-button class="submit" v-on:click="submitFile()"><i class="fa fa-upload"></i>Hochladen</b-button>
+        <router-link to=/pruefungsparamter tag="b-button" class="continue" ><i class="fa fa-arrow-right"></i>Weiter</router-link>
+      </b-col>
+
+      <b-col lg="6" class="my-1">
+      </b-col>
       <b-col lg="6" class="my-1">
       </b-col>
 
@@ -122,7 +121,7 @@ import axios from 'axios';
         totalRows: 1,
         currentPage: 1,
         perPage: 10,
-        pageOptions: [10, 25, 50, 100, { value: 100, text: "Alle anzeigen" }],
+        pageOptions: [10, 25, 50, 100, { value: 10000, text: "Alle anzeigen" }],
         sortBy: '',
         sortDesc: false,
         sortDirection: 'asc',
@@ -187,18 +186,7 @@ import axios from 'axios';
 </script>
 
 <style>
-.submit {
-  background: #ebebf7;
-  height: 25px;
-  width: 100px;
-  border: 1px solid #000000;
-}
-.submit:hover {
-  background-color: #ddddeb;
-}
-.continue {
+.continue{
   float: right;
-  height: 35px;
-  width: 125px;
 }
 </style>
