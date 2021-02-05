@@ -29,7 +29,7 @@
 
       <b-col sm="5" md="6" class="my-1">
         <input type="file" id="file" ref="file" v-on:change="handleFileUpload()">
-        <b-button class="submit" v-on:click="submitFile()"><i class="fa fa-upload"></i>Hochladen</b-button>
+        <b-button class="submit" v-on:click="submitFile()" @click="makeToast()"><i class="fa fa-upload"></i>Hochladen</b-button>
         <router-link to=/pruefungsparamter tag="b-button" class="continue" ><i class="fa fa-arrow-right"></i>Weiter</router-link>
       </b-col>
 
@@ -177,6 +177,14 @@ import axios from 'axios';
         .catch(function(){
           console.log('Problem beim Hochladen der Datei');
         });
+      },
+      makeToast(append = false) {
+        this.toastCount++
+        this.$bvToast.toast(`Anmeldeliste wurde hochgeladen!`, {
+          title: 'Status',
+          autoHideDelay: 5000,
+          appendToast: append
+        })
       }
     },
     created() {

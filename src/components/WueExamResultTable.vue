@@ -34,7 +34,7 @@
 
           class="download"
           v-on:click="downloadFile(), 
-          say('Download wurde gestartet')" 
+          makeToast()"
           >
           <i class="fa fa-download"></i> 
           Download
@@ -178,8 +178,13 @@ import axios from 'axios';
           console.log(error)
         })
       },
-      say: function(msg) {
-        alert(msg);
+      makeToast(append = false) {
+        this.toastCount++
+        this.$bvToast.toast(`Prüfungsplan wurde heruntergeladen!`, {
+          title: 'Status',
+          autoHideDelay: 5000,
+          appendToast: append
+        })
       },
       downloadFile(){
         let formData = new FormData();
