@@ -15,20 +15,23 @@
         </stats-card>
       </div>
     </div>
-    <b-button v-on:click="startSolver()" @click="makeStart()">Solver starten</b-button>
-    <b-button v-on:click="stopSolver()" @click="makeStop()">Solver beenden</b-button>
+    <b-button v-on:click="startSolver()" @click="startSolver()">Solver starten</b-button>
+    <b-button v-on:click="stopSolver()" @click="stopSolver()">Solver beenden</b-button>
+    <solver-status v-if="solverstatus"></solver-status>
 </div>
 </template>
 
 <script>
 import axios from 'axios';
 import Button from '../components/Button.vue';
+import SolverStatus from '@/components/SolverStatus.vue';
 import { StatsCard, ChartCard } from "@/components/index";
 
 export default {
   components: { 
       Button,
       StatsCard,
+      SolverStatus,
     },
     data() {
         return {
@@ -57,23 +60,26 @@ export default {
                 title: "Studenten",
                 value: "1108"
             }
-            ]
+            ],
+            solverstatus: false
         };
     },
     methods: {
       startSolver(){
-          axios.post('localhost:5000/startsolver')
-          .then(function (response) {
-              console.log(response);
-          })
-          .catch(function() {
-              console.log('Solver konnte nicht gestartet werden');
-          });
+          //axios.post('localhost:5000/startsolver')
+          //.then(function (response) {
+            this.solverstatus = true
+            //console.log(response);
+          //})
+          //.catch(function() {
+           //   console.log('Solver konnte nicht gestartet werden');
+          //});
         },
         stopSolver(){
           axios.post('localhost:5000/stopsolver')
           .then(function (response) {
-              console.log(response);
+            this.solverstatus = false
+            console.log(response);
           })
           .catch(function () {
               console.log('Solver konnte nicht gestopt werden');

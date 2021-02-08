@@ -58,12 +58,14 @@
         </b-col>
       </b-row>
     </b-container>
+    <solver-settings-input></solver-settings-input>
   </div>
 </template>
 
 <script>
 import moment from "moment";
 import testpruefungen from "@/assets/testpruefungen.json";
+import SolverSettingsInput from "@/components/SolverSettingsInput.vue"
 
 export default {
   data() {
@@ -81,6 +83,9 @@ export default {
       let days = end.diff(start, "days");
       return days;
     },
+  },
+  components: {
+    SolverSettingsInput
   },
   methods: {
     logStartDate() {
