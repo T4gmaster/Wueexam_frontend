@@ -2,63 +2,72 @@
   <div>
     <b-container fluid>
       <b-row>
-        <b-col>
+        <b-col lg="2.5">
           <h2>Startdatum</h2>
           <b-calendar
             v-model="startDate"
             @context="logStartDate"
             locale="de"
+            @click="getDates"
           ></b-calendar>
         </b-col>
-        <b-col>
+        <b-col lg="3">
           <h2>Enddatum</h2>
           <b-calendar
             v-model="endDate"
             @context="logEndDate"
             locale="de"
+            @click="getDates"
           ></b-calendar>
         </b-col>
         <b-col>
-          <h3>Prüfungszeitraum: {{ examPeriod }} Tage</h3>
-          <button @click="getDates">einzelne Tage (in Console) anzeigen</button>
+          <p></p>
+          <h2>Prüfungszeitraum: {{ examPeriod }} Tage</h2>
+          <p></p>
+          <b-row>
+            <p></p>
+            <!--
+            <b-list-group size="sm" v-for="(day, index) in period" :key="index">
+              <b-list-group-item size="sm">{{ day }}</b-list-group-item>
+              <b-form-checkbox></b-form-checkbox>
+            </b-list-group>
+            !-->
+            <b-table hover :items="dateArray">
+            </b-table>
+
+
+
+
+
+          </b-row>
         </b-col>
       </b-row>
       <b-row>
-        <b-col>
-          <h2>Prüfungsübersicht</h2>
-          <b-table striped hover :items="examOverview">
-            <template #cell(show_details)="row">
-              <b-button size="sm" @click="row.toggleDetails" class="mr-2"
-                >Fixdatum festlegen</b-button
-              >
-            </template>
-            <template #row-details="row">
-              <b-card>
-                <b-row class="mb-2">
-                  <h2>test</h2>
-                </b-row>
-                <b-button size="sm" @click="row.toggleDetails"
-                  >Hide Details</b-button
-                >
-              </b-card>
+        <b-col lg="9">
+          <h2>Fixtermine</h2>
+          <b-table striped hover :items="examOverview" :fields="examOverviewHeader">
+                                    <template #cell(fixdate)="data">
+                                      <b-dropdown text="Datum wählen" size="sm" variant="primary">
+                                        <b-dropdown-item v-for="(day, index) in period" :key="index">{{day}}</b-dropdown-item>
+                                      </b-dropdown>
             </template>
           </b-table>
         </b-col>
         <b-col>
-          <h2>Prüfungstage</h2>
-          <!-- fix: Prüfungstage anzeigen
-          <b-table striped hover :items="period"></b-table>!-->
-          <ul>
-            <li v-for="item in period" :key="item">
-              {{ period.Prüfungstage }}
-            </li>
-          </ul>
-          <p>{{ period }}</p>
           <button @click="testtest">Prüfungen logen</button>
         </b-col>
       </b-row>
     </b-container>
+      <b-container>
+    <b-row>
+    <b-column sm="5">
+    </b-column>
+    <b-column sm="3">
     <solver-settings-input></solver-settings-input>
+    </b-column>
+    <router-link to=/solver tag="b-button" class="continue" ><i class="fa fa-arrow-right"></i>Weiter</router-link>
+    </b-row>
+  </b-container>
   </div>
 </template>
 
@@ -74,6 +83,14 @@ export default {
       endDate: "",
       examOverview: testpruefungen,
       period: "",
+      examOverviewHeader: [
+        {key: "Fach", label: "Fach"},
+        {key: "Teilnehmer", label: "Teilnehmer"},
+        {key: "Lehrstuhl", label: "Lehrstuhl"},
+        {key: "Studiengang", label: "Studiengang"},
+        {key: "fixdate", label: "Datum"}
+      ],
+      fixdateValue: '',
     };
   },
   computed: {
@@ -82,6 +99,26 @@ export default {
       let end = moment(this.endDate);
       let days = end.diff(start, "days");
       return days;
+    },
+    getDates(startDate, stopDate) {
+      let dateArray = new Array();
+      let firstDate = moment(this.startDate);
+      let lastDate = moment(this.endDate);
+      while (firstDate <= lastDate) {
+        dateArray.push(JSON.stringify({day: new Date(firstDate)}));
+        firstDate = moment(firstDate).add(1, "days");
+        // moment(this.firstDate).format('DD.MM.YYYY')
+      }
+   //   const dateJson = {
+   //     Prüfungstage: dateArray,
+   //   };
+ //     const dateJson = (JSON.stringify(dateArray))
+        console.log(dateArray)
+   //   console.log(JSON.stringify(dateJson));
+
+      // fix: Prüfungstage variable korrekt übergeben
+      this.period = dateArray;
+      return dateArray;
     },
   },
   components: {
@@ -98,23 +135,6 @@ export default {
       let result = new Date();
       result.setDate(result.getDate() + 1);
       return result;
-    },
-    getDates(startDate, stopDate) {
-      let dateArray = new Array();
-      let firstDate = moment(this.startDate);
-      let lastDate = moment(this.endDate);
-      while (firstDate <= lastDate) {
-        dateArray.push(new Date(firstDate));
-        firstDate = moment(firstDate).add(1, "days");
-        // moment(this.firstDate).format('DD.MM.YYYY')
-      }
-      const dateJson = {
-        Prüfungstage: dateArray,
-      };
-      console.log(JSON.stringify(dateJson));
-      // fix: Prüfungstage variable korrekt übergeben
-      this.period = dateArray;
-      return dateArray;
     },
     testtest() {
       console.log(this.examOverview);

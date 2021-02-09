@@ -30,7 +30,6 @@
       <b-col sm="5" md="6" class="my-1">
         <input type="file" id="file" ref="file" v-on:change="handleFileUpload()">
         <b-button class="submit" v-on:click="submitFile()" @click="makeToast()"><i class="fa fa-upload"></i>Hochladen</b-button>
-        <router-link to=/pruefungsparamter tag="b-button" class="continue" ><i class="fa fa-arrow-right"></i>Weiter</router-link>
       </b-col>
 
       <b-col lg="6" class="my-1">
@@ -99,11 +98,22 @@
       </template>
     </b-table>
   </b-container>
+  <b-container>
+    <b-row>
+    <b-column sm="5">
+    </b-column>
+    <b-column sm="3">
+    <add-participant></add-participant>
+    </b-column>
+    <router-link to=/pruefungsparamter tag="b-button" class="continue" ><i class="fa fa-arrow-right"></i>Weiter</router-link>
+    </b-row>
+  </b-container>
 </div>  
 </template>
 
 <script>
 import axios from 'axios';
+import AddParticipant from '@/components/AddParticipant.vue';
 
   export default {
     data() {
@@ -128,6 +138,9 @@ import axios from 'axios';
         filter: null,
         filterOn: [],
       };
+    },
+    components: {
+      AddParticipant
     },
     computed: {
       sortOptions() {

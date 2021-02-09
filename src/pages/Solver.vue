@@ -18,6 +18,7 @@
     <b-button v-on:click="startSolver()" @click="startSolver()">Solver starten</b-button>
     <b-button v-on:click="stopSolver()" @click="stopSolver()">Solver beenden</b-button>
     <solver-status v-if="solverstatus"></solver-status>
+    <router-link to=/pruefungsplan tag="b-button" class="continue" ><i class="fa fa-arrow-right"></i>Weiter</router-link>
 </div>
 </template>
 
