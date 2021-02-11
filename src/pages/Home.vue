@@ -2,7 +2,7 @@
 <div>
   <div class="grid-container">
     <div>
-      <a target="_blank" href="https://wuestudy.zv.uni-wuerzburg.de/"><button class= "kachel" id="k1">WueStudy</button></a>
+      <a target="_blank" href="https://wuestudy.zv.uni-wuerzburg.de/"><button class= "kachel" id="k1">WueStudyYY</button></a>
     </div>
     <div>
       <router-link to=/upload tag="button" class= "kachel">Neuen Prüfungsplan erstellen</router-link>
