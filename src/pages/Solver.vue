@@ -67,17 +67,17 @@ export default {
     },
     methods: {
       startSolver(){
-          //axios.post('localhost:5000/startsolver')
-          //.then(function (response) {
+          axios.post('localhost:5001/startsolver')
+          .then(function (response) {
             this.solverstatus = true
-            //console.log(response);
-          //})
-          //.catch(function() {
-           //   console.log('Solver konnte nicht gestartet werden');
-          //});
+            console.log(response);
+          })
+          .catch(function() {
+             console.log('Solver konnte nicht gestartet werden');
+          });
       },
         stopSolver(){
-          axios.post('localhost:5000/stopsolver')
+          axios.post('localhost:5001/stopsolver')
           .then(function (response) {
             this.solverstatus = false
             console.log(response);
