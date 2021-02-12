@@ -138,8 +138,8 @@ export default {
     },
     testtest() {
       console.log(this.examOverview);
-    },
-  },
+    }
+  }
 };
 </script>
 

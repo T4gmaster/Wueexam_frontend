@@ -28,11 +28,11 @@ import Button from '../components/Button.vue';
 import SolverStatus from '@/components/SolverStatus.vue';
 import { StatsCard, ChartCard } from "@/components/index";
 
-export default {
+export default { 
   components: { 
       Button,
       StatsCard,
-      SolverStatus,
+      SolverStatus
     },
     data() {
         return {
@@ -75,7 +75,7 @@ export default {
           //.catch(function() {
            //   console.log('Solver konnte nicht gestartet werden');
           //});
-        },
+      },
         stopSolver(){
           axios.post('localhost:5000/stopsolver')
           .then(function (response) {
