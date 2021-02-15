@@ -21,15 +21,9 @@ import router from "./router/index";
 import PaperDashboard from "./plugins/paperDashboard";
 import "vue-notifyjs/themes/default.css";
 
-import Keycloak from 'keycloak-js';
+import * as Keycloak from 'keycloak-js';
 
 Vue.use(PaperDashboard);
-
-/* eslint-disable no-new */
-new Vue({
-  router,
-  render: h => h(App)
-}).$mount("#app");
 
 let initOptions = {
   url: 'http://127.0.0.1:8080/auth', realm: 'WueExam', clientId: 'app-wueexam', onLoad: 'login-required'
@@ -37,38 +31,33 @@ let initOptions = {
 
 let keycloak = Keycloak(initOptions);
 
-keycloak.init({ onLoad: initOptions.onLoad }).success((auth) =>{
-    
-    if(!auth) {
-      window.location.reload();
-    } else {
-      Vue.$log.info("Authenticated");
-    }
- 
+keycloak.init({ onLoad: initOptions.onLoad }).then((auth) => {
+  if (!auth) {
+    window.location.reload();
+  } else {
+    console.log("Authenticated");
+
     new Vue({
       router,
-      render: h => h(App)
-    }).$mount('#app');
-  
+      render: h => h(App, { props: { keycloak: keycloak } }),
+    }).$mount("#app");
+  }
 
-    localStorage.setItem("vue-token", keycloak.token);
-    localStorage.setItem("vue-refresh-token", keycloak.refreshToken);
 
-    setInterval(() =>{
-      keycloak.updateToken(70).success((refreshed)=>{
-        if (refreshed) {
-          Vue.$log.debug('Token refreshed'+ refreshed);
-        } else {
-          Vue.$log.warn('Token not refreshed, valid for '
+//Token Refresh
+  setInterval(() => {
+    keycloak.updateToken(70).then((refreshed) => {
+      if (refreshed) {
+        console.log('Token refreshed' + refreshed);
+      } else {
+        console.log('Token not refreshed, valid for '
           + Math.round(keycloak.tokenParsed.exp + keycloak.timeSkew - new Date().getTime() / 1000) + ' seconds');
-        }
-      }).error(()=>{
-          Vue.$log.error('Failed to refresh token');
-      });
+      }
+    }).catch(() => {
+      console.log('Failed to refresh token');
+    });
+  }, 6000)
 
-
-    }, 60000)
-
-}).error(() =>{
-  Vue.$log.error("Authenticated Failed");
+}).catch(() => {
+  console.log("Authenticated Failed");
 });
