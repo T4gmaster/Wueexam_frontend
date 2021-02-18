@@ -26,7 +26,7 @@ import * as Keycloak from 'keycloak-js';
 Vue.use(PaperDashboard);
 
 let initOptions = {
-  url: 'http://127.0.0.1:8080/auth', realm: 'WueExam', clientId: 'app-wueexam', onLoad: 'login-required'
+  url: 'http://132.187.226.24:8080/auth', realm: 'WueExam', clientId: 'app-wueexam', onLoad: 'login-required'
 }
 3
 let keycloak = Keycloak(initOptions);
