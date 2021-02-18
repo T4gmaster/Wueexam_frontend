@@ -10,14 +10,13 @@
       </template>
       <mobile-menu>
         <drop-down class="nav-item"
-                   title="5 Notifications"
+                   title="Profil"
                    title-classes="nav-link"
-                   icon="ti-bell">
+                   icon="ti-user">
           <a class="dropdown-item">Notification 1</a>
           <a class="dropdown-item">Notification 2</a>
-          <a class="dropdown-item">Notification 3</a>
-          <a class="dropdown-item">Notification 4</a>
-          <a class="dropdown-item">Another notification</a>
+          <a class="dropdown-item">Einstellungen</a>
+          <a class="dropdown-item" @click="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
         </drop-down>
       </mobile-menu>
     </side-bar>
@@ -51,6 +50,9 @@ export default {
       if (this.$sidebar.showSidebar) {
         this.$sidebar.displaySidebar(false);
       }
+    },
+    logout(){
+      this.$keycloak.logout()
     }
   }
 };

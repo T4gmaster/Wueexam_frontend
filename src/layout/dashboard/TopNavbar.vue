@@ -14,14 +14,13 @@
       <div class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
           <drop-down class="nav-item"
-                     title="5 Notifications"
+                     title="User Profil"
                      title-classes="nav-link"
-                     icon="ti-bell">
+                     icon="fa fa-user-circle">
             <a class="dropdown-item" href="#">Notification 1</a>
             <a class="dropdown-item" href="#">Notification 2</a>
-            <a class="dropdown-item" href="#">Notification 3</a>
-            <a class="dropdown-item" href="#">Notification 4</a>
-            <a class="dropdown-item" href="#">Another notification</a>
+            <a class="dropdown-item" href="#">Einstellungen</a>
+            <a class="dropdown-item" @click="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
           </drop-down>
         </ul>
       </div>
@@ -55,6 +54,9 @@ export default {
     },
     hideSidebar() {
       this.$sidebar.displaySidebar(false);
+    },
+    logout(){
+      this.$keycloak.logout()
     }
   }
 };

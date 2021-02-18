@@ -28,8 +28,9 @@ Vue.use(PaperDashboard);
 let initOptions = {
   url: 'http://127.0.0.1:8080/auth', realm: 'WueExam', clientId: 'app-wueexam', onLoad: 'login-required'
 }
-
+3
 let keycloak = Keycloak(initOptions);
+Vue.prototype.$keycloak = keycloak;
 
 keycloak.init({ onLoad: initOptions.onLoad }).then((auth) => {
   if (!auth) {
