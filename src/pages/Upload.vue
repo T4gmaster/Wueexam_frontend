@@ -164,7 +164,7 @@ import AddParticipant from '@/components/AddParticipant.vue';
         this.currentPage = 1
       },
       getData () {
-        axios.get('http://localhost:5000/anmeldeliste')
+        axios.get('http://132.187.226.24:5000/anmeldeliste')
         .then(res => {this.items = res.data;
           console.log(res.data);
         })
@@ -179,7 +179,7 @@ import AddParticipant from '@/components/AddParticipant.vue';
       submitFile(){
         let formData = new FormData();
         formData.append('file', this.file);
-        axios.post('http://localhost:5000/uploader',
+        axios.post('http://132.187.226.24:5000/uploader',
         formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
