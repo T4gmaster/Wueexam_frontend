@@ -25,17 +25,27 @@
           <h2>Prüfungszeitraum: {{ examPeriod }} Tage</h2>
           <p></p>
           <b-row>
+
             <p></p>
-            <!--
+
             <b-list-group size="sm" v-for="(day, index) in period" :key="index">
-              <b-list-group-item size="sm">{{ day }}</b-list-group-item>
+              <b-list-group-item size="sm">{{ day }}
               <b-form-checkbox></b-form-checkbox>
+              </b-list-group-item>
             </b-list-group>
-            !-->
-            <b-table hover :items="dateArray">
+            <!--
+            <b-table hover :items="period">
             </b-table>
+            <ul>
+              <li v-for="(day, index) in periods">
+                {{day}}
 
+              </li>
+            </ul>
 
+            !-->
+
+            
 
 
 
@@ -105,7 +115,7 @@ export default {
       let firstDate = moment(this.startDate);
       let lastDate = moment(this.endDate);
       while (firstDate <= lastDate) {
-        dateArray.push(JSON.stringify({day: new Date(firstDate)}));
+        dateArray.push(new Date(firstDate));
         firstDate = moment(firstDate).add(1, "days");
         // moment(this.firstDate).format('DD.MM.YYYY')
       }
