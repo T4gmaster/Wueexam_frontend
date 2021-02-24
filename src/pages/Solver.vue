@@ -67,7 +67,7 @@ export default {
     },
     methods: {
       startSolver(){
-          axios.get('http://localhost:5001/startsolver')
+          axios.get('http://132.187.226.24:5001/startsolver')
           .then(function (response) {
             this.solverstatus = true
             console.log(response);
@@ -77,7 +77,7 @@ export default {
           });
       },
         stopSolver(){
-          axios.get('http://localhost:5001/stopsolver')
+          axios.get('http://132.187.226.24:5001/stopsolver')
           .then(function (response) {
             this.solverstatus = false
             console.log(response);

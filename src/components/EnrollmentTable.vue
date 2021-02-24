@@ -39,7 +39,7 @@
     methods: {
       getData () {
         axios
-        .get('http://localhost:5000/anmeldeliste')
+        .get('http://132.187.226.24:5000/anmeldeliste')
         .then(res => {
           this.anmeldeliste = res.data;
           console.log(res.data);
