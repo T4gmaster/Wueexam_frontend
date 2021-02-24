@@ -30,7 +30,7 @@
       <b-col sm="5" md="6" class="my-1">
         <input type="file" id="file" ref="file" v-on:change="handleFileUpload()">
         <b-button class="submit" v-on:click="submitFile()" @click="makeToast()"><i class="fa fa-upload"></i>Hochladen</b-button>
-        <b-button @click="getData()"><i class="fa fa-refresh"></i></b-button>
+        <b-button @click="reload()"><i class="fa fa-refresh"></i></b-button>
       </b-col>
 
       <b-col lg="6" class="my-1">
@@ -192,14 +192,17 @@ import AddParticipant from '@/components/AddParticipant.vue';
           console.log('Problem beim Hochladen der Datei');
         });
       },
-      /*makeToast(append = false) {
+      makeToast(append = false) {
         this.toastCount++
         this.$bvToast.toast(`Anmeldeliste wurde hochgeladen!`, {
           title: 'Status',
           autoHideDelay: 5000,
           appendToast: append
         })
-      }*/
+      },
+      reload() {
+        location.reload();
+      }
     },
     created() {
       this.getData()

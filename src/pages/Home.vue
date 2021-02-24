@@ -2,13 +2,13 @@
 <div>
   <div class="grid-container">
     <div>
-      <a target="_blank" href="https://wuestudy.zv.uni-wuerzburg.de/"><button class= "kachel" id="k1">WueStudy</button></a>
+      <a target="_blank" href="https://wuestudy.zv.uni-wuerzburg.de/"><button class= "kachel1" id="k1">WueStudy</button></a>
     </div>
     <div>
-      <router-link to=/upload tag="button" class= "kachel">Neuen Prüfungsplan erstellen</router-link>
+      <router-link to=/upload tag="button" class= "kachel2">Neuen Prüfungsplan erstellen</router-link>
     </div>
     <div>
-      <router-link to=/pruefungsplan tag="button" class= "kachel">Erstellte Prüfungspläne anzeigen</router-link>
+      <router-link to=/pruefungsplan tag="button" class= "kachel3">Erstellte Prüfungspläne anzeigen</router-link>
     </div>
   </div>
   <p/>
@@ -69,14 +69,35 @@ export default {
 };
 </script>
 <style>
-.kachel {
+.kachel2 {
   height: 130px;
   width: 130px;
   border: 1px solid #000000;
   cursor: pointer;
+  background-color: #4aa718;
 }
-.kachel:hover {
-  background-color: #ddddeb;
+.kachel1 {
+  height: 130px;
+  width: 130px;
+  border: 1px solid #000000;
+  cursor: pointer;
+  background-color: #2c93de;
+}
+.kachel3 {
+  height: 130px;
+  width: 130px;
+  border: 1px solid #000000;
+  cursor: pointer;
+  background-color: #dc572a;
+}
+.kachel1:hover {
+  background-color: #3399cc;
+}
+.kachel2:hover {
+  background-color: #339900;
+}
+.kachel3:hover {
+  background-color: #cc6633;
 }
 .grid-container {
   display: inline-grid;

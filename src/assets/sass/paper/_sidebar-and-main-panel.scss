@@ -60,12 +60,12 @@
           height: 40px;
           margin-left: 0px;
           margin-right: 10px;
-          background: white;
+          background: #d8dadc;
           border-radius: 40px;
           text-align: center;
 
         img{
-            max-width: 21px;
+            max-width: 30px;
         }
       }
     }
@@ -135,6 +135,9 @@
   &[data-background-color="darkblue"] {
     @include sidebar-background-color($darkblue-background-color, $white-color);
   }
+  &[data-background-color="uniwueblue"] {
+    @include sidebar-background-color($uniwueblue-background-color, $white-color);
+  }
 
   &[data-active-color="primary"] {
     @include sidebar-active-color($primary-color);
@@ -150,6 +153,9 @@
   }
   &[data-active-color="danger"] {
     @include sidebar-active-color($danger-color);
+  }
+  &[data-active-color="wuegrey"] {
+    @include sidebar-active-color($wuegrey-color);
   }
 
 }
