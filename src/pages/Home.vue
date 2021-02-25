@@ -18,8 +18,6 @@
     </div>
   </stats-cards>
 </div>
-
-  </div>
 </template>
 <script>
 import { StatsCard, ChartCard } from "@/components/index";
