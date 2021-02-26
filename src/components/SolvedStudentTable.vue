@@ -1,5 +1,6 @@
 <template>
 <div>
+</b-col>
   <b-container fluid>
     <!-- User Interface controls -->
     <b-row>
@@ -146,10 +147,11 @@ import axios from 'axios';
         ],
         isbusy: false,
         fields: [
-          { key: 'day_id', label: 'Tag', sortable: true, sortDirection: 'desc' },
-          { key: 'day_date', label: 'Datum', sortable: true, sortDirection: 'desc' },
+          { key: 'student_matnr', label: 'Matrikelnummer', sortable: true, sortDirection: 'desc' },
           { key: 'exam_id', label: 'Prüfungs ID', sortable: true, sortDirection: 'desc' },
           { key: 'exam_name', label: 'Prüfung', sortable: true, sortDirection: 'desc' },
+          { key: 'day_id', label: 'Tag Nr.', sortable: true, sortDirection: 'desc' },
+          { key: 'day_date', label: 'Datum', sortable: true, sortDirection: 'desc' },
        
         ],
         totalRows: 1,
@@ -184,7 +186,7 @@ import axios from 'axios';
         this.currentPage = 1
       },
       getData () {
-        axios.get('http://localhost:5000/pruefungsansicht')
+        axios.get('http://localhost:5000/studentenansicht')
         .then(res => {this.items = res.data;
           console.log(res.data);
         })

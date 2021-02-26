@@ -1,30 +1,25 @@
 <template>
-<div>
-  <div>
-    <b-form-select v-model="selected" :options="options"></b-form-select>
-  </div>
-  <wue-exam-result-table></wue-exam-result-table>
-</div>
+
+  <b-tabs content-class="mt-3">
+    <b-tab title="Gesamter Prüfungsplan">
+      <wue-exam-result-table />
+    </b-tab>
+    <b-tab title="Prüfungsplan mit Teilnehmern">
+      <solved-student-table />
+    </b-tab>
+  </b-tabs>
 
 </template>
 
 <script>
 import WueExamResultTable from '@/components/WueExamResultTable.vue';
+import SolvedStudentTable from '@/components/SolvedStudentTable.vue';
 
 export default {
-  data() {
-    return{
-      selected: null,
-      options: [
-        { value: null, text: 'Bitte Prüfungsplan auswählen' },
-        { value: 'a', text: "Gesamter Prüfungsplan" },
-        { value: 'b', text: "Prüfungsplan mit Teilnehmern" },
-      ]
-    }
-  },
-  name: 'bootstrap',
+  name: 'app',
   components: {
     WueExamResultTable,
+    SolvedStudentTable
   }
 }  
 </script>
