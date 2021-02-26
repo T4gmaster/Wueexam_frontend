@@ -184,7 +184,7 @@ import axios from 'axios';
         this.currentPage = 1
       },
       getData () {
-        axios.get('http://localhost:5000/pruefungsansicht')
+        axios.get('http://132.187.226.24:5000/pruefungsansicht')
         .then(res => {this.items = res.data;
           console.log(res.data);
         })
@@ -203,7 +203,7 @@ import axios from 'axios';
       downloadFile(){
         let formData = new FormData();
         formData.append('file', this.file);
-        axios.get('http://localhost:5000/download',
+        axios.get('http://132.187.226.24:5000/download',
         formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
