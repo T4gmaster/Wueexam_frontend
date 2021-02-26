@@ -33,6 +33,13 @@
               <b-form-checkbox></b-form-checkbox>
               </b-list-group-item>
             </b-list-group>
+            <ul>
+              <li v-for="(day, index) in period"> {{ day }}
+
+              </li>
+            </ul>
+
+
             <!--
             <b-table hover :items="period">
             </b-table>
@@ -76,6 +83,7 @@
     <solver-settings-input></solver-settings-input>
     </b-column>
     <router-link to=/solver tag="b-button" class="continue" ><i class="fa fa-arrow-right"></i>Weiter</router-link>
+    <b-button @click="updateParameters">Parameter speichern</b-button>
     </b-row>
   </b-container>
   </div>
@@ -83,8 +91,11 @@
 
 <script>
 import moment from "moment";
+import axios from "axios";
 import testpruefungen from "@/assets/testpruefungen.json";
 import SolverSettingsInput from "@/components/SolverSettingsInput.vue"
+
+
 
 export default {
   data() {
@@ -101,6 +112,13 @@ export default {
         {key: "fixdate", label: "Datum"}
       ],
       fixdateValue: '',
+      testUpdateData: {
+        days: 17,
+        days_before: 14,
+        solver_msg: true,
+        solver_time_limit: 20000
+      },
+      days:""
     };
   },
   computed: {
@@ -148,6 +166,13 @@ export default {
     },
     testtest() {
       console.log(this.examOverview);
+    },
+    updateParameters() {
+      let days=this.days
+      let testdaten = {test: this.testUpdateData, dauer: days}
+      testdaten.toJSON
+      console.log(testdaten);
+      axios.post('http://localhost:5001/update_parameters', testdaten)
     }
   }
 };

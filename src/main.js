@@ -21,10 +21,18 @@ import router from "./router/index";
 import PaperDashboard from "./plugins/paperDashboard";
 import "vue-notifyjs/themes/default.css";
 
-import * as Keycloak from 'keycloak-js';
+//import * as Keycloak from 'keycloak-js';
 
 Vue.use(PaperDashboard);
 
+
+new Vue({
+  router,
+  render: h => h(App)
+}).$mount("#app");
+
+//auskommentieren zum lokalten enwickeln
+/*
 let initOptions = {
   url: 'http://132.187.226.24:8080/auth', realm: 'WueExam', clientId: 'app-wueexam', onLoad: 'login-required'
 }
@@ -62,3 +70,5 @@ keycloak.init({ onLoad: initOptions.onLoad }).then((auth) => {
 }).catch(() => {
   console.log("Authenticated Failed");
 });
+
+*/
