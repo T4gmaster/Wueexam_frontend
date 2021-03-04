@@ -28,11 +28,13 @@
 
             <p></p>
 
-            <b-list-group size="sm" v-for="(day, index) in period" :key="index">
-              <b-list-group-item size="sm">{{ day }}
+            <b-list-group class="list-container" horizontal size="sm" v-for="(day, index) in period.dateArray" :key="index">
+              <b-list-group-item  flush horizontal button lg="1">{{ day.locale('de').format('dddd MM.DD.YYYY') }}
               <b-form-checkbox></b-form-checkbox>
               </b-list-group-item>
             </b-list-group>
+
+
             <!--
             <b-table hover :items="period">
             </b-table>
@@ -58,13 +60,19 @@
           <b-table striped hover :items="examOverview" :fields="examOverviewHeader">
                                     <template #cell(fixdate)="data">
                                       <b-dropdown text="Datum wählen" size="sm" variant="primary">
-                                        <b-dropdown-item v-for="(day, index) in period" :key="index">{{day}}</b-dropdown-item>
+                                        <b-dropdown-item v-for="(day, index) in period.dateArray" :key="index">{{day.locale('de').format('dddd MM.DD.YYYY')}}</b-dropdown-item>
                                       </b-dropdown>
             </template>
+            <template #cell(fixtime)="data">
+              <b-input-group>
+                <b-form-input v-model="daytime" type="text" placeholder="HH:mm"></b-form-input>
+                <b-input-group-append>
+                  <b-form-timepicker v-model="daytime" button-only right locale='de'></b-form-timepicker>
+                </b-input-group-append>
+              </b-input-group>
+            </template>
+            
           </b-table>
-        </b-col>
-        <b-col>
-          <button @click="testtest">Prüfungen logen</button>
         </b-col>
       </b-row>
     </b-container>
@@ -76,6 +84,7 @@
     <solver-settings-input></solver-settings-input>
     </b-column>
     <router-link to=/solver tag="b-button" class="continue" ><i class="fa fa-arrow-right"></i>Weiter</router-link>
+    <b-button @click="updateParameters">Parameter speichern</b-button>
     </b-row>
   </b-container>
   </div>
@@ -83,8 +92,11 @@
 
 <script>
 import moment from "moment";
+import axios from "axios";
 import testpruefungen from "@/assets/testpruefungen.json";
 import SolverSettingsInput from "@/components/SolverSettingsInput.vue"
+
+
 
 export default {
   data() {
@@ -93,14 +105,24 @@ export default {
       endDate: "",
       examOverview: testpruefungen,
       period: "",
+      daytime: "",
       examOverviewHeader: [
         {key: "Fach", label: "Fach"},
         {key: "Teilnehmer", label: "Teilnehmer"},
         {key: "Lehrstuhl", label: "Lehrstuhl"},
         {key: "Studiengang", label: "Studiengang"},
-        {key: "fixdate", label: "Datum"}
+        {key: "fixdate", label: "Datum"},
+        {key: "fixtime", label: "Zeit"}
       ],
       fixdateValue: '',
+      testUpdateData: {
+        days: 17,
+        days_before: 14,
+        solver_msg: true,
+        solver_time_limit: 20000
+      },
+      days:"",
+      dateArray: ""
     };
   },
   computed: {
@@ -115,9 +137,9 @@ export default {
       let firstDate = moment(this.startDate);
       let lastDate = moment(this.endDate);
       while (firstDate <= lastDate) {
-        dateArray.push(new Date(firstDate));
+        dateArray.push(moment(new Date(firstDate)));//.format('DD.MM'));//.toISOString());
         firstDate = moment(firstDate).add(1, "days");
-        // moment(this.firstDate).format('DD.MM.YYYY')
+        // moment(this.f,irstDate).format('DD.MM.YYYY')
       }
    //   const dateJson = {
    //     Prüfungstage: dateArray,
@@ -127,9 +149,16 @@ export default {
    //   console.log(JSON.stringify(dateJson));
 
       // fix: Prüfungstage variable korrekt übergeben
-      this.period = dateArray;
-      return dateArray;
+      //this.dateArray = dateArray; // need to overwrite data section in order to display list
+      this.period = {dateArray}
+      //return dateArray;
     },
+    // check if days are selected
+      /*
+      countCheckedDays() {
+        let daysCheckboxes = 
+      }
+      */
   },
   components: {
     SolverSettingsInput
@@ -148,6 +177,13 @@ export default {
     },
     testtest() {
       console.log(this.examOverview);
+    },
+    updateParameters() {
+      let days=this.days
+      let testdaten = {test: this.testUpdateData, dauer: days}
+      testdaten.toJSON
+      console.log(testdaten);
+      axios.post('http://localhost:5001/update_parameters', testdaten)
     }
   }
 };
@@ -156,6 +192,10 @@ export default {
 <style scoped>
 .kalender {
   float: left;
+}
+.list-container {
+    display: table; /* Make the container element behave like a table */
+    width: 30%; /* Set full-width to expand the whole page */
 }
 </style>
 
