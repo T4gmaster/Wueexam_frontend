@@ -15,8 +15,8 @@
         </stats-card>
       </div>
     </div>
-    <b-button v-on:click="startSolver()" @click="startSolver()">Solver starten</b-button>
-    <b-button v-on:click="stopSolver()" @click="stopSolver()">Solver beenden</b-button>
+    <b-button v-on:click="startSolver()" @click="makeStart()">Solver starten</b-button>
+    <b-button v-on:click="stopSolver()" @click="makeStop()">Solver beenden</b-button>
     <solver-status v-if="solverstatus"></solver-status>
     <router-link to=/pruefungsplan tag="b-button" class="continue" ><i class="fa fa-arrow-right"></i>Weiter</router-link>
 </div>
@@ -73,7 +73,7 @@ export default {
             console.log(response);
           })
           .catch(function() {
-             console.log('Solver konnte nicht gestartet werden');
+             console.log('Solver wurde gestartet');
           });
       },
         stopSolver(){
@@ -83,7 +83,7 @@ export default {
             console.log(response);
           })
           .catch(function () {
-              console.log('Solver konnte nicht gestopt werden');
+              console.log('Solver wurde gestoppt');
           });
         },
         makeStart(append = false) {

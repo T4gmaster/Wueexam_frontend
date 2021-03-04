@@ -3,14 +3,14 @@
   <b-container fluid>
     <!-- User Interface controls -->
     <b-row>
-      <b-col lg="6" class="my-1">
+      <b-col>
         <b-form-group
           label="Suche"
           label-for="filter-input"
           label-cols-sm="3"
           label-align-sm="right"
           label-size="sm"
-          class="mb-0"
+          class="mb-3"
         >
           <b-input-group size="sm">
             <b-form-input
@@ -26,26 +26,32 @@
           </b-input-group>
         </b-form-group>
       </b-col>
+
+      <b-col>
+       <b-form-select
+        v-model="selected"
+        :options="options"
+        class="md"
+        value-field="item"
+        text-field="name"
+        disabled-field="notEnabled"
+        ></b-form-select>
+      </b-col>
+
+      <b-col>
+        <drop-down
+        class="download"
+        type="button"
+        title="Download"
+        title-classes="nav-link"
+        icon="fa fa-download">
+          <a class="dropdown-item" v-on:click="ExportToExcel(), makeToast()">Excel</a>
+          <a class="dropdown-item" href="#">PDF</a>
+        </drop-down>
+      </b-col>
       
-      <b-col sm="5" md="6" class="my-1">
-        <b-button
-          align="fill"
-          size="sm"
-
-          class="download"
-          v-on:click="downloadFile(), 
-          makeToast()"
-          >
-          <i class="fa fa-download"></i> 
-          Download
-        </b-button>
-      </b-col>
-
-      <b-col lg="6" class="my-1">
-      </b-col>
-      <b-col lg="6" class="my-1">
-      </b-col>
-
+    </b-row> 
+    <b-row>
       <b-col sm="5" md="6" class="my-1">
         <b-form-group
           label="Pro Seite"
@@ -84,6 +90,7 @@
 
     <!-- Main table element -->
     <b-table
+      id="downloadtester"
       :busy="isbusy"
       :items="items"
       :fields="fields"
@@ -128,6 +135,13 @@ import axios from 'axios';
   export default {
     data() {
       return {
+        checked: false,
+        options: [
+          { item: 'A', name: 'Option A' },
+          { item: 'B', name: 'Option B' },
+          { item: 'D', name: 'Option C', notEnabled: true },
+          { item: { d: 1 }, name: 'Option D' }
+        ],
         items:[
         ],
         isbusy: false,
@@ -170,7 +184,7 @@ import axios from 'axios';
         this.currentPage = 1
       },
       getData () {
-        axios.get('http://localhost:5000/pruefungsansicht')
+        axios.get('http://132.187.226.24:5000/pruefungsansicht')
         .then(res => {this.items = res.data;
           console.log(res.data);
         })
@@ -189,7 +203,7 @@ import axios from 'axios';
       downloadFile(){
         let formData = new FormData();
         formData.append('file', this.file);
-        axios.get('http://localhost:5000/download',
+        axios.get('http://132.187.226.24:5000/download',
         formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
@@ -201,6 +215,11 @@ import axios from 'axios';
         .catch(function(){
           console.log('Problem beim Hochladen der Datei');
         });
+      },
+      ExportToExcel(mytblId){
+       var htmltable= document.getElementById('downloadtester');
+       var html = htmltable.outerHTML;
+       window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
       }
     },
     created() {
@@ -211,6 +230,9 @@ import axios from 'axios';
 
 <style scoped>
 .download{
+  text-align: center;
   float: right;
+  background: #063d79;
 }
+
 </style>

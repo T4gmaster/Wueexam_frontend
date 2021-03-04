@@ -1,6 +1,6 @@
 .dropdown{
   .dropdown-menu{
-    background-color: $pale-bg;
+    background-color: $white-color;
     border: 0 none;
     border-radius: $border-radius-extreme;
     display: block;
@@ -14,7 +14,7 @@
     @include box-shadow($dropdown-shadow);
 
     .divider{
-      background-color: $medium-pale-bg;
+      background-color: $white-color;
       margin: 0px;
     }
 
@@ -32,7 +32,7 @@
     }
 
     .dropdown-item{
-      color: $font-color !important;
+      color: $black-color !important;
       font-size: $font-size-base;
       padding: 10px 45px 10px 15px;
       clear: both;

@@ -1,16 +1,17 @@
 <template>
 <div>
+</b-col>
   <b-container fluid>
     <!-- User Interface controls -->
     <b-row>
-      <b-col lg="6" class="my-1">
+      <b-col>
         <b-form-group
           label="Suche"
           label-for="filter-input"
           label-cols-sm="3"
           label-align-sm="right"
           label-size="sm"
-          class="mb-0"
+          class="mb-3"
         >
           <b-input-group size="sm">
             <b-form-input
@@ -27,17 +28,31 @@
         </b-form-group>
       </b-col>
 
-      <b-col sm="5" md="6" class="my-1">
-        <input type="file" id="file" ref="file" v-on:change="handleFileUpload()">
-        <b-button class="submit" v-on:click="submitFile()" @click="makeToast()"><i class="fa fa-upload"></i>Hochladen</b-button>
-        <b-button @click="reload()"><i class="fa fa-refresh"></i></b-button>
+      <b-col>
+       <b-form-select
+        v-model="selected"
+        :options="options"
+        class="md"
+        value-field="item"
+        text-field="name"
+        disabled-field="notEnabled"
+        ></b-form-select>
       </b-col>
 
-      <b-col lg="6" class="my-1">
+      <b-col>
+        <drop-down
+        class="download"
+        type="button"
+        title="Download"
+        title-classes="nav-link"
+        icon="fa fa-download">
+          <a class="dropdown-item" v-on:click="ExportToExcel(), makeToast()">Excel</a>
+          <a class="dropdown-item" href="#">PDF</a>
+        </drop-down>
       </b-col>
-      <b-col lg="6" class="my-1">
-      </b-col>
-
+      
+    </b-row> 
+    <b-row>
       <b-col sm="5" md="6" class="my-1">
         <b-form-group
           label="Pro Seite"
@@ -66,12 +81,18 @@
           align="fill"
           size="sm"
           class="my-0"
-        ></b-pagination>
+          >
+        </b-pagination>
       </b-col>
+
+
+
     </b-row>
 
     <!-- Main table element -->
     <b-table
+      id="downloadtester"
+      :busy="isbusy"
       :items="items"
       :fields="fields"
       :current-page="currentPage"
@@ -86,6 +107,13 @@
       small
       @filtered="onFiltered"
     >
+      <template #table-busy>
+        <div class="text-center text-danger my-2">
+          <b-spinner class="align-middle"></b-spinner>
+          <strong>Loading...</strong>
+        </div>
+      </template>
+
       <template #cell(name)="row">
         {{ row.value.first }} {{ row.value.last }}
       </template>
@@ -99,49 +127,43 @@
       </template>
     </b-table>
   </b-container>
-  <b-container>
-    <b-row>
-    <b-column sm="5">
-    </b-column>
-    <b-column sm="3">
-    <add-participant></add-participant>
-    </b-column>
-    <router-link to=/pruefungsparamter tag="b-button" class="continue" ><i class="fa fa-arrow-right"></i>Weiter</router-link>
-    </b-row>
-  </b-container>
-</div>  
+</div>
 </template>
 
 <script>
 import axios from 'axios';
-import AddParticipant from '@/components/AddParticipant.vue';
 
   export default {
     data() {
       return {
+        checked: false,
+        options: [
+          { item: 'A', name: 'Option A' },
+          { item: 'B', name: 'Option B' },
+          { item: 'D', name: 'Option C', notEnabled: true },
+          { item: { d: 1 }, name: 'Option D' }
+        ],
         items:[
         ],
+        isbusy: false,
         fields: [
-          { key: 'EXAM', label: 'Prüfung', sortable: true, sortDirection: 'desc' },
-          { key: 'EXAM_ID', label: 'Prüfungs ID', sortable: true, sortDirection: 'desc' },
-          { key: 'LAST_NAME', label: 'Nachname', sortable: true, sortDirection: 'desc' },
-          { key: 'FIRST_NAME', label: 'Vorname', sortable: true, sortDirection: 'desc' },
-          { key: 'MATRICULATION_NUMBER', label: 'Matrikelnummer', sortable: true, sortDirection: 'desc' },
-          { key: 'COURSE', label: 'Studiengang', sortable: true, sortDirection: 'desc' },
+          { key: 'student_matnr', label: 'Matrikelnummer', sortable: true, sortDirection: 'desc' },
+          { key: 'exam_id', label: 'Prüfungs ID', sortable: true, sortDirection: 'desc' },
+          { key: 'exam_name', label: 'Prüfung', sortable: true, sortDirection: 'desc' },
+          { key: 'day_id', label: 'Tag Nr.', sortable: true, sortDirection: 'desc' },
+          { key: 'day_date', label: 'Datum', sortable: true, sortDirection: 'desc' },
+       
         ],
         totalRows: 1,
         currentPage: 1,
-        perPage: 10,
-        pageOptions: [10, 25, 50, 100, { value: 10000, text: "Alle anzeigen" }],
+        perPage: 25,
+        pageOptions: [25, 50, 100, { value: 10000, text: "Alle anzeigen" }],
         sortBy: '',
         sortDesc: false,
         sortDirection: 'asc',
         filter: null,
         filterOn: [],
       };
-    },
-    components: {
-      AddParticipant
     },
     computed: {
       sortOptions() {
@@ -164,7 +186,7 @@ import AddParticipant from '@/components/AddParticipant.vue';
         this.currentPage = 1
       },
       getData () {
-        axios.get('http://132.187.226.24:5000/anmeldeliste')
+        axios.get('http://localhost:5000/studentenansicht')
         .then(res => {this.items = res.data;
           console.log(res.data);
         })
@@ -172,36 +194,34 @@ import AddParticipant from '@/components/AddParticipant.vue';
           console.log(error)
         })
       },
-      handleFileUpload(){
-      this.file = this.$refs.file.files[0];
-      console.log('Datei wurde ausgewählt.', this.file);
+      makeToast(append = false) {
+        this.toastCount++
+        this.$bvToast.toast(`Prüfungsplan wurde heruntergeladen!`, {
+          title: 'Status',
+          autoHideDelay: 5000,
+          appendToast: append
+        })
       },
-      submitFile(){
+      downloadFile(){
         let formData = new FormData();
         formData.append('file', this.file);
-        axios.post('http://132.187.226.24:5000/uploader',
+        axios.get('http://localhost:5000/download',
         formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
         })
         .then(function () {
-          console.log('Datei wurde hochgeladen');
+        console.log('Datei wurde heruntergeladen');
         })
         .catch(function(){
           console.log('Problem beim Hochladen der Datei');
         });
       },
-      makeToast(append = false) {
-        this.toastCount++
-        this.$bvToast.toast(`Anmeldeliste wurde hochgeladen!`, {
-          title: 'Status',
-          autoHideDelay: 5000,
-          appendToast: append
-        })
-      },
-      reload() {
-        location.reload();
+      ExportToExcel(mytblId){
+       var htmltable= document.getElementById('downloadtester');
+       var html = htmltable.outerHTML;
+       window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
       }
     },
     created() {
@@ -210,8 +230,11 @@ import AddParticipant from '@/components/AddParticipant.vue';
   }
 </script>
 
-<style>
-.continue{
+<style scoped>
+.download{
+  text-align: center;
   float: right;
+  background: #063d79;
 }
+
 </style>

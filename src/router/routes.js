@@ -8,6 +8,7 @@ import Solver from "@/pages/Solver.vue";
 import Upload from "@/pages/Upload.vue";
 import Pruefungsplan from "@/pages/Pruefungsplan.vue";
 import Pruefungsparameter from "@/pages/Prüfungsparameter.vue";
+import Kalender from "@/pages/Kalender.vue";
 
 const routes = [
   {
@@ -39,6 +40,11 @@ const routes = [
         path: "pruefungsparamter",
         name: "pruefungsparamter",
         component: Pruefungsparameter
+      },
+      {
+        path: "kalender",
+        name: "kalender",
+        component: Kalender
       }
     ]
   },

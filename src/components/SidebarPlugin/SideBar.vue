@@ -9,9 +9,9 @@
     <!-- -->
     <div class="sidebar-wrapper" id="style-3">
       <div class="logo">
-        <a href="#" class="simple-text">
+        <a href="/" class="simple-text">
             <div class="logo-img">
-                <img src="@/assets/img/Logo_Unifarben.png" alt="">
+                <img src="@/assets/img/UniWueLogo.jpg" alt="">
             </div>
           {{title}}
         </a>
@@ -47,22 +47,23 @@ export default {
     },
     backgroundColor: {
       type: String,
-      default: "black",
+      default: "uniwueblue",
       validator: value => {
-        let acceptedValues = ["white", "black", "darkblue"];
+        let acceptedValues = ["white", "black", "darkblue", "grey", "uniwueblue"];
         return acceptedValues.indexOf(value) !== -1;
       }
     },
     activeColor: {
       type: String,
-      default: "success",
+      default: "wuegrey",
       validator: value => {
         let acceptedValues = [
           "primary",
           "info",
           "success",
           "warning",
-          "danger"
+          "danger",
+          "wuegrey"
         ];
         return acceptedValues.indexOf(value) !== -1;
       }
