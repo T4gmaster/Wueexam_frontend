@@ -87,7 +87,7 @@ export default {
   </div>
 </template>
 
-<style lang='css' scoped>
+<style scoped>
 h2 {
   margin: 0;
   font-size: 16px;
