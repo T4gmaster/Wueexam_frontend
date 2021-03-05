@@ -2,7 +2,7 @@
 @mixin btn-styles($btn-color, $btn-states-color) {
   background-color: $btn-color;
   border-color: $btn-color;
-  color: $white-color;
+  color: $black-color;
   @include opacity(1);
 
   &:hover,
