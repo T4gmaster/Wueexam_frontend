@@ -232,7 +232,6 @@ import axios from 'axios';
 .download{
   text-align: center;
   float: right;
-  background: #063d79;
 }
 
 </style>
