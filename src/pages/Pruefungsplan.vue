@@ -32,8 +32,5 @@ export default {
 </script>
 
 <style>
-.testtab {
-  color: "0000000";
-  background-color: "000000";
-}
+
 </style>
