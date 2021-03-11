@@ -29,17 +29,6 @@
       </b-col>
 
       <b-col>
-       <b-form-select
-        v-model="selected"
-        :options="options"
-        class="md"
-        value-field="item"
-        text-field="name"
-        disabled-field="notEnabled"
-        ></b-form-select>
-      </b-col>
-
-      <b-col>
         <drop-down
         class="download"
         type="button"
@@ -136,13 +125,6 @@ import axios from 'axios';
   export default {
     data() {
       return {
-        checked: false,
-        options: [
-          { item: 'A', name: 'Option A' },
-          { item: 'B', name: 'Option B' },
-          { item: 'D', name: 'Option C', notEnabled: true },
-          { item: { d: 1 }, name: 'Option D' }
-        ],
         items:[
         ],
         isbusy: false,

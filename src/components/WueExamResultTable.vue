@@ -28,17 +28,6 @@
       </b-col>
 
       <b-col>
-       <b-form-select
-        v-model="selected"
-        :options="options"
-        class="md"
-        value-field="item"
-        text-field="name"
-        disabled-field="notEnabled"
-        ></b-form-select>
-      </b-col>
-
-      <b-col>
         <drop-down
         class="download"
         type="button"
@@ -46,7 +35,7 @@
         title-classes="nav-link"
         icon="fa fa-download">
           <a class="dropdown-item" v-on:click="ExportToExcel(), makeToast()">Excel</a>
-          <a class="dropdown-item" href="#">PDF</a>
+          <a class="dropdown-item" v-on:click="ExportToPDF()">PDF</a>
         </drop-down>
       </b-col>
       
@@ -131,17 +120,11 @@
 
 <script>
 import axios from 'axios';
+import jspdf from "jspdf";
 
   export default {
     data() {
       return {
-        checked: false,
-        options: [
-          { item: 'A', name: 'Option A' },
-          { item: 'B', name: 'Option B' },
-          { item: 'D', name: 'Option C', notEnabled: true },
-          { item: { d: 1 }, name: 'Option D' }
-        ],
         items:[
         ],
         isbusy: false,
@@ -215,6 +198,14 @@ import axios from 'axios';
         .catch(function(){
           console.log('Problem beim Hochladen der Datei');
         });
+      },
+      ExportToPDF(){
+        
+        var pdf = new jsPDF();
+
+        pdf.text("test", 15, 15);
+
+        pdf.save("test.pdf")
       },
       ExportToExcel(mytblId){
        var htmltable= document.getElementById('downloadtester');
