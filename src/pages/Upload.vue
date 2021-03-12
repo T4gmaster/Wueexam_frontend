@@ -31,12 +31,12 @@
         <input type="file" id="file" ref="file" v-on:change="handleFileUpload()">
         <b-button class="submit" v-on:click="submitFile()" @click="makeToast()"><i class="fa fa-upload"></i>Hochladen</b-button>
         <b-button @click="reload()"><i class="fa fa-refresh"></i></b-button>
+        <b-button v-b-modal.modal-1>Anmeldungen >10</b-button>
+          <b-modal id="modal-1" title="Studenten mit mehr als 10 Prüfungsanmeldungen">
+           <students-bigger-ten />
+        </b-modal>
       </b-col>
-
-      <b-col lg="6" class="my-1">
-      </b-col>
-      <b-col lg="6" class="my-1">
-      </b-col>
+    
 
       <b-col sm="5" md="6" class="my-1">
         <b-form-group
@@ -115,6 +115,7 @@
 <script>
 import axios from 'axios';
 import AddParticipant from '@/components/AddParticipant.vue';
+import StudentsBiggerTen from "@/components/StudentsBiggerTen.vue";
 
   export default {
     data() {
@@ -141,7 +142,8 @@ import AddParticipant from '@/components/AddParticipant.vue';
       };
     },
     components: {
-      AddParticipant
+      AddParticipant,
+      StudentsBiggerTen
     },
     computed: {
       sortOptions() {

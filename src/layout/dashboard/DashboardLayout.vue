@@ -14,8 +14,6 @@
                    title="Profil"
                    title-classes="nav-link"
                    icon="ti-user">
-          <a class="dropdown-item">Notification 1</a>
-          <a class="dropdown-item">Notification 2</a>
           <a class="dropdown-item">Einstellungen</a>
           <a class="dropdown-item" @click="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
         </drop-down>
