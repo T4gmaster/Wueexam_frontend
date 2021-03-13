@@ -5,16 +5,27 @@
 </template>
 
 <script>
+import axios from "axios";
+
   export default {
     data() {
       return {
-        items: [
-          { Anmeldungen: 40, Matrikelnummer: "11081994", Vorname: 'Gottwald', Nachname: 'Philip' },
-          { Anmeldungen: 7, Matrikelnummer: "11081994", Vorname: 'Becker', Nachname: 'Luc' },
-          { Anmeldungen: 11, Matrikelnummer: "11081994", Vorname: 'Elbert', Nachname: 'Nico' },
-          { Anmeldungen: 8, Matrikelnummer: "11081994", Vorname: 'König', Nachname: 'Adrian' }
-        ]
+        items: null,
+      };
+    },
+    methods: {
+      getData () {
+        axios.get('http://132.187.226.24:5000/Anzahl_Studenten_10')
+        .then(res => {this.items = res.data;
+          console.log(res.data);
+        })
+        .catch(error => {
+          console.log(error)
+        })
       }
+    },
+    created() {
+      this.getData()
     }
   }
 </script>

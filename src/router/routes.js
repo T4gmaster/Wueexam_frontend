@@ -9,6 +9,7 @@ import Upload from "@/pages/Upload.vue";
 import Pruefungsplan from "@/pages/Pruefungsplan.vue";
 import Pruefungsparameter from "@/pages/Prüfungsparameter.vue";
 import Kalender from "@/pages/Kalender.vue";
+import Dashboard from "@/pages/Dashboard.vue";
 
 const routes = [
   {
@@ -45,6 +46,11 @@ const routes = [
         path: "kalender",
         name: "kalender",
         component: Kalender
+      },
+      {
+        path: "dashboard",
+        name: "dashboard",
+        component: Dashboard
       }
     ]
   },

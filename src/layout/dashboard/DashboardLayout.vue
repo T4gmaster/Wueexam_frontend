@@ -7,6 +7,7 @@
         <sidebar-link to="/pruefungsparamter" name="Prüfungsparameter" icon="ti-panel"/>
         <sidebar-link to="/solver" name="Solver" icon="ti-harddrives"/>
         <sidebar-link to="/pruefungsplan" name="Prüfungsplan" icon="ti-layout"/>
+        <sidebar-link to="/dashboard" name="Dashboard" icon="ti-dashboard"/>
         <sidebar-link to="/kalender" name="Kalender" icon="ti-calendar"/>
       </template>
       <mobile-menu>
