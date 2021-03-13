@@ -31,8 +31,8 @@
         <input type="file" id="file" ref="file" v-on:change="handleFileUpload()">
         <b-button class="submit" v-on:click="submitFile()" @click="makeToast()"><i class="fa fa-upload"></i>Hochladen</b-button>
         <b-button @click="reload()"><i class="fa fa-refresh"></i></b-button>
-        <b-button v-b-modal.modal-1>Anmeldungen >10</b-button>
-          <b-modal id="modal-1" title="Studenten mit mehr als 10 Prüfungsanmeldungen">
+        <b-button v-b-modal.modal-1>Anmeldungen >8</b-button>
+          <b-modal id="modal-1" title="Studenten mit mehr als 8 Prüfungsanmeldungen">
            <students-bigger-ten />
         </b-modal>
       </b-col>
