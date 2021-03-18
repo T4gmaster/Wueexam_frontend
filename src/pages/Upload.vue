@@ -192,6 +192,9 @@ import StudentsBiggerTen from "@/components/StudentsBiggerTen.vue";
       // Set the initial number of items
       this.totalRows = this.items.length
     },
+    created() {
+      this.getData()
+    },
     methods: {
       onFiltered(filteredItems) {
         // Trigger pagination to update the number of buttons/pages due to filtering
@@ -200,7 +203,7 @@ import StudentsBiggerTen from "@/components/StudentsBiggerTen.vue";
       },
       getData () {
         axios.get('http://132.187.226.24:5000/anmeldeliste')
-        .then(res => {this.items[0] = res.data;
+        .then(res => {this.items = res.data;
           console.log(res.data);
         })
         .catch(error => {
@@ -237,9 +240,6 @@ import StudentsBiggerTen from "@/components/StudentsBiggerTen.vue";
       },
       reload() {
         location.reload();
-      },
-      created() {
-        this.getData()
       },
       receiveRegistration (reply) {
         // this.value = reply;
