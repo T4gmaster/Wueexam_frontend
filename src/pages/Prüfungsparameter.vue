@@ -117,7 +117,8 @@ export default {
         isDateRange: true,
         changeMonthFunction: true,
         changeYearFunction: true,
-        isDark: false,
+        dayNames: ['Mo', 'Di', 'Mit', 'Do', 'Fr', 'Sa', 'So'],
+        isDark: false
       },
       startDate: "",
       endDate: "",
