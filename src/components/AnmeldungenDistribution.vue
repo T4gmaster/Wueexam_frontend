@@ -34,8 +34,9 @@ export default {
   data() {
     return {
       chartOptionsBar: {
+        color: ["#063d79"],
         xAxis: {
-          data: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+          data: [],
           name: "Anmeldungen"
         },
         yAxis: {
@@ -45,7 +46,9 @@ export default {
         series: {
           type: 'bar',
           data: [],
-          
+          itemStyle: {
+            borderRadius: [5, 5, 0, 0]
+          }
         },
         title: {
           text: "Verteilung der Prüfungsanmeldungen",

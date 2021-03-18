@@ -39,9 +39,9 @@ export default {
   },
   methods: {
     getData () {
-      axios.get("http://132.187.226.24:5000/")
+      axios.get("http://132.187.226.24:5000/Anzahl_Pruefungen")
       .then(res => {this.statsCards[0].value = res.data;
-        console.log(res.data);
+        console.log(res.data/2);
       })
       .catch(error => {
         console.log(error)
