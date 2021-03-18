@@ -185,7 +185,7 @@ import StudentsBiggerTen from "@/components/StudentsBiggerTen.vue";
       submitFile(){
         let formData = new FormData();
         formData.append('file', this.file);
-        axios.post('https://132.187.226.24:5000/uploader',
+        axios.post('http://132.187.226.24:5000/uploader',
         formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
@@ -211,7 +211,7 @@ import StudentsBiggerTen from "@/components/StudentsBiggerTen.vue";
       receiveRegistration (reply) {
         let newRegistration = reply
         console.log ('new registration in parent component:', newRegistration)
-        axios.post('https://132.187.226.24:5000/anmeldung_nachtrag', 
+        axios.post('http://132.187.226.24:5000/anmeldung_nachtrag', 
         newRegistration, {
         headers: {
             'Content-Type': 'application/json'
