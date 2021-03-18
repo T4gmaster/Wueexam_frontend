@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     getData () {
-      axios.get('http://132.187.226.24:5000/Anzahl_Studenten')
+      axios.get('http://132.187.226.24:5000/anzahl_studenten')
       .then(res => {this.statsCards[0].value = res.data;
         console.log(res.data);
       })

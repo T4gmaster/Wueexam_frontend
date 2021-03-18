@@ -14,18 +14,14 @@ export default {
   data () {
     return {
       events: [
-        { id:0, start_date:"2020-01-20 10:00:00", end_date:"2020-01-20 11:00:00", text:"Mathe 2"},
-        { id:1, start_date:"2020-01-23 8:00", end_date:"2020-01-23 9:00", text:"Externe Unternehmensrechnung"},
-        { id:2, start_date:"2020-01-20 12:00", end_date:"2020-01-20 13:00", text:"I&F"},
-        { id:3, start_date:"2020-01-23 14:00", end_date:"2020-01-23 15:00", text:"Jura"},
-        { id:4, start_date:"2020-01-20 16:00", end_date:"2020-01-20 17:00", text:"Makro 1"}
+      
       ]
     }
   },
   methods: {
     getData () {
-      axios.get('http://132.187.226.24:5000/Kalender')
-      .then(res => {this.events = res.data;
+      axios.get('http://132.187.226.24:5000/kalender')
+      .then(res => {this.events[1] = res.data;
       console.log(res.data);
       })
       .catch(error => {

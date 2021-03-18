@@ -20,6 +20,13 @@
 import axios from 'axios';
 import { StatsCard, ChartCard } from "@/components/index";
 
+let one = "http://132.187.226.24:5000/anzahl_pruefungen";
+let two = "http://132.187.226.24:5000/anzahl_anmeldungen";
+
+const requestOne = axios.get(one);
+const requestTwo = axios.get(two);
+
+
 export default {
   name: "HelloWorld",
   components: {
@@ -32,17 +39,22 @@ export default {
           type: "",
           icon: "ti-pencil-alt",
           title: "Ø Anmeldungen pro Student",
-          value: "6,4",
+          value: "",
         }
       ]
     };
   },
   methods: {
     getData () {
-      axios.get("http://132.187.226.24:5000/")
-      .then(res => {this.statsCards[0].value = res.data;
-        console.log(res.data);
-      })
+      axios.all([requestOne, requestTwo])
+      .then(
+        axios.spread((...responses) => {
+          const responseOne = responses[0];
+          const responseTwo = responses[1];
+        /*responses[0] => {this.statsCards[0].value = responses[0].data; */
+        console.log("Test", responseOne, responseTwo);  
+        })
+      )
       .catch(error => {
         console.log(error)
       })

@@ -8,7 +8,7 @@
         <durchschnitt-anmeldungen />
       <anmeldungen-distribution />
     </b-tab>
-    <b-tab class="testtab" title="Prüfungsstatistik (coming soon)" disabled>
+    <b-tab title="Prüfungsstatistik (coming soon)" disabled>
     </b-tab>
   </b-tabs>
 </template>
@@ -18,13 +18,15 @@ import AnzahlStudenten from "@/components/AnzahlStudenten.vue";
 import AnmeldungenDistribution from "@/components/AnmeldungenDistribution.vue";
 import AnzahlPruefungen from "@/components/AnzahlPrüfungen.vue";
 import DurchschnittAnmeldungen from "@/components/DurchschnittAnmeldungen.vue";
+/*import HeatMap from "@/components/Heatmap.vue"; */
 
 export default { 
   components: { 
     AnzahlStudenten,
     AnmeldungenDistribution,
     AnzahlPruefungen,
-    DurchschnittAnmeldungen
+    DurchschnittAnmeldungen,
+    /*HeatMap*/
   }
 }
 </script>

@@ -160,6 +160,9 @@ import StudentsBiggerTen from "@/components/StudentsBiggerTen.vue";
       // Set the initial number of items
       this.totalRows = this.items.length
     },
+    created() {
+      this.getData()
+    },
     methods: {
       onFiltered(filteredItems) {
         // Trigger pagination to update the number of buttons/pages due to filtering
