@@ -15,7 +15,7 @@ import axios from "axios";
     },
     methods: {
       getData () {
-        axios.get('http://132.187.226.24:5000/anzahl_Studenten_10')
+        axios.get('http://132.187.226.24:5000/anzahl_studenten_10')
         .then(res => {this.items = res.data;
           console.log(res.data);
         })
