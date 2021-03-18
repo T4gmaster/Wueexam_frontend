@@ -110,11 +110,6 @@
     <router-link to=/pruefungsparamter tag="b-button" class="continue" ><i class="fa fa-arrow-right"></i>Weiter</router-link>
     </b-row>
   </b-container>
-  <ul>
-    <li v-for="Fach in testArray">{{testArray.EXAM}}</li>
-  </ul>
-  <p>{{testArray[0].EXAM}}</p>
-  <button @click="testPush">Testbutton</button>
 </div>  
 </template>
 
@@ -145,33 +140,6 @@ import StudentsBiggerTen from "@/components/StudentsBiggerTen.vue";
         sortDirection: 'asc',
         filter: null,
         filterOn: [],
-        value: '', // just for testing
-        testArray: [
-          {
-              "EXAM": "Mathematik fuer Studierende der Wirtschaftswissenschaft 2",
-              "EXAM_ID": 323247,
-              "LAST_NAME": "Hartung",
-              "FIRST_NAME": "Hagen",
-              "MATRICULATION_NUMBER": 2747530,
-              "COURSE": "Wirtschaftswissenschaften"
-          },
-          {
-              "EXAM": "Mathematik fuer Studierende der Wirtschaftswissenschaft 2",
-              "EXAM_ID": 323247,
-              "LAST_NAME": "Caspar",
-              "FIRST_NAME": "Jolanthe",
-              "MATRICULATION_NUMBER": 2693117,
-              "COURSE": "Wirtschaftsinformatik"
-          },
-          {
-              "EXAM": "Mathematik fuer Studierende der Wirtschaftswissenschaft 2",
-              "EXAM_ID": 323247,
-              "LAST_NAME": "Zirme",
-              "FIRST_NAME": "Milan",
-              "MATRICULATION_NUMBER": 2802609,
-              "COURSE": "Wirtschaftswissenschaften"
-          }
-        ]
       };
     },
     components: {
@@ -214,7 +182,7 @@ import StudentsBiggerTen from "@/components/StudentsBiggerTen.vue";
       submitFile(){
         let formData = new FormData();
         formData.append('file', this.file);
-        axios.post('http://132.187.226.24:5000/uploader',
+        axios.post('https://132.187.226.24:5000/uploader',
         formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
@@ -228,7 +196,6 @@ import StudentsBiggerTen from "@/components/StudentsBiggerTen.vue";
         });
       },
       makeToast(append = false) {
-        this.toastCount++
         this.$bvToast.toast(`Anmeldeliste wurde hochgeladen!`, {
           title: 'Status',
           autoHideDelay: 5000,
@@ -238,27 +205,27 @@ import StudentsBiggerTen from "@/components/StudentsBiggerTen.vue";
       reload() {
         location.reload();
       },
-      created() {
-        this.getData()
-      },
       receiveRegistration (reply) {
-        // this.value = reply;
-        console.log(reply)
-      },
-      testPush() {
-        let testArray = this.testArray
-        testArray.push({EXAM: 'Testfach', EXAM_ID: 4567, LAST_NAME: 'Testnachname', FIRST_NAME: 'Testvorname', MATRICULATION_NUMBER: 456123, COURSE: 'Teststudiengang'});
-        console.log(testArray);
-        /*
-        let testArray = this.testArray
-        let obj = JSON.parse(JSON.stringify(testArray))
-        obj ['testArray'].push(JSON.stringify({"EXAM": "Testexam", "EXAM_ID": 50164, "LAST_NAME": "Testnachname", "FIRST_NAME": "Testvorname", "MATRICULATION_NUMBER": 123456, "COURSE": "Teststudiengang"}))
-        testArray = JSON.stringify(obj)
-        console.log(testArray)
-        */
+        let newRegistration = reply
+        console.log ('new registration in parent component:', newRegistration)
+        axios.post('https://132.187.226.24:5000/anmeldung_nachtrag', 
+        newRegistration, {
+        headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+          .then(function (response) {
+          console.log(response);
+          })
+          .catch(function (error) {
+          console.log(error);
+        });
       }
+    },
+    created() {
+      this.getData()
+    },
   }
-}
 </script>
 
 <style>
