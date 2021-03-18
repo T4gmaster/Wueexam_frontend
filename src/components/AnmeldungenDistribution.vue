@@ -66,7 +66,7 @@ export default {
   },
   methods: {
     getData () {
-      axios.get('http://132.187.226.24:5000/anmeldungen_Distribution')
+      axios.get('http://132.187.226.24:5000/anmeldungen_distribution')
       .then(res => {
         this.chartOptionsBar.xAxis.data = res.data.Anmeldungen;
         this.chartOptionsBar.series.data = res.data.Anzahl;
