@@ -17,7 +17,7 @@ import Vue from "vue";
 import App from "./App";
 import "./plugins/bootstrap-vue";
 import router from "./router/index";
-
+import "@/plugins/echarts";
 import PaperDashboard from "./plugins/paperDashboard";
 import "vue-notifyjs/themes/default.css";
 

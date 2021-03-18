@@ -9,7 +9,7 @@
     <b-tab class="testtab" title="Prüfungsplan mit Teilnehmern">
       <solved-student-table />
     </b-tab>
-    <b-tab title="Kalenderansicht (coming soon)" disabled>
+    <b-tab title="Kalenderansicht (coming soon)" >
       <kalender />
     </b-tab>
   </b-tabs>
