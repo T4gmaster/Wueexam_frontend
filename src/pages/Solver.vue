@@ -1,108 +1,68 @@
 <template>
   <div>
-    <!--<h2>Übersicht</h2>-->
-    <!--Stats cards-->
-    <div class="row">
-      <div class="col-md-6 col-xl-3" v-for="stats in statsCards" :key="stats.title">
-        <stats-card>
-          <div class="icon-big text-center" :class="`icon-${stats.type}`" slot="header">
-            <i :class="stats.icon"></i>
-          </div>
-          <div class="numbers" slot="content">
-            <p>{{stats.title}}</p>
-            {{stats.value}}
-          </div>
-        </stats-card>
-      </div>
-    </div>
-    <b-button v-on:click="startSolver()" @click="makeStart()">Solver starten</b-button>
-    <b-button v-on:click="stopSolver()" @click="makeStop()">Solver beenden</b-button>
+    <h2>Informationen:</h2>
+      <anzahl-studenten /><anzahl-pruefungen /><date-card />
+      <h2>Optimierung starten</h2>
+    <b-button v-on:click="startSolver()" variant="primary"><i class="fa fa-play"></i>Solver starten</b-button>
+    <b-button v-on:click="stopSolver()" variant="primary"><i class="fa fa-stop"></i>Solver beenden</b-button>
     <solver-status v-if="solverstatus"></solver-status>
-    <router-link to=/pruefungsplan tag="b-button" class="continue" ><i class="fa fa-arrow-right"></i>Weiter</router-link>
+    <router-link to=/pruefungsplan tag="b-button" class="continue"><i class="fa fa-arrow-right"></i>Weiter</router-link>
+    <p></p>
+    <terminal-output-solver />
 </div>
 </template>
 
 <script>
 import axios from 'axios';
-import Button from '../components/Button.vue';
+import AnzahlStudenten from "@/components/AnzahlStudenten.vue";
+import AnzahlPruefungen from "@/components/AnzahlPrüfungen.vue";
 import SolverStatus from '@/components/SolverStatus.vue';
-import { StatsCard, ChartCard } from "@/components/index";
+import DateCard from '@/components/DateCard.vue';
+import TerminalOutputSolver from '@/components/TerminalOutputSolver.vue';
 
 export default { 
   components: { 
-      Button,
-      StatsCard,
-      SolverStatus
+    SolverStatus,
+    AnzahlStudenten,
+    AnzahlPruefungen,
+    DateCard,
+    TerminalOutputSolver
+  },
+  data() {
+    return {
+      solverstatus: false
+    };
+  },
+  methods: {
+    startSolver(){
+      axios.get('http://132.187.226.24:5001/startsolver')
+      .then(function (response) {
+        this.solverstatus = true
+        console.log(response);
+      })
+      .catch(function() {
+       console.log('Solver wurde gestartet');
+      });
     },
-    data() {
-        return {
-            statsCards: [
-            {
-                type: "",
-                icon: "ti-calendar",
-                title: "Start:",
-                value: "01.03.2021"
-            },
-            {
-                type: "",
-                icon: "ti-calendar",
-                title: "Ende:",
-                value: "21.03.2021"
-            },
-            {
-                type: "danger",
-                icon: "ti-book",
-                title: "Prüfungen",
-                value: "37"
-            },
-            {
-                type: "info",
-                icon: "ti-user",
-                title: "Studenten",
-                value: "1108"
-            }
-            ],
-            solverstatus: false
-        };
-    },
-    methods: {
-      startSolver(){
-          axios.get('http://132.187.226.24:5001/startsolver')
-          .then(function (response) {
-            this.solverstatus = true
-            console.log(response);
-          })
-          .catch(function() {
-             console.log('Solver wurde gestartet');
-          });
-      },
-        stopSolver(){
-          axios.get('http://132.187.226.24:5001/stopsolver')
-          .then(function (response) {
-            this.solverstatus = false
-            console.log(response);
-          })
-          .catch(function () {
-              console.log('Solver wurde gestoppt');
-          });
-        },
-        makeStart(append = false) {
-            this.toastCount++
-            this.$bvToast.toast(`Prüfungsplaner wurde gestartet!`, {
-                title: 'Status',
-                autoHideDelay: 5000,
-                appendToast: append
-            })
-        },
-        makeStop(append = false) {
-            this.toastCount++
-            this.$bvToast.toast(`Prüfungsplaner wurde gestoppt!`, {
-                title: 'Status',
-                autoHideDelay: 5000,
-                appendToast: append
-            })
-        }
+    stopSolver(){
+      axios.get('http://132.187.226.24:5001/stopsolver')
+      .then(function (response) {
+        this.solverstatus = false
+        console.log("Solver wurde gestoppt");
+        this.$bvToast.toast("test", {
+          title: 'Status',
+          autoHideDelay: 5000
+        })
+      })
+      .catch(function () {
+        console.log("Solver konnte nicht gestoppt werden");
+        this.$bvToast.toast("test2", {
+          title: 'Status',
+          autoHideDelay: 5000
+        })
+      });
     }
+  }
 };
 </script>
 <style>
