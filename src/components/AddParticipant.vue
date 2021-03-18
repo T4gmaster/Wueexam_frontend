@@ -52,16 +52,18 @@
           </b-col>
           <b-col sm="6">
           <b-form-select
-            v-model="registration.exam"
+            v-model="registration.examID"
             :options="ExamSelectOptions"
             size="sm"
             class="mt-3"
           ></b-form-select>
-          <p>ID: {{ EXAM }}</p>
+          <p>ID: {{ registration.examID }}</p>
+          <h2>text abgedruckt: </h2> <!-- geht wenn ich die zeile auskommentiere und wieder einfüge!-->
           </b-col>
         </b-row>
       </b-card>
-      <b-button @click="showRegistration" variant="primary">hinzufügen</b-button>
+      <b-button @click="showRegistration" variant="primary">hinzufügen</b-button> 
+      <!--<b-button v-on:input="(event) => this.$emit('inputChange', event)" variant="primary">hinzufügen</b-button> !-->
     </b-modal>
   </div>
 </template>
@@ -70,6 +72,9 @@
 import faecher from "@/assets/faecher.json";
 
 export default {
+  props: {
+    updateRegistration: String
+    },
   data() {
     return {
       registration: {
@@ -82,12 +87,19 @@ export default {
       },
       // alle Studiengänge die ausgewählt werden können
       CourseSelectOptions: [
-        {key: 'wiwi', text: "Wirtschaftswissenschaften"},
-        {key: 'winf', text: "Wirtschaftsinformatik"},
-        {key: 'wima', text: "Wirtschaftsmathe"}
+        {value: 'Wirtschaftswissenschaften', text: "Wirtschaftswissenschaften"},
+        {value: 'Wirtschaftsinformatik', text: "Wirtschaftsinformatik"},
+        {value: 'Wirtschaftsmathe', text: "Wirtschaftsmathe"}
       ],
       ExamSelectOptions: faecher,
     };
+  },
+  computed: {
+    /*selectedOption() {
+      const report = this.ExamSelectOptions.find( ExamSelectOptions => ExamSelectOptions.value === this.registration.exam);
+      // ToDo: map name into registration.exam variable
+      return ExamSelectOptions
+    }*/
   },
   methods: {
     /* send registration to BE
@@ -106,8 +118,10 @@ export default {
     */
     // show registration in list -> integrate into BE method
     showRegistration() {
-      //this.$emit(this.registration);
-      console.log(this.registration);
+      let registrationArray = []
+      registrationArray.push({EXAM: this.selectedOption, EXAM_ID: this.registration.examID, LAST_NAME: this.registration.lastName, FIRST_NAME: this.registration.firstName, MATRICULATION_NUMBER: this.registration.matriculationNumber, COURSE: this.registration.course})
+      this.$emit("updateRegistration", registrationArray);
+      console.log('Datum aus child' + ': ' + 'leck mich');
     }
   }
 };
