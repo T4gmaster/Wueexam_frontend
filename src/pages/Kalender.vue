@@ -20,8 +20,8 @@ export default {
   },
   methods: {
     getData () {
-      axios.get('http://132.187.226.24:5000/Kalender')
-      .then(res => {this.events[0] = res.data;
+      axios.get('http://132.187.226.24:5000/kalender')
+      .then(res => {this.events[1] = res.data;
       console.log(res.data);
       })
       .catch(error => {
