@@ -1,5 +1,11 @@
 <template>
-  <div>
+<div>
+<h2>Prüfungszeitraum festlegen:</h2>
+<FunctionalCalendar
+  v-model="calendarData"
+  :configs="calendarConfigs"  
+  :is-date-range='true'
+></FunctionalCalendar>
     <b-container fluid>
       <b-row>
         <b-col lg="2.5">
@@ -96,24 +102,32 @@
 <script>
 import moment from "moment";
 import axios from "axios";
-import testpruefungen from "@/assets/testpruefungen.json";
 import SolverSettingsInput from "@/components/SolverSettingsInput.vue"
+import { FunctionalCalendar } from 'vue-functional-calendar';
 
 
 
 export default {
   data() {
     return {
+      calendarData: {},
+      calendarConfigs: {
+        sundayStart: false,
+        dateFormat: 'dd/mm/yyyy',
+        isDateRange: true,
+        changeMonthFunction: true,
+        changeYearFunction: true,
+        isDark: false,
+      },
       startDate: "",
       endDate: "",
-      examOverview: testpruefungen,
+      examOverview: [],
       period: "",
       daytime: "",
       examOverviewHeader: [
-        {key: "Fach", label: "Fach"},
+        {key: "EXAM", label: "Prüfung"},
+        {key: "EXAM_ID", label: "PrüfungsID"},
         {key: "Teilnehmer", label: "Teilnehmer"},
-        {key: "Lehrstuhl", label: "Lehrstuhl"},
-        {key: "Studiengang", label: "Studiengang"},
         {key: "fixdate", label: "Datum"},
         {key: "fixtime", label: "Zeit"}
       ],
@@ -127,6 +141,9 @@ export default {
       days:"",
       dateArray: "",
       checked: false    };
+  },
+  created() {
+    this.getData()
   },
   computed: {
     examPeriod() {
@@ -178,9 +195,19 @@ export default {
       */
   },
   components: {
-    SolverSettingsInput
+    SolverSettingsInput,
+    FunctionalCalendar
   },
   methods: {
+    getData () {
+      axios.get("http://132.187.226.24:5000/faecherliste")
+      .then(res => {this.examOverview = res.data;
+        console.log(res.data);
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    },
     logStartDate() {
       console.log("Startdatum Prüfungszeitraum" + " " + this.startDate);
     },

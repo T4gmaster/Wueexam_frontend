@@ -32,14 +32,14 @@ export default {
           type: "",
           icon: "ti-pencil-alt",
           title: "Ø Anmeldungen pro Student",
-          value: "6,4",
+          value: "",
         }
       ]
     };
   },
   methods: {
     getData () {
-      axios.get("http://132.187.226.24:5000/Anzahl_Pruefungen")
+      axios.get("http://132.187.226.24:5000/anzahl_Pruefungen")
       .then(res => {this.statsCards[0].value = res.data;
         console.log(res.data/2);
       })
