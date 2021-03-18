@@ -200,7 +200,7 @@ import StudentsBiggerTen from "@/components/StudentsBiggerTen.vue";
       },
       getData () {
         axios.get('http://132.187.226.24:5000/anmeldeliste')
-        .then(res => {this.items = res.data;
+        .then(res => {this.items[0] = res.data;
           console.log(res.data);
         })
         .catch(error => {
