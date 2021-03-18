@@ -54,11 +54,13 @@
           <b-form-select
             v-model="registration.examID"
             :options="ExamSelectOptions"
+            value-field="EXAM_ID"
+            text-field="EXAM"
             size="sm"
             class="mt-3"
           ></b-form-select>
           <p>ID: {{ registration.examID }}</p>
-          <h2>text abgedruckt: </h2> <!-- geht wenn ich die zeile auskommentiere und wieder einfüge!-->
+           <!-- geht wenn ich die zeile auskommentiere und wieder einfüge!-->
           </b-col>
         </b-row>
       </b-card>
@@ -69,7 +71,7 @@
 </template>
 
 <script>
-import faecher from "@/assets/faecher.json";
+import axios from 'axios';
 
 export default {
   props: {
@@ -91,7 +93,7 @@ export default {
         {value: 'Wirtschaftsinformatik', text: "Wirtschaftsinformatik"},
         {value: 'Wirtschaftsmathe', text: "Wirtschaftsmathe"}
       ],
-      ExamSelectOptions: faecher,
+      ExamSelectOptions: [],
     };
   },
   computed: {
@@ -102,27 +104,34 @@ export default {
     }*/
   },
   methods: {
-    /* send registration to BE
-    addRegistry() {
-      axios.post('http://localhost:5001/addRegistry', {
-        EXAM: this.registration.exam,
-        EXAM_ID: this.registration.examID,
-        LAST_NAME: this.registration.lastName,
-        FIRST_NAME: this.registration.firstName,
-        MATRICULATION_NUMBER: this.registration.matriculationNumber,
-        COURSE: this.registration.course,
-      })
-        .then((response) => {
-          console.log(response);
-        });
-    */
-    // show registration in list -> integrate into BE method
+    // send new registration to parent component and show confirmation
     showRegistration() {
       let registrationArray = []
-      registrationArray.push({EXAM: this.selectedOption, EXAM_ID: this.registration.examID, LAST_NAME: this.registration.lastName, FIRST_NAME: this.registration.firstName, MATRICULATION_NUMBER: this.registration.matriculationNumber, COURSE: this.registration.course})
+      registrationArray.push({FIRST_NAME: this.registration.firstName, LAST_NAME: this.registration.lastName, MATRICULATION_NUMBER: this.registration.matriculationNumber, EXAM: this.selectedOption, EXAM_ID: this.registration.examID,})
       this.$emit("updateRegistration", registrationArray);
-      console.log('Datum aus child' + ': ' + 'leck mich');
+      console.log('Registration handed over to parent component:', registrationArray);
+      this.$bvModal.hide('modal-add-participant');
+      let registration = this.registration
+      this.$bvToast.toast(
+        registration.firstName + ' ' + registration.lastName + ' (' + registration.matriculationNumber + ') ' + ' - ' + registration.exam + ' (' + registration.examID + ')',
+        {
+        title: 'Prüfungsanmeldung hinzugefügt',
+        autoHideDelay: 20000,
+      })
+    },
+    // get exam select options from backend
+    getExams() {
+      axios.get("http://132.187.226.24:5000/faecherliste")
+      .then(res=> {this.ExamSelectOptions= res.data;
+      console.log(res.data);
+      })
+      .catch(error => {
+        console.log(error)
+      })
     }
+  },
+  created() {
+    this.getExams()
   }
 };
 </script>
