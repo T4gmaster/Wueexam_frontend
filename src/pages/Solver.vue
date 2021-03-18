@@ -49,17 +49,9 @@ export default {
       .then(function (response) {
         this.solverstatus = false
         console.log("Solver wurde gestoppt");
-        this.$bvToast.toast("test", {
-          title: 'Status',
-          autoHideDelay: 5000
-        })
       })
       .catch(function () {
         console.log("Solver konnte nicht gestoppt werden");
-        this.$bvToast.toast("test2", {
-          title: 'Status',
-          autoHideDelay: 5000
-        })
       });
     }
   }
