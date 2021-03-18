@@ -28,11 +28,14 @@
 
             <p></p>
 
-            <b-list-group class="list-container" horizontal size="sm" v-for="(day, index) in period.dateArray" :key="index">
+            <b-list-group class="list-container" horizontal size="sm" v-for="(day, index) in period.dateArray" :key="index" v-model="period.DatArray" :checked="checked">
               <b-list-group-item  flush horizontal button lg="1">{{ day.locale('de').format('dddd MM.DD.YYYY') }}
               <b-form-checkbox></b-form-checkbox>
               </b-list-group-item>
             </b-list-group>
+            <p>ausgewählt: {{ checked.length }}</p>
+            <p>gezählt: {{ period.dateArray.length }}</p>
+
 
 
             <!--
@@ -122,24 +125,38 @@ export default {
         solver_time_limit: 20000
       },
       days:"",
-      dateArray: ""
-    };
+      dateArray: "",
+      checked: false    };
   },
   computed: {
     examPeriod() {
       let start = moment(this.startDate);
       let end = moment(this.endDate);
-      let days = end.diff(start, "days");
+      let days = end.diff(start, "days")+1;
       return days;
     },
     getDates(startDate, stopDate) {
       let dateArray = new Array();
       let firstDate = moment(this.startDate);
       let lastDate = moment(this.endDate);
+      // let checkArray = new Array();
       while (firstDate <= lastDate) {
         dateArray.push(moment(new Date(firstDate)));//.format('DD.MM'));//.toISOString());
         firstDate = moment(firstDate).add(1, "days");
         // moment(this.f,irstDate).format('DD.MM.YYYY')
+      /*
+      while (firstDate <= lastDate) { 
+        checkArray.push(new Boolean(check));
+        if (moment(this.firstDate).weekday() != 4) {
+          check === true
+        }else {
+          check === false
+        }
+      }
+      */
+        
+
+
       }
    //   const dateJson = {
    //     Prüfungstage: dateArray,
