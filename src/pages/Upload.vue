@@ -224,10 +224,7 @@ import StudentsBiggerTen from "@/components/StudentsBiggerTen.vue";
           console.log(error);
         });
       }
-    },
-    created() {
-      this.getData()
-    },
+    }
   }
 </script>
 
