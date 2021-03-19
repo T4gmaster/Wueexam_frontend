@@ -19,6 +19,7 @@
 import AddParticipant from '@/components/AddParticipant.vue';
 import StudentsBiggerTen from "@/components/StudentsBiggerTen.vue";
 import RegistrationList from "@/components/RegistrationList.vue";
+import axios from 'axios';
 
   export default {
     components: {
