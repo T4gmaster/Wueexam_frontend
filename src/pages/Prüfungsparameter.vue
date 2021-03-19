@@ -201,7 +201,7 @@ export default {
   },
   methods: {
     getData () {
-      axios.get("http://132.187.226.24:5000/faecherliste")
+      axios.get(this.$IPBE + "/faecherliste")
       .then(res => {this.examOverview = res.data;
         console.log(res.data);
       })
@@ -228,7 +228,7 @@ export default {
       let testdaten = {test: this.testUpdateData, dauer: days}
       testdaten.toJSON
       console.log(testdaten);
-      axios.post('http://localhost:5001/update_parameters', testdaten)
+      axios.post(this.$IPBE + "/update_parameters")
     }
   }
 };

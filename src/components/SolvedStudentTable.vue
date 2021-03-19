@@ -58,7 +58,7 @@ import DataTable from "vue-materialize-datatable";
     },
     methods: {
       getData () {
-        axios.get('http://132.187.226.24:5000/studentenansicht')
+        axios.get(this.$IPBE + "/studentenansicht")
         .then(res => {this.tableRows1 = res.data;
           console.log(res.data);
         })

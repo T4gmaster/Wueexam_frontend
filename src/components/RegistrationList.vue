@@ -1,63 +1,70 @@
 <template>
-  <div>
-  <datatable
-  title="Studenten mit mehr als 8 Prüfungsanmeldungen"
+
+<datatable
+	title="Gesamte Anmeldeliste"
 	:columns="tableColumns1"
-  :printable="false"
-  :exportable="true"
-  :paginate="false"
 	:rows="tableRows1"
   :perPage="[25, 50, 100]"
   locale="de"
 />
-  </div>
+
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios';
 import DataTable from "vue-materialize-datatable";
-
 
   export default {
     components: {
       "datatable": DataTable
     },
     data() {
-      return {
-        items: null,
-        tableColumns1: [
+	    return {
+		    tableColumns1: [
 			    {
-				    label: "Mtr-Nr.",
-				    field: "Matrikelnummer",
+				    label: "Prüfung",
+				    field: "EXAM",
+				    numeric: false,
+				    html: false
+			    },
+			    {
+				    label: "Prüfungs ID",
+				    field: "EXAM_ID",
 				    numeric: false,
 				    html: false
 			    },
 			    {
 				    label: "Nachname",
-				    field: "Nachname",
+				    field: "LAST_NAME",
 				    numeric: false,
 				    html: false
 			    },
 			    {
 				    label: "Vorname",
-				    field: "Vorname",
+				    field: "FIRST_NAME",
 				    numeric: false,
 				    html: false
 			    },
-			    {
-				    label: "Anmeldungen",
-				    field: "Anmeldungen",
+				{
+				    label: "Mtr-Nr.",
+				    field: "MATRICULATION_NUMBER",
+				    numeric: false,
+				    html: false
+			    },
+				{
+				    label: "Studiengang",
+				    field: "COURSE",
 				    numeric: false,
 				    html: false
 			    }
 		    ],
 		    tableRows1: [
 		    ],
-      };
+	    }
     },
     methods: {
       getData () {
-        axios.get(this.$IPBE + "/anzahl_studenten_10")
+        axios.get(this.$IPBE + '/anmeldeliste')
         .then(res => {this.tableRows1 = res.data;
           console.log(res.data);
         })
@@ -71,3 +78,7 @@ import DataTable from "vue-materialize-datatable";
     }
   }
 </script>
+
+<style scoped>
+
+</style>

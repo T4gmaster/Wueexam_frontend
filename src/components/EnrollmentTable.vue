@@ -39,7 +39,7 @@
     methods: {
       getData () {
         axios
-        .get('http://132.187.226.24:5000/anmeldeliste')
+        .get(this.$IPBE + "/anmeldeliste")
         .then(res => {
           this.anmeldeliste = res.data;
           console.log(res.data);

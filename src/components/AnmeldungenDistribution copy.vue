@@ -66,7 +66,7 @@ export default {
   },
   methods: {
     getData () {
-      axios.get(this.$IPBE + "/anmeldungen_distribution")
+      axios.get(this.$IPBE + "anmeldungen_distribution")
       .then(res => {
         this.chartOptionsBar.xAxis.data = res.data.Anmeldungen;
         this.chartOptionsBar.series.data = res.data.Anzahl;

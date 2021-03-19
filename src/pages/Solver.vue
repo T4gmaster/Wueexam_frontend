@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     startSolver(){
-      axios.get('http://132.187.226.24:5001/startsolver')
+      axios.get(this.$IPBE + "/startsolver")
       .then(function (response) {
         this.solverstatus = true
         console.log(response);
@@ -45,7 +45,7 @@ export default {
       });
     },
     stopSolver(){
-      axios.get('http://132.187.226.24:5001/stopsolver')
+      axios.get(this.$IPBE + "/stopsolver")
       .then(function (response) {
         this.solverstatus = false
         console.log("Solver wurde gestoppt");

@@ -121,7 +121,7 @@ export default {
     },
     // get exam select options from backend
     getExams() {
-      axios.get("http://132.187.226.24:5000/faecherliste")
+      axios.get(this.$IPBE + "/faecherliste")
       .then(res=> {this.ExamSelectOptions= res.data;
       console.log(res.data);
       })

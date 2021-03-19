@@ -3,12 +3,15 @@
   fill 
   active-nav-item-class="font-weight-bold">
     <b-tab title="Anmeldestatistik" active>
+      
         <anzahl-studenten />
         <anzahl-pruefungen />
         <durchschnitt-anmeldungen />
       <anmeldungen-distribution />
+      <treemap />
     </b-tab>
-    <b-tab title="Prüfungsstatistik (coming soon)" disabled>
+    <b-tab title="Prüfungsstatistik">
+    <heat-map />
     </b-tab>
   </b-tabs>
 </template>
@@ -18,7 +21,8 @@ import AnzahlStudenten from "@/components/AnzahlStudenten.vue";
 import AnmeldungenDistribution from "@/components/AnmeldungenDistribution.vue";
 import AnzahlPruefungen from "@/components/AnzahlPrüfungen.vue";
 import DurchschnittAnmeldungen from "@/components/DurchschnittAnmeldungen.vue";
-/*import HeatMap from "@/components/Heatmap.vue"; */
+import Treemap from "@/components/Treemap.vue";
+import HeatMap from "@/components/Heatmap.vue"; 
 
 export default { 
   components: { 
@@ -26,7 +30,8 @@ export default {
     AnmeldungenDistribution,
     AnzahlPruefungen,
     DurchschnittAnmeldungen,
-    /*HeatMap*/
+    Treemap,
+    HeatMap
   }
 }
 </script>
