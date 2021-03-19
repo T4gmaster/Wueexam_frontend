@@ -64,7 +64,7 @@
           </b-col>
         </b-row>
       </b-card>
-      <b-button @click="showRegistration" variant="primary">hinzufügen</b-button> 
+      <b-button @click="showRegistration(), receiveRegistration()" variant="primary">hinzufügen</b-button> 
       <!--<b-button v-on:input="(event) => this.$emit('inputChange', event)" variant="primary">hinzufügen</b-button> !-->
     </b-modal>
   </div>
@@ -128,7 +128,23 @@ export default {
       .catch(error => {
         console.log(error)
       })
-    }
+    },
+    receiveRegistration (reply) {
+        let newRegistration = reply
+        console.log ('new registration in parent component:', newRegistration)
+        axios.post(this.$IPBE + "/anmeldung_nachtrag", 
+        newRegistration, {
+        headers: {
+            'Access-Control-Allow-Origin': '*'
+          }
+        })
+          .then(function (response) {
+          console.log(response);
+          })
+          .catch(function (error) {
+          console.log(error);
+        });
+      }
   },
   created() {
     this.getExams()

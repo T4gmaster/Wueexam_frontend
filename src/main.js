@@ -10,6 +10,7 @@ import VueApexCharts from "vue-apexcharts";
 
 Vue.config.productionTip = false
 Vue.prototype.$IPBE = 'http://132.187.226.24:5000'
+Vue.prototype.$IPOPTIMIZATION = 'http://132.187.226.24:5001'
 
 Vue.use(VueApexCharts);
 Vue.component("apexchart", VueApexCharts);

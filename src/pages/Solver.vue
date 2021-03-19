@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Informationen:</h2>
-      <anzahl-studenten /><anzahl-pruefungen /><date-card />
+      <anzahl-studenten lg="2" class="test" /><anzahl-pruefungen class="test2" /><date-card />
       <h2>Optimierung starten</h2>
     <b-button v-on:click="startSolver()" variant="primary"><i class="fa fa-play"></i>Solver starten</b-button>
     <b-button v-on:click="stopSolver()" variant="primary"><i class="fa fa-stop"></i>Solver beenden</b-button>
@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     startSolver(){
-      axios.get(this.$IPBE + "/startsolver")
+      axios.get(this.$IPOPTIMIZATION + "/startsolver")
       .then(function (response) {
         this.solverstatus = true
         console.log(response);
@@ -45,7 +45,7 @@ export default {
       });
     },
     stopSolver(){
-      axios.get(this.$IPBE + "/stopsolver")
+      axios.get(this.$IPOPTIMIZATION + "/stopsolver")
       .then(function (response) {
         this.solverstatus = false
         console.log("Solver wurde gestoppt");
@@ -58,4 +58,12 @@ export default {
 };
 </script>
 <style>
+.test {
+  float: right;
+  width:  100%; 
+}
+.test2 {
+  float: left;
+  width: 100%;
+}
 </style>
