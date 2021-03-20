@@ -7,7 +7,7 @@ import PaperDashboard from "./plugins/paperDashboard";
 import "vue-notifyjs/themes/default.css";
 import VueApexCharts from "vue-apexcharts";
 
-import * as Keycloak from 'keycloak-js';
+/*import * as Keycloak from 'keycloak-js';*/
 
 
 Vue.config.productionTip = false
@@ -17,9 +17,14 @@ Vue.prototype.$IPOPTIMIZATION = 'http://132.187.226.24:5001'
 Vue.use(VueApexCharts);
 Vue.component("apexchart", VueApexCharts);
 
-
 Vue.use(PaperDashboard);
 
+new Vue({
+  router,
+  render: h => h(App),
+}).$mount("#app");
+
+/*
 let initOptions = {
   url: 'http://132.187.226.24:8080/auth', realm: 'WueExam', clientId: 'app-wueexam', onLoad: 'login-required'
 }
@@ -57,3 +62,4 @@ keycloak.init({ onLoad: initOptions.onLoad }).then((auth) => {
 }).catch(() => {
   console.log("Authenticated Failed");
 });
+*/

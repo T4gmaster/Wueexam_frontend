@@ -1,7 +1,7 @@
 <template>
 
 <datatable
-	title="Gesamter Prüfungsplan"
+	title="Prüfungsplan mit Teilnehmern"
 	:columns="tableColumns1"
 	:rows="tableRows1"
   :perPage="[25, 50, 100]"

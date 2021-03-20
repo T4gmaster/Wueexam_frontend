@@ -26,22 +26,22 @@
 
 <style>
 .kachel2 {
-  height: 130px;
-  width: 130px;
+  height: 150px;
+  width: 150px;
   border: 1px solid #000000;
   cursor: pointer;
   background-color: #4aa718;
 }
 .kachel1 {
-  height: 130px;
-  width: 130px;
+  height: 150px;
+  width: 150px;
   border: 1px solid #000000;
   cursor: pointer;
   background-color: #2c93de;
 }
 .kachel3 {
-  height: 130px;
-  width: 130px;
+  height: 150px;
+  width: 150px;
   border: 1px solid #000000;
   cursor: pointer;
   background-color: #dc572a;
@@ -64,7 +64,7 @@
 }
 .langerbutton {
   height: 40px;
-  width: 400px;
+  width: 460px;
   border: 1px solid #000000;
   cursor: pointer;
 }

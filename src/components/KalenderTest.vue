@@ -42,7 +42,7 @@ export default {
 }
 </script>
  
-<style>
+<style scoped>
   html, body {
     height: 100%;
     margin: 0;

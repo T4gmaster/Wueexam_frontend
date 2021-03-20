@@ -9,8 +9,10 @@
     <b-tab class="testtab" title="Prüfungsplan mit Teilnehmern">
       <solved-student-table />
     </b-tab>
-    <b-tab title="Kalenderansicht (coming soon)" >
-      <kalender />
+    <b-tab title="Kalenderansicht" @click="forceRerender()" >
+    <div class="container">
+      <kalender-test class="left-container" :key="componentKey"/>
+    </div>
     </b-tab>
   </b-tabs>
 </div>
@@ -19,14 +21,24 @@
 <script>
 import WueExamResultTable from '@/components/WueExamResultTable.vue';
 import SolvedStudentTable from '@/components/SolvedStudentTable.vue';
-import Kalender from "@/components/Kalenderansicht.vue";
+import KalenderTest from "@/components/KalenderTest.vue";
 
 export default {
   name: 'app',
+  data () {
+    return {
+      componentKey: 0,
+    }
+  },
   components: {
     WueExamResultTable,
     SolvedStudentTable,
-    Kalender
+    KalenderTest
+  },
+  methods: {
+    forceRerender() {
+      this.componentKey += 1;
+    }
   }
 }  
 </script>
