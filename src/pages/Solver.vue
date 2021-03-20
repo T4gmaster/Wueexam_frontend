@@ -3,7 +3,7 @@
     <h2>Informationen:</h2>
       <anzahl-studenten lg="2" class="test" /><anzahl-pruefungen class="test2" /><date-card />
       <h2>Optimierung starten</h2>
-    <div class="grid-container">
+    <div class="grid2-container">
       <div>
         <b-button v-on:click="startSolver()" variant="primary"><i class="fa fa-play"></i>Optimierung starten</b-button>
       </div>
@@ -72,7 +72,7 @@ export default {
   float: left;
   width: 100%;
 }
-.grid-container {
+.grid2-container {
   display: inline-grid;
   grid-template-columns: auto auto;
   grid-gap: 2px;
