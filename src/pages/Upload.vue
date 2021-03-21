@@ -68,6 +68,22 @@ import axios from 'axios';
           appendToast: append
         })
       },
+      receiveRegistration (reply) {
+        let newRegistration = reply
+        console.log ('new registration in parent component:', newRegistration)
+        axios.post(this.$IPBE + "/anmeldung_nachtrag", 
+        newRegistration, {
+        headers: {
+            'Content-Type': 'application/json',
+        }
+        })
+          .then(function (response) {
+          console.log(response);
+          })
+          .catch(function (error) {
+          console.log(error);
+        });
+      },
       reload() {
         location.reload();
       },
@@ -93,6 +109,8 @@ import axios from 'axios';
   max-width: 100px;
 }
 .upload{
-  margin-top: px;
+  margin-top:563
+  
+  534633333333 px;
 }
 </style>

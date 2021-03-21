@@ -64,7 +64,7 @@
           </b-col>
         </b-row>
       </b-card>
-      <b-button @click="showRegistration(), receiveRegistration()" variant="primary">hinzufügen</b-button> 
+      <b-button @click="showRegistration" variant="primary">hinzufügen</b-button> 
       <!--<b-button v-on:input="(event) => this.$emit('inputChange', event)" variant="primary">hinzufügen</b-button> !-->
     </b-modal>
   </div>
@@ -106,8 +106,7 @@ export default {
   methods: {
     // send new registration to parent component and show confirmation
     showRegistration() {
-      let registrationArray = []
-      registrationArray.push({FIRST_NAME: this.registration.firstName, LAST_NAME: this.registration.lastName, MATRICULATION_NUMBER: this.registration.matriculationNumber, EXAM: this.selectedOption, EXAM_ID: this.registration.examID,})
+      let registrationArray = ({EXAM: 'placeholder', EXAM_ID: this.registration.examID, LAST_NAME: this.registration.lastName, FIRST_NAME: this.registration.firstName, MATRICULATION_NUMBER: this.registration.matriculationNumber, COURSE: this.registration.course})
       this.$emit("updateRegistration", registrationArray);
       console.log('Registration handed over to parent component:', registrationArray);
       this.$bvModal.hide('modal-add-participant');
@@ -128,23 +127,7 @@ export default {
       .catch(error => {
         console.log(error)
       })
-    },
-    receiveRegistration (reply) {
-        let newRegistration = reply
-        console.log ('new registration in parent component:', newRegistration)
-        axios.post(this.$IPBE + "/anmeldung_nachtrag", 
-        newRegistration, {
-        headers: {
-            'Access-Control-Allow-Origin': '*'
-          }
-        })
-          .then(function (response) {
-          console.log(response);
-          })
-          .catch(function (error) {
-          console.log(error);
-        });
-      }
+    }
   },
   created() {
     this.getExams()
