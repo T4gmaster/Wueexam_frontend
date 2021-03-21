@@ -53,7 +53,6 @@ export default {
           const responseTwo = responses[1];
           let average = responseTwo.data / responseOne.data;
           this.statsCards[0].value = average.toFixed(2);
-        /*responses[0] => {this.statsCards[0].value = responses[0].data; */
         console.log(average);  
         })
       )
