@@ -1,6 +1,6 @@
 <template>
 
-<datatable class="table"
+<datatable class="table22"
 	title="Gesamte Anmeldeliste"
 	:columns="tableColumns1"
 	:rows="tableRows1"
@@ -80,7 +80,7 @@ import DataTable from "vue-materialize-datatable";
 </script>
 
 <style>
-.table {
+.table22 {
 	margin-top: 20px;
 }
 

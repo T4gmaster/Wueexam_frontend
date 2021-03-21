@@ -3,10 +3,9 @@
   fill 
   active-nav-item-class="font-weight-bold">
     <b-tab title="Anmeldestatistik" active>
-      
-        <anzahl-studenten />
-        <anzahl-pruefungen />
-        <durchschnitt-anmeldungen />
+      <anzahl-studenten />
+      <anzahl-pruefungen />
+      <durchschnitt-anmeldungen />
       <anmeldungen-distribution />
       <treemap />
     </b-tab>

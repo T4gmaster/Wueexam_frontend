@@ -20,7 +20,7 @@
 import axios from 'axios';
 import { StatsCard, ChartCard } from "@/components/index";
 
-let one = "http://132.187.226.24:5000/anzahl_pruefungen";
+let one = "http://132.187.226.24:5000/anzahl_studenten";
 let two = "http://132.187.226.24:5000/anzahl_anmeldungen";
 
 const requestOne = axios.get(one);
@@ -51,8 +51,10 @@ export default {
         axios.spread((...responses) => {
           const responseOne = responses[0];
           const responseTwo = responses[1];
+          let average = responseTwo.data / responseOne.data;
+          this.statsCards[0].value = average.toFixed(2);
         /*responses[0] => {this.statsCards[0].value = responses[0].data; */
-        console.log("Test", responseOne, responseTwo);  
+        console.log(average);  
         })
       )
       .catch(error => {
