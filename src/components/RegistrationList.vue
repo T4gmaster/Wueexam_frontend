@@ -1,10 +1,10 @@
 <template>
 
-<datatable
+<datatable class="table"
 	title="Gesamte Anmeldeliste"
 	:columns="tableColumns1"
 	:rows="tableRows1"
-  :perPage="[25, 50, 100]"
+  :perPage="[5, 25, 50, 100]"
   locale="de"
 />
 
@@ -79,6 +79,9 @@ import DataTable from "vue-materialize-datatable";
   }
 </script>
 
-<style scoped>
+<style>
+.table {
+	margin-top: 20px;
+}
 
 </style>
