@@ -13,7 +13,7 @@
   </b-row>
   <registration-list class="upload" :key="componentKey" />
   <b-row>
-  <add-participant class="button" />
+  <add-participant @updateRegistration="receiveRegistration" class="button" />
   <b-button class="button" variant="primary" v-b-modal.modal-1>Studenten > 8 Anmeldungen</b-button>
   <router-link to=/pruefungsparamter tag="b-button" class="continue" ><i class="fa fa-arrow-right"></i>Weiter</router-link>
   </b-row>
