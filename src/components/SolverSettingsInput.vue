@@ -1,9 +1,9 @@
 <template>
   <div>
-    <b-button v-b-modal.modal-1 variant="primary"
+    <b-button id="show-btn" @click="$bvModal.show('modal-settings-input')" variant="primary"
       >technische Parameter ändern</b-button
     >
-    <b-modal id="modal-1" title="Solvereinstellungen ändern">
+    <b-modal id="modal-settings-input" title="Solvereinstellungen ändern" size="xl" hide-footer>
         <!--Days before !-->
       <b-card title="Days before">
         <p></p>
@@ -12,7 +12,7 @@
             <label v-b-tooltip.hover title="Technische Erklärung">Tage</label>
           </b-col>
           <b-col sm="4">
-            <b-form-spinbutton v-model="daysbefore" inline></b-form-spinbutton>
+            <b-form-spinbutton v-model="settings.days_before" inline></b-form-spinbutton>
           </b-col>
         </b-row>
         <p></p>
@@ -59,10 +59,11 @@
             >
           </b-col>
           <b-col sm="4">
-            <b-form-spinbutton v-model="timelimit" inline></b-form-spinbutton>
+            <b-form-spinbutton min="1" max="100000" v-model="settings.solver_time_limit" inline></b-form-spinbutton>
           </b-col>
         </b-row>
       </b-card>
+      <b-button @click="addSettings" variant="primary">hinzufügen</b-button>
     </b-modal>
   </div>
 </template>
@@ -71,9 +72,13 @@
 export default {
   data() {
     return {
-      weighting: "1",
-      timelimit: "500",
-      daysbefore: "3",
+      settings: {
+        days: 14,
+        days_before: 7,
+        solver_msg: true,
+        solver_time_limit: 20000
+      },
+      weighting: 1,
       exams: [
           {id: 1, exam: "1-3", normalizationweighting: ''},
           {id: 2, exam: "4-6", normalizationweighting: ''},
@@ -86,9 +91,23 @@ export default {
           {key: "exam", label: "Prüfung", class: "normalizationtablecolumnone"},
           {key: "normalizationweighting", label: "Gewichtung"},
       ],
-      normalizationweightingvalue: '1'
+      normalizationweightingvalue: 1
     };
   },
+  methods: {
+    addSettings() {
+      let solverSettings = {solver_time_limit: this.settings.solver_time_limit, solver_msg: this.settings.solver_msg, days_before: this.settings.days_before};
+      this.$emit("updateSettings", solverSettings)
+      console.log ('new values have been passed to parent component:', solverSettings)
+      this.$bvModal.hide('modal-settings-input');
+      this.$bvToast.toast(
+          'ToDo: neue Settings abdrucken',
+          {
+          title: 'Algorithmus Parameter geändert!',
+          autoHideDelay: 20000,
+          });
+    }
+  }
 };
 </script>
 

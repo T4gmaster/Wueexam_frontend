@@ -28,12 +28,10 @@
         </b-col>
         <b-col>
           <p></p>
-          <h2>Prüfungszeitraum: {{ examPeriod }} Tage</h2>
+          <h2>Prüfungszeitraum: {{ examPeriod ? examPeriod + ' Tage' : 'bitte Start- & Enddatum wählen'}} </h2>
           <p></p>
           <b-row>
-
             <p></p>
-
             <b-list-group class="list-container" horizontal size="sm" v-for="(day, index) in period.dateArray" :key="index" v-model="period.DatArray" :checked="checked">
               <b-list-group-item  flush horizontal button lg="1">{{ day.locale('de').format('dddd MM.DD.YYYY') }}
               <b-form-checkbox></b-form-checkbox>
@@ -41,25 +39,6 @@
             </b-list-group>
             <p>ausgewählt: {{ checked.length }}</p>
             <p>gezählt: {{ period.dateArray.length }}</p>
-
-
-
-            <!--
-            <b-table hover :items="period">
-            </b-table>
-            <ul>
-              <li v-for="(day, index) in periods">
-                {{day}}
-
-              </li>
-            </ul>
-
-            !-->
-
-            
-
-
-
           </b-row>
         </b-col>
       </b-row>
@@ -80,7 +59,6 @@
                 </b-input-group-append>
               </b-input-group>
             </template>
-            
           </b-table>
         </b-col>
       </b-row>
@@ -90,7 +68,7 @@
     <b-column sm="5">
     </b-column>
     <b-column sm="3">
-    <solver-settings-input></solver-settings-input>
+    <solver-settings-input @updateSettings="receiveSettings"></solver-settings-input>
     </b-column>
     <router-link to=/solver tag="b-button" class="continue" ><i class="fa fa-arrow-right"></i>Weiter</router-link>
     <b-button @click="updateParameters">Parameter speichern</b-button>
@@ -159,41 +137,12 @@ export default {
       let lastDate = moment(this.endDate);
       // let checkArray = new Array();
       while (firstDate <= lastDate) {
-        dateArray.push(moment(new Date(firstDate)));//.format('DD.MM'));//.toISOString());
+        dateArray.push(moment(new Date(firstDate)));
         firstDate = moment(firstDate).add(1, "days");
-        // moment(this.f,irstDate).format('DD.MM.YYYY')
-      /*
-      while (firstDate <= lastDate) { 
-        checkArray.push(new Boolean(check));
-        if (moment(this.firstDate).weekday() != 4) {
-          check === true
-        }else {
-          check === false
-        }
       }
-      */
-        
-
-
-      }
-   //   const dateJson = {
-   //     Prüfungstage: dateArray,
-   //   };
- //     const dateJson = (JSON.stringify(dateArray))
         console.log(dateArray)
-   //   console.log(JSON.stringify(dateJson));
-
-      // fix: Prüfungstage variable korrekt übergeben
-      //this.dateArray = dateArray; // need to overwrite data section in order to display list
       this.period = {dateArray}
-      //return dateArray;
     },
-    // check if days are selected
-      /*
-      countCheckedDays() {
-        let daysCheckboxes = 
-      }
-      */
   },
   components: {
     SolverSettingsInput,
@@ -229,6 +178,25 @@ export default {
       testdaten.toJSON
       console.log(testdaten);
       axios.post(this.$IPBE + "/update_parameters")
+    },
+    // send settings to be
+    receiveSettings(reply) {
+      let newSettings = (reply);
+      console.log('settings received from child component:', newSettings);
+      newSettings.days = this.testUpdateData.days // add days from parent component to json object
+      console.log('full settings:', newSettings);
+      axios.post(this.$IPBE + "/update_parameter", 
+        newSettings, {
+        headers: {
+            'Content-Type': 'application/json',
+        }
+        })
+          .then(function (response) {
+          console.log(response);
+          })
+          .catch(function (error) {
+          console.log(error);
+        });
     }
   }
 };
@@ -241,110 +209,5 @@ export default {
 .list-container {
     display: table; /* Make the container element behave like a table */
     width: 30%; /* Set full-width to expand the whole page */
-}
-</style>
-
-<!--
-<template>
-<div>
-<button @click="getDates"></button>
-</div>
-</template>
-
-<script>
-import Button from '../components/Button.vue';
-
-export default {
-  components: { Button },
-  methods: {
-    getDatesBetween {
-      function(startDate, endDate) {
-        let currentDate = new Date(
-          startDate.getFullYear(),
-          startDate.getMonth(),
-          startDate.getDate()
-        );
-        while (currentDate <= endDate) {
-          dates.push(currentDate);
-
-          currentDate = new Date(
-          startDate.getFullYear(),
-          startDate.getMonth(),
-          startDate.getDate() +1,
-          );
-        }
-        return dates;
-      }
-    }
-    
-
-  }
-  getDatesBetween = (startDate, endDate) => {
-    const dates = [];
-
-    // Strip hours minutes seconds etc.
-    let currentDate = new Date(
-        startDate.getFullYear(),
-        startDate.getMonth(),
-        startDate.getDate()
-    );
-
-    while (currentDate <= endDate) {
-        dates.push(currentDate);
-
-        currentDate = new Date(
-            currentDate.getFullYear(),
-            currentDate.getMonth(),
-            currentDate.getDate() + 1, // Will increase month if over range
-        );
-    }
-
-    return dates;
-};
-
-// Usage
-const dates = getDates(new Date(2018, 0, 30, 11, 30), new Date(2018, 2, 2, 23, 59, 59)); 
-
-console.log(dates);
-}
-</script>
-
-<!--
-
-<template>
-<div>
-  <div>
-    <router-link to=/solver tag="button" class="continue">Weiter</router-link>
-  </div>
-    <div>
-    <label for="start-timeperiod">Beginn der Prüfungsphase</label>
-    <b-form-datepicker
-      id="start-timeperiod"
-      v-model="start"
-      class="mb-2"
-    ></b-form-datepicker>
-    <label for="end-timeperiod">Ende der Prüfungsphase</label>
-    <b-form-datepicker
-      id="end-timeperiod"
-      v-model="end"
-      class="mb-2"
-    ></b-form-datepicker>
-  </div>
-</div>
-</template>
-<script>
-export default {
-    data() {
-      return {
-        value: ''
-      }
-    }
-  }
-</script>
-<style>
-.continue {
-  float: right;
-  height: 35px;
-  width: 125px;
 }
 </style>

@@ -60,12 +60,13 @@
             class="mt-3"
           ></b-form-select>
           <p>ID: {{ registration.examID }}</p>
-           <!-- geht wenn ich die zeile auskommentiere und wieder einfüge!-->
+          <!--<h3>Fach: {{  }}</h3>
+            geht wenn ich die zeile auskommentiere und wieder einfüge!-->
+          <p>Name: {{  }}</p>
           </b-col>
         </b-row>
       </b-card>
       <b-button @click="showRegistration" variant="primary">hinzufügen</b-button> 
-      <!--<b-button v-on:input="(event) => this.$emit('inputChange', event)" variant="primary">hinzufügen</b-button> !-->
     </b-modal>
   </div>
 </template>
@@ -97,15 +98,20 @@ export default {
     };
   },
   computed: {
-    /*selectedOption() {
-      const report = this.ExamSelectOptions.find( ExamSelectOptions => ExamSelectOptions.value === this.registration.exam);
+    selectedOption: function() {
+      const report = this.ExamSelectOptions.find( option => option.EXAM_ID === this.registration.examID);
       // ToDo: map name into registration.exam variable
-      return ExamSelectOptions
-    }*/
+      console.log(report)
+      return option.EXAM
+    },
+    currentValue() {
+      // let registration.examID = t
+      const result = this.ExamSelectOptions.find(option => option.value /* oder option.EXAM_ID */ === this.registration.examID)
+    }
   },
   methods: {
     // send new registration to parent component and show confirmation
-    showRegistration() {
+    showRegistration(event) {
       let registrationArray = ({EXAM: 'placeholder', EXAM_ID: this.registration.examID, LAST_NAME: this.registration.lastName, FIRST_NAME: this.registration.firstName, MATRICULATION_NUMBER: this.registration.matriculationNumber, COURSE: this.registration.course})
       this.$emit("updateRegistration", registrationArray);
       console.log('Registration handed over to parent component:', registrationArray);
@@ -116,13 +122,20 @@ export default {
         {
         title: 'Prüfungsanmeldung hinzugefügt',
         autoHideDelay: 20000,
-      })
+      });
+      //clean form
+      this.registration.firstName='';
+      this.registration.lastName='';
+      this.registration.matriculationNumber='';
+      this.registration.exam='';
+      this.registration.examID='';
+      this.registration.course='';
     },
     // get exam select options from backend
     getExams() {
       axios.get(this.$IPBE + "/faecherliste")
       .then(res=> {this.ExamSelectOptions= res.data;
-      console.log(res.data);
+      console.log('Faecherliste from backend: ', res.data);
       })
       .catch(error => {
         console.log(error)

@@ -1,8 +1,8 @@
 <template>
 <div>
   <b-row>
-    <b-col lg="3"><b-form-file size="md" placeholder="Datei wählen" drop-placeholder="Datei hier ablegen" type="file" id="file" ref="file" v-on:change="handleFileUpload()"></b-form-file></b-col>
-    <b-button class="button" variant="primary" v-on:click="submitFile()" @click="makeToast()"><i class="fa fa-upload"></i>Hochladen</b-button>
+    <b-col lg="3"><b-form-file size="md" placeholder="Datei wählen" drop-placeholder="Datei hier ablegen" accept=".csv, .xlsx, .xls" type="file" id="file" ref="file" v-on:change="handleFileUpload()"></b-form-file></b-col>
+    <b-button class="button" variant="primary" v-on:click="submitFile()"><i class="fa fa-upload"></i>Hochladen</b-button>
     <b-button class ="button-icon" @click="forceRerender()"><i class="fa fa-refresh"></i></b-button>
      
     
@@ -41,10 +41,19 @@ import axios from 'axios';
       this.getData()
     },
     methods: {
+      // select file
       handleFileUpload(){
       this.file = this.$refs.file.files[0];
       console.log('Datei wurde ausgewählt.', this.file);
       },
+      // reload registration list
+      reload() {
+        location.reload();
+      },
+      forceRerender() {
+        this.componentKey += 1;
+      },
+      // upload registration file (csv/xlsx/xls)
       submitFile(){
         let formData = new FormData();
         formData.append('file', this.file);
@@ -56,18 +65,16 @@ import axios from 'axios';
         })
         .then(function () {
           console.log('Datei wurde hochgeladen');
+          this.$bvToast.toast(`Anmeldeliste wurde hochgeladen!`, {
+          title: 'Status',
+          autoHideDelay: 5000,
+        })
         })
         .catch(function(){
           console.log('Problem beim Hochladen der Datei');
         });
       },
-      makeToast(append = false) {
-        this.$bvToast.toast(`Anmeldeliste wurde hochgeladen!`, {
-          title: 'Status',
-          autoHideDelay: 5000,
-          appendToast: append
-        })
-      },
+      // add registration 
       receiveRegistration (reply) {
         let newRegistration = reply
         console.log ('new registration in parent component:', newRegistration)
@@ -79,16 +86,11 @@ import axios from 'axios';
         })
           .then(function (response) {
           console.log(response);
+          this.forceRerender() // reload list after adding new registration
           })
           .catch(function (error) {
           console.log(error);
         });
-      },
-      reload() {
-        location.reload();
-      },
-      forceRerender() {
-        this.componentKey += 1;
       }
     }
   }
