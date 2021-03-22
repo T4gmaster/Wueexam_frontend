@@ -7,7 +7,6 @@
       <anzahl-pruefungen />
       <durchschnitt-anmeldungen />
       <anmeldungen-distribution />
-      <treemap />
     </b-tab>
     <b-tab title="Prüfungsstatistik">
     <heat-map />
@@ -20,7 +19,6 @@ import AnzahlStudenten from "@/components/AnzahlStudenten.vue";
 import AnmeldungenDistribution from "@/components/AnmeldungenDistribution.vue";
 import AnzahlPruefungen from "@/components/AnzahlPrüfungen.vue";
 import DurchschnittAnmeldungen from "@/components/DurchschnittAnmeldungen.vue";
-import Treemap from "@/components/Treemap.vue";
 import HeatMap from "@/components/Heatmap.vue"; 
 
 export default { 
@@ -29,7 +27,6 @@ export default {
     AnmeldungenDistribution,
     AnzahlPruefungen,
     DurchschnittAnmeldungen,
-    Treemap,
     HeatMap
   }
 }
