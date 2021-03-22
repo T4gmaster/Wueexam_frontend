@@ -1,7 +1,9 @@
 <template>
   <div>
     <h2>Informationen:</h2>
-      <anzahl-studenten lg="2" class="test" /><anzahl-pruefungen class="test2" /><date-card />
+      <anzahl-studenten />
+      <anzahl-pruefungen />
+      <date-card />
       <h2>Optimierung starten</h2>
     <div class="grid2-container">
       <div>
@@ -64,14 +66,6 @@ export default {
 };
 </script>
 <style>
-.test {
-  float: right;
-  width:  100%; 
-}
-.test2 {
-  float: left;
-  width: 100%;
-}
 .grid2-container {
   display: inline-grid;
   grid-template-columns: auto auto;
