@@ -1,7 +1,17 @@
 <template>
   <div>
+  <b-card>
+    <b-row>
+      <b-col sm="7">
+        <label><b>Anzeigen von Studenten mit Prüfungsanmeldungen mehr als:</b></label>
+      </b-col>
+      <b-col sm="2">
+        <b-form-spinbutton v-model="regisstrationsetting" inline @change="pushData()"></b-form-spinbutton>
+      </b-col>
+    </b-row>
+  </b-card>
   <datatable
-  title="Studenten mit mehr als 8 Prüfungsanmeldungen"
+  title=""
 	:columns="tableColumns1"
   :printable="false"
   :exportable="true"
@@ -24,6 +34,7 @@ import DataTable from "vue-materialize-datatable";
     },
     data() {
       return {
+        regisstrationsetting: "8",
         items: null,
         tableColumns1: [
 			    {
@@ -64,7 +75,13 @@ import DataTable from "vue-materialize-datatable";
         .catch(error => {
           console.log(error)
         })
-      }
+      },
+      pushData(){
+        axios.post(this.$IPBE + "", this.regisstrationsetting)
+        .then(function( response ){
+        }.bind(this));
+        console.log(this.regisstrationsetting)
+      } 
     },
     created() {
       this.getData()
