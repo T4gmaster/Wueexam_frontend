@@ -14,6 +14,9 @@
       <kalender-test class="left-container" :key="componentKey"/>
     </div>
     </b-tab>
+    <b-tab title="Heatmap">
+      <heatmap-table />
+    </b-tab>
   </b-tabs>
 </div>
 </template>
@@ -22,6 +25,8 @@
 import WueExamResultTable from '@/components/WueExamResultTable.vue';
 import SolvedStudentTable from '@/components/SolvedStudentTable.vue';
 import KalenderTest from "@/components/KalenderTest.vue";
+import Heatmap from "@/components/Heatmap.vue"; 
+import HeatmapTable from "@/components/HeatmapTable.vue"
 
 export default {
   name: 'app',
@@ -33,7 +38,10 @@ export default {
   components: {
     WueExamResultTable,
     SolvedStudentTable,
-    KalenderTest
+    KalenderTest,
+    Heatmap,
+    HeatmapTable
+
   },
   methods: {
     forceRerender() {
