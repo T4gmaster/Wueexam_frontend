@@ -19,6 +19,7 @@
 	:rows="tableRows1"
   :perPage="[25, 50, 100]"
   locale="de"
+  :key="componentKey"
 />
   </div>
 </template>
@@ -34,6 +35,7 @@ import DataTable from "vue-materialize-datatable";
     },
     data() {
       return {
+        componentKey: 0,
         regisstrationsetting: "8",
         items: null,
         tableColumns1: [
@@ -81,6 +83,8 @@ import DataTable from "vue-materialize-datatable";
         .then(function( response ){
         }.bind(this));
         console.log(this.regisstrationsetting)
+        this.componentKey += 1;
+        console.log(this.componentKey)
       } 
     },
     created() {

@@ -14,10 +14,9 @@
   	v-b-modal.modal-1
   	locale="de"
 />
-	<b-modal size="xl" id="modal-1" title="Heatmap">
+	<b-modal size="xl" id="modal-1" title="Heatmap" @ok="acceptChange()">
 		<h3><b>Slot auswählen: </b></h3>
-        <heatmap @update:option="optionUpdate"/>
-			<h3><b>Prüfungstag ändern zu: {{config}} </b></h3>
+        <heatmap />
 	</b-modal>
 </div>
 </template>
@@ -34,7 +33,6 @@ import Heatmap from "@/components/Heatmap.vue";
     },
     data() {
 	    return {
-			message: "GudeMahude",
 		    tableColumns1: [
 			    {
 				    label: "Datum",
@@ -84,31 +82,13 @@ import Heatmap from "@/components/Heatmap.vue";
           console.log(error)
         })
       },
-	  optionUpdate: function(config) {
-		  console.log(config);
-	  },
 	  onRowClick: function (row) {
         //row contains the clicked object from `rows`
         console.log(row)
       },
-	  pushTest: function (row) {
-		  let sendId = row
-		  axios.post(this.$IPBE + "/heatmap_input",
-		  sendId, {
-			  headers: {
-				  "Content-Type": "application/json",
-			  },
-			  data: {
-				  "exam-id": row.exam_id
-			  }
-		  })
-		  .then(function(){
-			  consolge.log("gut");
-		  })
-		  .catch(function(){
-			  console.log("fail")
-		  })
-	  }
+		acceptChange() {
+			console.log("test")
+		}
     },
     created() {
       this.getData()

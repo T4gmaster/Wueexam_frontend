@@ -86,7 +86,8 @@ import axios from 'axios';
         })
           .then(function (response) {
           console.log(response);
-          this.forceRerender() // reload list after adding new registration
+          this.forceRerender()
+          console.log(this.componentKey) // reload list after adding new registration
           })
           .catch(function (error) {
           console.log(error);

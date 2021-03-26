@@ -5,8 +5,10 @@
     type="heatmap"
     :options="chartOptions"
     :series="series"
-    v-on:click="sendData"
+   
   ></apexchart>
+  <h2>Prüfungstag ändern zu: {{message}}</h2>
+  <b-button @click="acceptChange()">Ok</b-button>
 </div>
 </template>
 
@@ -17,6 +19,7 @@ export default {
   name: "Heatmap",
   data: function () {
     return {
+      message: "",
       chartOptions: {
         dataLabels: {
           enabled: false,
@@ -24,9 +27,11 @@ export default {
         chart: {
           events: {
             click: function(event, chartContext, config) {
+              message.add(config.config.series[config.seriesIndex].name)
+              console.log(message)
               console.log(config.config.series[config.seriesIndex])
               console.log(config.config.series[config.seriesIndex].name)
-              console.log(config.config.series[config.seriesIndex].data[config.dataPointIndex])
+              console.log(config.config.series[config.seriesIndex].data[config.dataPointIndex].x)
         // The last parameter config contains additional information like `seriesIndex` and `dataPointIndex` for cartesian charts
             }
           },
@@ -132,9 +137,6 @@ export default {
     };
   },
   methods: {
-    sendData: function(config) {
-      this.$emit("update:option", this.chartOptions.chart.events.click)
-    },
     getData () {
       axios.get(this.$IPBE + "/heatmap_input")
       .then(res => {this.series = res.data;
@@ -143,6 +145,9 @@ export default {
       .catch(error => {
         console.log(error)
       })
+    },
+    acceptChange() {
+      console.log("test")
     }
   }
 };
