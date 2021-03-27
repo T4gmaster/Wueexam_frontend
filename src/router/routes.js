@@ -48,8 +48,8 @@ const routes = [
         component: Dashboard
       },
       {
-        path: "räume",
-        name: "räume",
+        path: "raeume",
+        name: "raeume",
         component: Räume
       }
     ]

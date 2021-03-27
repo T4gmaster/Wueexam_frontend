@@ -4,7 +4,7 @@
       <template slot="links">
         <sidebar-link to="/home" name="Home" icon="ti-home"/>
         <sidebar-link to="/upload" name="Prüfungsanmeldungen" icon="ti-upload"/>
-        <sidebar-link to="/räume" name="Räume" icon="ti-location-pin"/>
+        <sidebar-link to="/raeume" name="Räume" icon="ti-location-pin"/>
         <sidebar-link to="/pruefungsparamter" name="Prüfungsparameter" icon="ti-panel"/>
         <sidebar-link to="/solver" name="Solver" icon="ti-harddrives"/>
         <sidebar-link to="/pruefungsplan" name="Prüfungsplan" icon="ti-layout"/>

@@ -16,7 +16,7 @@
 />
 	<b-modal size="xl" id="modal-1" title="Heatmap" @ok="acceptChange()">
 		<h3><b>Slot auswählen: </b></h3>
-        <heatmap />
+        <heatmap :parentmessage="parentmessage"/>
 	</b-modal>
 </div>
 </template>
@@ -33,6 +33,7 @@ import Heatmap from "@/components/Heatmap.vue";
     },
     data() {
 	    return {
+			parentmessage: [],
 		    tableColumns1: [
 			    {
 				    label: "Datum",
@@ -64,14 +65,12 @@ import Heatmap from "@/components/Heatmap.vue";
 		}, {
 			headers: {
 				"Content-Type": "application/json"
-			}
+			},
+			transformResponse: [(data) => { 
+				this.parentmessage = JSON.parse(data);
+				console.log(data)
+			}]
 		})
-        .then(response => {
-          console.log("success", row)
-        })
-        .catch(error => {
-          console.log("fail")
-        })
       },
 	  getData () {
         axios.get(this.$IPBE + "/pruefungsansicht")
@@ -81,10 +80,6 @@ import Heatmap from "@/components/Heatmap.vue";
         .catch(error => {
           console.log(error)
         })
-      },
-	  onRowClick: function (row) {
-        //row contains the clicked object from `rows`
-        console.log(row)
       },
 		acceptChange() {
 			console.log("test")
