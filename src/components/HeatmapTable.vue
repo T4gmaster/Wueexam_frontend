@@ -14,8 +14,8 @@
   	v-b-modal.modal-1
   	locale="de"
 />
-	<b-modal size="xl" id="modal-1" title="Heatmap" @ok="acceptChange()">
-		<h3><b>Slot auswählen: </b></h3>
+	<b-modal size="xl" id="modal-1" title="Heatmap" @updateSlot="acceptChange" @ok="acceptChange()">
+		<h3><b>Neuen Slot für Prüfung {{}} auswählen: </b></h3>
         <heatmap :parentmessage="parentmessage"/>
 	</b-modal>
 </div>

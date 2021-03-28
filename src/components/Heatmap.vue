@@ -8,6 +8,7 @@
     v-if="parentmessage"
   ></apexchart>
   <h2>Prüfungstag ändern zu: {{}}</h2>
+  <b-button @click="saveChange">Speichern</b-button>
 </div>
 </template>
 
@@ -17,6 +18,7 @@ import axios from "axios";
 export default {
   props: ["parentmessage"],
   name: "Heatmap",
+  newData: "",
   data: function () {
     return {
       chartOptions: {
@@ -26,10 +28,13 @@ export default {
         chart: {
           events: {
             click: function(event, chartContext, config) {
-              console.log(config.config.series[config.seriesIndex])
-              console.log(config.config.series[config.seriesIndex].name)
-              console.log(config.config.series[config.seriesIndex].data[config.dataPointIndex].x)
-        // The last parameter config contains additional information like `seriesIndex` and `dataPointIndex` for cartesian charts
+              let newData = JSON.stringify({Slot: config.config.series[config.seriesIndex].name, Tag: config.config.series[config.seriesIndex].data[config.dataPointIndex].x})
+              console.log(newData)
+              return newData
+              /*this.newData = newData
+              newData.push(config.config.series[config.seriesIndex].name, config.config.series[config.seriesIndex].data[config.dataPointIndex].x)
+              /*console.log(this.newData)*/
+              console.log(JSON.stringify({Slot: config.config.series[config.seriesIndex].name, Tag: config.config.series[config.seriesIndex].data[config.dataPointIndex].x}))
             }
           },
           toolbar: {
@@ -63,6 +68,24 @@ export default {
       },
       series: [],
     };
+  },
+  methods: {
+    saveChange: function (newData) {
+      axios.post(this.$IPBE + "/heatmap_correction", {
+        data: {"Slot":"14:00 - 16:00","Tag":"Freitag 12.02.2021"}
+      }
+      , {
+        headers: {
+          "Content-Type": "application/json"
+          }
+        })
+        .then(response => {
+          console.log("success", response)
+        })
+        .catch(error => {
+          console.log("fail", error)
+        })
+    }
   },
   computed: {
     passSeries() {
