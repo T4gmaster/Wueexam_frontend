@@ -1,11 +1,13 @@
 <template>
   <div>
+  <b-button class="button" variant="primary" v-b-modal.modal-1 @click="pushData()">Nach Anmeldungen filtern</b-button>
+   <b-modal size="lg" id="modal-1" title="" ok-only>
   <b-card>
     <b-row>
-      <b-col sm="7">
+      <b-col sm="8">
         <label><b>Anzeigen von Studenten mit Prüfungsanmeldungen mehr als:</b></label>
       </b-col>
-      <b-col sm="2">
+      <b-col sm="4">
         <b-form-spinbutton v-model="regisstrationsetting" inline @change="pushData()"></b-form-spinbutton>
       </b-col>
     </b-row>
@@ -21,6 +23,7 @@
   locale="de"
   :key="componentKey"
 />
+</b-modal>
   </div>
 </template>
 
@@ -36,7 +39,7 @@ import DataTable from "vue-materialize-datatable";
     data() {
       return {
         componentKey: 0,
-        regisstrationsetting: "8",
+        regisstrationsetting: 7,
         items: null,
         tableColumns1: [
 			    {
@@ -69,26 +72,16 @@ import DataTable from "vue-materialize-datatable";
       };
     },
     methods: {
-      getData () {
-        axios.get(this.$IPBE + "/anzahl_studenten_10")
-        .then(res => {this.tableRows1 = res.data;
-          console.log(res.data);
-        })
-        .catch(error => {
-          console.log(error)
-        })
-      },
       pushData(){
-        axios.post(this.$IPBE + "", this.regisstrationsetting)
+        axios.post(this.$IPBE + "/anzahl_studenten_10", JSON.stringify({Anmeldung: this.regisstrationsetting}))
         .then(function( response ){
+          this.tableRows1 = response.data
+          console.log(response)
         }.bind(this));
-        console.log(this.regisstrationsetting)
+        console.log(JSON.stringify({Anmeldung: this.regisstrationsetting}))
         this.componentKey += 1;
         console.log(this.componentKey)
       } 
-    },
-    created() {
-      this.getData()
     }
   }
 </script>

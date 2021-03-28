@@ -4,17 +4,11 @@
     <b-col lg="3"><b-form-file size="md" placeholder="Datei wählen" drop-placeholder="Datei hier ablegen" accept=".csv, .xlsx, .xls" type="file" id="file" ref="file" v-on:change="(e)=>this.handleFileUpload(e)"></b-form-file></b-col>
     <b-button class="button" variant="primary" v-on:click="submitFile()"><i class="fa fa-upload"></i>Hochladen</b-button>
     <b-button class ="button-icon" @click="forceRerender()"><i class="fa fa-refresh"></i></b-button>
-     
-    
-      <b-modal id="modal-1" title="">
-        <students-bigger-ten />
-      </b-modal>
-    
   </b-row>
   <registration-list class="upload" :key="componentKey" />
   <b-row>
   <add-participant @updateRegistration="receiveRegistration" class="button" />
-  <b-button class="button" variant="primary" v-b-modal.modal-1>Nach Anmeldungen filtern</b-button>
+  <students-bigger-ten class="button" />
   <router-link to=/pruefungsparamter tag="b-button" class="continue" ><i class="fa fa-arrow-right"></i>Weiter</router-link>
   </b-row>
 </div>  

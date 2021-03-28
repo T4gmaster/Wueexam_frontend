@@ -6,9 +6,11 @@
     :options="chartOptions"
     :series="passSeries"
     v-if="parentmessage"
+    @click="updateMessage"
+    v-on:click="updateSend"
   ></apexchart>
-  <h2>Prüfungstag ändern zu: {{}}</h2>
-  <b-button @click="saveChange">Speichern</b-button>
+  <h3>Prüfungsslot ändern zu: <b> {{newData}} </b></h3>
+  <b-button class="test"@click="saveTest()">Speichern</b-button>
 </div>
 </template>
 
@@ -18,9 +20,10 @@ import axios from "axios";
 export default {
   props: ["parentmessage"],
   name: "Heatmap",
-  newData: "",
   data: function () {
     return {
+      newData: "Noch kein Slot ausgewählt",
+      sendData: "",
       chartOptions: {
         dataLabels: {
           enabled: false,
@@ -28,12 +31,6 @@ export default {
         chart: {
           events: {
             click: function(event, chartContext, config) {
-              let newData = JSON.stringify({Slot: config.config.series[config.seriesIndex].name, Tag: config.config.series[config.seriesIndex].data[config.dataPointIndex].x})
-              console.log(newData)
-              return newData
-              /*this.newData = newData
-              newData.push(config.config.series[config.seriesIndex].name, config.config.series[config.seriesIndex].data[config.dataPointIndex].x)
-              /*console.log(this.newData)*/
               console.log(JSON.stringify({Slot: config.config.series[config.seriesIndex].name, Tag: config.config.series[config.seriesIndex].data[config.dataPointIndex].x}))
             }
           },
@@ -70,7 +67,8 @@ export default {
     };
   },
   methods: {
-    saveChange: function (newData) {
+    saveChange: function (event, chartContext, config) {
+    
       axios.post(this.$IPBE + "/heatmap_correction", {
         data: {"Slot":"14:00 - 16:00","Tag":"Freitag 12.02.2021"}
       }
@@ -85,6 +83,20 @@ export default {
         .catch(error => {
           console.log("fail", error)
         })
+    },
+    saveTest() {
+      axios.post(this.$IPBE + "/heatmap_correction", this.sendData)
+      .then(function(response) {
+        console.log(response)
+      }.bind(this));
+      console.log(this.sendData)
+    },
+    updateMessage: function(event, chartContext, config) {
+      this.newData = config.config.series[config.seriesIndex].data[config.dataPointIndex].x + ", Uhrzeit: " + config.config.series[config.seriesIndex].name
+    },
+    updateSend: function(event, chartContext, config) {
+      this.sendData = JSON.stringify({Slot: config.config.series[config.seriesIndex].name, Tag: config.config.series[config.seriesIndex].data[config.dataPointIndex].x})
+      console.log(this.sendData)
     }
   },
   computed: {
@@ -96,3 +108,9 @@ export default {
   }
 };
 </script>
+
+<style>
+.test {
+  float: right
+}
+</style>

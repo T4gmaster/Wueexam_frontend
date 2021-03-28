@@ -14,8 +14,8 @@
   	v-b-modal.modal-1
   	locale="de"
 />
-	<b-modal size="xl" id="modal-1" title="Heatmap" @updateSlot="acceptChange" @ok="acceptChange()">
-		<h3><b>Neuen Slot für Prüfung {{}} auswählen: </b></h3>
+	<b-modal size="xl" id="modal-1" ok-title="Speichern" cancel-title="Abbrechen" title="Heatmap" @ok="acceptChange()">
+		<h3>Neuen Slot für Prüfung <b> {{pruefungsAuswahl}} </b> auswählen: </b></h3>
         <heatmap :parentmessage="parentmessage"/>
 	</b-modal>
 </div>
@@ -33,6 +33,7 @@ import Heatmap from "@/components/Heatmap.vue";
     },
     data() {
 	    return {
+			pruefungsAuswahl: "",
 			parentmessage: [],
 		    tableColumns1: [
 			    {
@@ -71,6 +72,7 @@ import Heatmap from "@/components/Heatmap.vue";
 				console.log(data)
 			}]
 		})
+		this.pruefungsAuswahl = row.exam_name
       },
 	  getData () {
         axios.get(this.$IPBE + "/pruefungsansicht")
