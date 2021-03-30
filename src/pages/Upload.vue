@@ -4,6 +4,7 @@
     <b-col lg="3"><b-form-file size="md" placeholder="Datei wählen" drop-placeholder="Datei hier ablegen" accept=".csv, .xlsx, .xls" type="file" id="file" ref="file" v-on:change="(e)=>this.handleFileUpload(e)"></b-form-file></b-col>
     <b-button class="button" variant="primary" v-on:click="submitFile()"><i class="fa fa-upload"></i>Hochladen</b-button>
     <b-button class ="button-icon" @click="forceRerender()"><i class="fa fa-refresh"></i></b-button>
+    <upload-key-mapping @updateKeyMapping="receiveKeyMapping"></upload-key-mapping>
      
     
       <b-modal id="modal-1" title="">
@@ -24,21 +25,26 @@
 import AddParticipant from '@/components/AddParticipant.vue';
 import StudentsBiggerTen from "@/components/StudentsBiggerTen.vue";
 import RegistrationList from "@/components/RegistrationList.vue";
+import UploadKeyMapping from "@/components/UploadKeyMapping.vue";
 import axios from 'axios';
 
   export default {
     data() {
       return {
         componentKey: 0,
+        newMapping: ''
       };
     },
     components: {
       AddParticipant,
       StudentsBiggerTen,
-      RegistrationList
+      RegistrationList,
+      UploadKeyMapping
     },
     created() {
       this.getData()
+    },
+    computed: {
     },
     methods: {
       // select file
@@ -53,25 +59,36 @@ import axios from 'axios';
       forceRerender() {
         this.componentKey += 1;
       },
-      // upload registration file (csv/xlsx/xls)
+      receiveKeyMapping(reply) {
+          this.newMapping = reply
+          console.log('mapping received from child:', this.newMapping)
+      },
+      // upload registration file (csv/xlsx/xls) && key mapping
       submitFile(){
         let formData = new FormData();
-        formData.append('file', this.file);
+        let mapping = JSON.stringify(this.newMapping)
+        console.log('mappinglog:', mapping)
+        formData.append('file', this.file)
+        formData.append('mapping',mapping)
+        for (var pair of formData.entries()) {
+            console.log('formData: ',pair[0]+ ', ' + pair[1]); 
+        }
         axios.post(this.$IPBE + "/uploader",
         formData, {
           headers: {
-            'Content-Type': 'multipart/form-data'
+            'Content-Type': 'multipart/form-data',
+            'Accept': 'application/json'
           }
         })
-        .then(function () {
-          console.log('Datei wurde hochgeladen');
+        .then(function (response) {
+          console.log('Datei wurde hochgeladen', response);
           this.$bvToast.toast(`Anmeldeliste wurde hochgeladen!`, {
           title: 'Status',
           autoHideDelay: 5000,
         })
         })
-        .catch(function(){
-          console.log('Problem beim Hochladen der Datei');
+        .catch(function(error){
+          console.log('Problem beim Hochladen der Datei', error);
         });
       },
       // add registration 

@@ -1,0 +1,79 @@
+[
+   {
+      "id": 1,
+      "room": "HS166 (Brose)",
+      "capacity": 80,
+      "selected": true,
+      "proctor": 2
+   },
+   {
+      "id": 2,
+      "room": "Audimax",
+      "capacity": 140,
+      "selected": true,
+      "proctor": 3
+   },
+   {
+      "id": 3,
+      "room": "Sparkassen-HS",
+      "capacity": 80,
+      "selected": true,
+      "proctor": 2
+   },
+   {
+      "id": 4,
+      "room": "Interimsmensa",
+      "capacity": 100,
+      "selected": true,
+      "proctor": 3
+   },
+   {
+      "id": 5,
+      "room": "Shedhalle",
+      "capacity": 70,
+      "selected": true,
+      "proctor": 2
+   },
+   {
+      "id": 6,
+      "room": "Heisenberg 3",
+      "capacity": 50,
+      "selected": true,
+      "proctor": 2
+   },
+   {
+      "id": 7,
+      "room": "Posthalle",
+      "capacity": 300,
+      "selected": true,
+      "proctor": 4
+   },
+   {
+      "id": 8,
+      "room": "Zeltbau Julia",
+      "capacity": 400,
+      "selected": true,
+      "proctor": 4
+   },
+   {
+      "id": 9,
+      "room": "Zeltbau Maximilian",
+      "capacity": 250,
+      "selected": true,
+      "proctor": 4
+   },
+   {
+      "id": 10,
+      "room": "Teilbibliothek",
+      "capacity": 30,
+      "selected": true,
+      "proctor": 2
+   },
+   {
+      "id": 11,
+      "room": "HS004",
+      "capacity": 200,
+      "selected": true,
+      "proctor": 4
+   }
+]
