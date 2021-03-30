@@ -14,7 +14,7 @@
       <kalender-test class="left-container" :key="componentKey"/>
     </div>
     </b-tab>
-    <b-tab title="Heatmap">
+    <b-tab title="Prüfungstermin verschieben">
       <heatmap-table />
     </b-tab>
   </b-tabs>
