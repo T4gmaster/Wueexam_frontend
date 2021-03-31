@@ -4,6 +4,7 @@
     <b-col lg="3"><b-form-file size="md" placeholder="Datei wählen" drop-placeholder="Datei hier ablegen" accept=".csv, .xlsx, .xls" type="file" id="file" ref="file" v-on:change="(e)=>this.handleFileUpload(e)"></b-form-file></b-col>
     <b-button class="button" variant="primary" v-on:click="submitFile()"><i class="fa fa-upload"></i>Hochladen</b-button>
     <b-button class ="button-icon" @click="forceRerender()"><i class="fa fa-refresh"></i></b-button>
+    <upload-key-mapping @updateKeyMapping="receiveKeyMapping"></upload-key-mapping>
   </b-row>
   <registration-list class="upload" :key="componentKey" />
   <b-row>

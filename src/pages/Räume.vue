@@ -30,7 +30,7 @@
         <div>
         <set-slots></set-slots>
         <b-button class="button" variant="primary"><i class="fa fa-wrench"></i>Raum ändern</b-button>
-        <b-button class="button" variant="primary"><i class="fa fa-trash-o"></i></b-button>
+        <b-button class="button" variant="primary" @click="removeRow(index)"><i class="fa fa-trash-o"></i></b-button>
         </div>
     </template>
 
@@ -115,6 +115,9 @@ export default {
         storeRooms() {
             var roomPlan = new Array()
             // Loop über alle Räume & je Raum weiterer Loop über alle Tage und da jeweils 5 Slots pushen
+        },
+        removeRow(index) {
+          this.rows.splice(index, 1)
         }
         // ToDo: Funktion um Prüfungszeitraum zu bekommen
 

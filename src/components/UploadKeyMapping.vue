@@ -66,12 +66,12 @@ export default {
     data() {
         return {
             columns: {
-                EXAM: '',
-                EXAM_ID: '',
-                LAST_NAME: '',
-                FIRST_NAME: '',
-                MATRICUALTAION_NUMBER: '',
-                COURSE: '',
+                EXAM: 'prüfung',
+                EXAM_ID: 'prüfungid',
+                LAST_NAME: 'nachname',
+                FIRST_NAME: 'vorname',
+                MATRICUALTAION_NUMBER: 'immatrikulationsnummer',
+                COURSE: 'studiengang',
             }
         }
     },
