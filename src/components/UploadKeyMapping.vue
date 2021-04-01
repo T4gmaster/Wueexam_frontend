@@ -43,7 +43,7 @@
 
 <b-row>
     <b-col sm="4"><label>Immatrikulationsnummer Student:</label></b-col>
-    <b-col sm="4"><b-form-input v-model="columns.MATRICUALTAION_NUMBER" placeholder="Spaltenbezeichnung in Excel"></b-form-input></b-col>
+    <b-col sm="4"><b-form-input v-model="columns.MATRICULATION_NUMBER" placeholder="Spaltenbezeichnung in Excel"></b-form-input></b-col>
 </b-row>
 
 <b-row>
@@ -70,7 +70,7 @@ export default {
                 EXAM_ID: 'prüfungid',
                 LAST_NAME: 'nachname',
                 FIRST_NAME: 'vorname',
-                MATRICUALTAION_NUMBER: 'immatrikulationsnummer',
+                MATRICULATION_NUMBER: 'immatrikulationsnummer',
                 COURSE: 'studiengang',
             }
         }
