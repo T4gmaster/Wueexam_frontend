@@ -14,7 +14,7 @@
   	v-b-modal.modal-1
   	locale="de"
 />
-	<b-modal size="xl" id="modal-1" ok-title="Speichern" cancel-title="Abbrechen" title="Heatmap" @ok="acceptChange()">
+	<b-modal size="xl" id="modal-1" hide-footer title="Heatmap" >
 		<h3>Neuen Slot für Prüfung <b> {{pruefungsAuswahl}} </b> auswählen: </b></h3>
         <heatmap :parentmessage="parentmessage"/>
 	</b-modal>
@@ -82,10 +82,7 @@ import Heatmap from "@/components/Heatmap.vue";
         .catch(error => {
           console.log(error)
         })
-      },
-		acceptChange() {
-			console.log("test")
-		}
+      }
     },
     created() {
       this.getData()

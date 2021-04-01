@@ -8,7 +8,7 @@
       <router-link to=/upload tag="button" class= "kachel2">Neuen Prüfungsplan erstellen</router-link>
     </div>
     <div>
-      <router-link to=/pruefungsplan tag="button" class= "kachel3">Erstellte Prüfungspläne anzeigen</router-link>
+      <router-link to=/pruefungsplan tag="button" class= "kachel3">Erstellten Prüfungsplan anzeigen</router-link>
     </div>
   </div>
   <p/>

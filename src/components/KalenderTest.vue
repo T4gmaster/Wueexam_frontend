@@ -1,6 +1,6 @@
 <template>
 <div>
-<b-button variant="primary" @click="forceRerender()"> Test Kalenderdaten laden</b-button>
+<b-button variant="primary" @click="startKalender()"> Test Kalenderdaten laden</b-button>
   <div class="container">
     <scheduler class="left-container" :events="events" :key="componentKey"></scheduler>
   </div>
@@ -18,21 +18,21 @@ export default {
     return {
       componentKey: 0,
       events: [
-      
+        
       ]
     }
   },
   methods: {
     getData () {
       axios.get(this.$IPBE + "/kalender")
-      .then(res => {this.events[1] = res.data;
+      .then(res => {this.events = res.data;
       console.log(res.data);
       })
       .catch(error => {
         console.log(error)
       })
     },
-    forceRerender() {
+    startKalender() {
       this.componentKey += 1;
     }
   },

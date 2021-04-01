@@ -7,7 +7,7 @@
       <h2>Optimierung starten</h2>
     <div class="grid2-container">
       <div>
-        <b-button v-on:click="startSolver()" variant="primary"><i class="fa fa-play"></i>Optimierung starten</b-button>
+        <b-button v-on:click="startSolver()" @click="startTerminal()" variant="primary"><i class="fa fa-play"></i>Optimierung starten</b-button>
       </div>
       <div>  
         <b-button v-on:click="stopSolver()" variant="primary"><i class="fa fa-stop"></i>Optimierung stoppen</b-button>
@@ -16,7 +16,7 @@
     <solver-status v-if="solverstatus"></solver-status>
     <router-link to=/pruefungsplan tag="b-button" class="continue"><i class="fa fa-arrow-right"></i>Weiter</router-link>
     <p></p>
-    <terminal-output-solver />
+    <terminal-output-solver ref="form"/>
 </div>
 </template>
 
@@ -61,6 +61,9 @@ export default {
       .catch(function () {
         console.log("Solver konnte nicht gestoppt werden");
       });
+    },
+    startTerminal () {
+      this.$refs.form.startIntervall()
     }
   }
 };

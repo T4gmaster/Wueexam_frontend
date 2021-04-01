@@ -10,7 +10,14 @@
     v-on:click="updateSend"
   ></apexchart>
   <h3>Prüfungsslot ändern zu: <b> {{newData}} </b></h3>
-  <b-button class="test"@click="saveTest()">Speichern</b-button>
+  <div class="grid3-container">
+  <div>
+  <b-button variant="primary" @click="closeModal()"> Abbrechen </b-button>
+  </div>
+  <div>
+  <b-button variant="primary" @click="saveTest()">Speichern</b-button>
+  </div>
+  </div>
 </div>
 </template>
 
@@ -90,6 +97,8 @@ export default {
         console.log(response)
       }.bind(this));
       console.log(this.sendData)
+      this.$bvModal.hide('modal-1');
+      setTimeout(() => this.$parent.$parent.$parent.getData(), 1000);
     },
     updateMessage: function(event, chartContext, config) {
       this.newData = config.config.series[config.seriesIndex].data[config.dataPointIndex].x + ", Uhrzeit: " + config.config.series[config.seriesIndex].name
@@ -97,6 +106,9 @@ export default {
     updateSend: function(event, chartContext, config) {
       this.sendData = JSON.stringify({Slot: config.config.series[config.seriesIndex].name, Tag: config.config.series[config.seriesIndex].data[config.dataPointIndex].x})
       console.log(this.sendData)
+    },
+    closeModal() {
+      this.$bvModal.hide('modal-1');
     }
   },
   computed: {
@@ -110,7 +122,12 @@ export default {
 </script>
 
 <style>
-.test {
-  float: right
+.grid3-container {
+  display: inline-grid;
+  grid-template-columns: auto auto;
+  grid-gap: 2px;
+  background-color: #0000000;
+  padding: 10px;
+  float: right;
 }
 </style>

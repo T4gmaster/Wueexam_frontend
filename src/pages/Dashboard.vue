@@ -1,17 +1,15 @@
 <template>
-  <b-tabs content-class="mt-3" 
-  fill 
-  active-nav-item-class="font-weight-bold">
-    <b-tab title="Anmeldestatistik" active>
-      <anzahl-studenten />
-      <anzahl-pruefungen />
-      <durchschnitt-anmeldungen />
-      <anmeldungen-distribution />
-    </b-tab>
-    <b-tab title="Prüfungsstatistik">
-    
-    </b-tab>
-  </b-tabs>
+
+    <b-row>
+      <b-col>
+      <anzahl-studenten class="testttt" />
+      <anzahl-pruefungen class="testttt"/>
+      <durchschnitt-anmeldungen class="testttt" />
+      </b-col>
+      <b-col cols="8">
+      <anmeldungen-distribution class="diagramm" />
+      </b-col>
+    </b-row>
 </template>
 
 <script>
@@ -30,5 +28,10 @@ export default {
 }
 </script>
 <style>
+.testttt {
+  cursor: pointer;
+  width: 250%;
+}
+
 
 </style>
