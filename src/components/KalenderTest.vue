@@ -1,6 +1,5 @@
 <template>
 <div>
-<b-button variant="primary" @click="startKalender()"> Test Kalenderdaten laden</b-button>
   <div class="container">
     <scheduler class="left-container" :events="events" :key="componentKey"></scheduler>
   </div>
