@@ -2,6 +2,7 @@
 <div>
   <div class="console" v-html="html">
   </div>
+  <p />
   <div>
   <b-button @click="startIntervall()">Start</b-button>
   <b-button @click="stopIntervall()">Stop</b-button>
@@ -70,5 +71,6 @@ export default {
   background-color: black;
   color: #fff;
   overflow-y: auto;
+  max-width: 50%;
 }
 </style>
