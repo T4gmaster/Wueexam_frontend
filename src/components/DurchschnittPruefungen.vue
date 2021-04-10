@@ -20,13 +20,6 @@
 import axios from 'axios';
 import { StatsCard, ChartCard } from "@/components/index";
 
-let one = "http://132.187.226.24:5000/anzahl_studenten";
-let two = "http://132.187.226.24:5000/anzahl_anmeldungen";
-
-const requestOne = axios.get(one);
-const requestTwo = axios.get(two);
-
-
 export default {
   name: "HelloWorld",
   components: {
@@ -37,8 +30,8 @@ export default {
       statsCards: [
         {
           type: "",
-          icon: "ti-pencil-alt",
-          title: "Ø Anmeldungen / Student",
+          icon: "ti-files",
+          title: "Ø Prüfungen / Tag",
           value: "",
         }
       ]
@@ -46,16 +39,10 @@ export default {
   },
   methods: {
     getData () {
-      axios.all([requestOne, requestTwo])
-      .then(
-        axios.spread((...responses) => {
-          const responseOne = responses[0];
-          const responseTwo = responses[1];
-          let average = responseTwo.data / responseOne.data;
-          this.statsCards[0].value = average.toFixed(2);
-        console.log(average);  
-        })
-      )
+      axios.get(this.$IPBE + "/pruefungen_pro_tag")
+      .then(res => {this.statsCards[0].value = res.data.toFixed(2);
+        console.log(res.data);
+      })
       .catch(error => {
         console.log(error)
       })

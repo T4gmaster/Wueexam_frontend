@@ -22,14 +22,14 @@ import DataTable from "vue-materialize-datatable";
 	    return {
 		    tableColumns1: [
 			    {
-				    label: "Tag",
-				    field: "day_id",
+				    label: "Datum",
+				    field: "day_date",
 				    numeric: false,
 				    html: false
 			    },
-			    {
-				    label: "Datum",
-				    field: "day_date",
+				{
+				    label: "Zeitslot",
+				    field: "time_slot",
 				    numeric: false,
 				    html: false
 			    },
