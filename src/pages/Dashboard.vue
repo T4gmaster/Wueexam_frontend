@@ -14,17 +14,21 @@
       </b-col>
     </b-row>
     <b-row>
-     
       <b-col cols="7">
       <b-card>
       <verteilung-pruefung />
       </b-card>
       </b-col>
        <b-col>
-      <b-card>
-      <verteilung-pruefungsphase />
-      </b-card>
+      <verteilung-studiengaenge style="float:right;" />
       </b-col>
+    </b-row>
+    <b-row>
+    <b-col>
+    <b-card>
+    <laenge-pruefungsphase />
+    </b-card>
+    </b-col>
     </b-row>
 </div>
 </template>
@@ -34,9 +38,12 @@ import AnzahlStudenten from "@/components/AnzahlStudenten.vue";
 import AnzahlPruefungen from "@/components/AnzahlPrüfungen.vue";
 import DurchschnittAnmeldungen from "@/components/DurchschnittAnmeldungen.vue";
 import VerteilungPruefung from "@/components/VerteilungPruefung.vue";
-import VerteilungPruefungsphase from "@/components/VerteilungPruefungsphase.vue";
+import VerteilungStudiengaenge from "@/components/VerteilungStudiengaenge.vue";
 import VerteilungAnmeldungen from "@/components/VerteilungAnmeldungen.vue";
 import DurchschnittPruefungen from "@/components/DurchschnittPruefungen.vue";
+import LaengePruefungsphase from "@/components/LaengePruefungsphase.vue";
+
+
 
 export default { 
   components: { 
@@ -45,8 +52,9 @@ export default {
     DurchschnittAnmeldungen,
     VerteilungPruefung,
     VerteilungAnmeldungen,
-    VerteilungPruefungsphase,
-    DurchschnittPruefungen
+    VerteilungStudiengaenge,
+    DurchschnittPruefungen,
+    LaengePruefungsphase
   }
 }
 </script>

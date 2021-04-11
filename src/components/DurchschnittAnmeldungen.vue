@@ -38,7 +38,7 @@ export default {
         {
           type: "",
           icon: "ti-pencil-alt",
-          title: "Ø Anmeldungen / Student",
+          title: "Ø Anmeldungen pro Student",
           value: "",
         }
       ]

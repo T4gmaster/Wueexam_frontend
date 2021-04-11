@@ -31,7 +31,7 @@ export default {
         {
           type: "",
           icon: "ti-files",
-          title: "Ø Prüfungen / Tag",
+          title: "Ø Prüfungen pro Tag",
           value: "",
         }
       ]

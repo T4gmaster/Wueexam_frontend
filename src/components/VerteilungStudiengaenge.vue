@@ -1,7 +1,9 @@
 <template>
+<b-card>
 <div id="chart">
-  <apexchart :key="componentKey" type="pie" width="380" :options="chartOptions" :series="series"></apexchart>
+  <apexchart :key="componentKey" type="pie" width="475" :options="chartOptions" :series="series"></apexchart>
 </div>
+</b-card>
 </template>
 
 <script>
@@ -13,13 +15,25 @@ export default {
       componentKey: 0,
       series: [],
       chartOptions: {
+        title: {
+          text: "Verteilung der Studiengänge",
+          align: "center",
+          style: {
+            fontSize: "24px"
+          }
+        },
+        legend: {
+          show: true,
+          fontSize: "15px",
+          position: "bottom"
+        },
         plotOptions: {
-        pie: {
-          customScale: 1
-        }
-      },
+          pie: {
+            customScale: 1,
+          }
+        },
         chart: {
-          width: 380,
+          width: "150%",
           type: 'pie',
         },
         labels: [],
@@ -31,7 +45,8 @@ export default {
             },
             legend: {
               position: 'bottom',
-              fontSize: "25px"
+              show: false, 
+              fontSize: "30px"
             }
           }
         }]
