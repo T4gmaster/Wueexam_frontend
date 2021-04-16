@@ -2,6 +2,7 @@
 <div>
   <div class="console" v-html="html">
   </div>
+  <p />
   <div>
   <b-button @click="startIntervall()">Start</b-button>
   <b-button @click="stopIntervall()">Stop</b-button>
@@ -39,7 +40,7 @@ export default {
       })
     },
     startIntervall () {
-      this.interval = setInterval(() => this.getData(), 500);
+      this.interval = setInterval(() => this.getData(), 2000);
     },
     stopIntervall() {
      clearInterval(this.interval);
@@ -70,5 +71,6 @@ export default {
   background-color: black;
   color: #fff;
   overflow-y: auto;
+  max-width: 50%;
 }
 </style>

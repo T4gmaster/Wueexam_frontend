@@ -31,12 +31,6 @@ export default {
         {
           type: "",
           icon: "ti-calendar",
-          title: "Start:",
-          value: "01.03.2021"
-        },
-        {
-          type: "",
-          icon: "ti-calendar",
           title: "Ende:",
           value: "21.03.2021"
         }

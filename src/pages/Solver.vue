@@ -1,9 +1,16 @@
 <template>
   <div>
     <h2>Informationen:</h2>
-      <anzahl-studenten />
-      <anzahl-pruefungen />
-      <date-card />
+    <b-row>
+     <b-col cols="4">
+      <start-datum class="datum"/>
+      <end-datum class="datum" />
+      </b-col>
+      <b-col cols="8">
+      <anzahl-studenten class="schoen" />
+      <anzahl-pruefungen class="schoen"/>
+      </b-col>
+    </b-row>
       <h2>Optimierung starten</h2>
     <div class="grid2-container">
       <div>
@@ -14,7 +21,7 @@
       </div>    
     </div>
     <solver-status v-if="solverstatus"></solver-status>
-    <router-link to=/pruefungsplan tag="b-button" class="continue"><i class="fa fa-arrow-right"></i>Weiter</router-link>
+    <router-link to=/pruefungsplan tag="b-button" ><i class="fa fa-arrow-right"></i>Weiter</router-link>
     <p></p>
     <terminal-output-solver ref="form"/>
 </div>
@@ -25,7 +32,8 @@ import axios from 'axios';
 import AnzahlStudenten from "@/components/AnzahlStudenten.vue";
 import AnzahlPruefungen from "@/components/AnzahlPrüfungen.vue";
 import SolverStatus from '@/components/SolverStatus.vue';
-import DateCard from '@/components/DateCard.vue';
+import StartDatum from '@/components/StartDatum.vue';
+import EndDatum from '@/components/EndDatum.vue';
 import TerminalOutputSolver from '@/components/TerminalOutputSolver.vue';
 
 export default { 
@@ -33,7 +41,8 @@ export default {
     SolverStatus,
     AnzahlStudenten,
     AnzahlPruefungen,
-    DateCard,
+    StartDatum,
+    EndDatum,
     TerminalOutputSolver
   },
   data() {
@@ -75,5 +84,13 @@ export default {
   grid-gap: 2px;
   background-color: #0000000;
   padding: 10px;
+}
+.schoen {
+  width: 100%;
+  max-width: 100%;
+}
+.datum {
+  width: 225%;
+  max-width: 225%;
 }
 </style>

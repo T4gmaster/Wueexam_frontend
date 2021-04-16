@@ -42,6 +42,12 @@ import Heatmap from "@/components/Heatmap.vue";
 				    numeric: false,
 				    html: false
 			    },
+				{
+				    label: "Zeitslot",
+				    field: "time_slot",
+				    numeric: false,
+				    html: false
+			    },
 			    {
 				    label: "Prüfungs ID",
 				    field: "exam_id",

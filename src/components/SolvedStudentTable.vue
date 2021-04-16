@@ -39,13 +39,7 @@ import DataTable from "vue-materialize-datatable";
 				    numeric: false,
 				    html: false
 			    },
-			    {
-				    label: "Tag Nr.",
-				    field: "day_id",
-				    numeric: false,
-				    html: false
-			    },
-          {
+          		{
 				    label: "Datum",
 				    field: "day_date",
 				    numeric: false,
