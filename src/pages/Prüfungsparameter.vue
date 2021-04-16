@@ -1,91 +1,109 @@
 <template>
 <div>
-<h2>Prüfungszeitraum festlegen:</h2>
+  <b-tabs content-class="mt-3" 
+  fill 
+  active-nav-item-class="font-weight-bold">
+    <b-tab title="Prüfungszeitraum">
+
 <FunctionalCalendar
   v-model="calendarData"
   :configs="calendarConfigs"  
   :is-date-range='true'
-  @choseDay="sendList()"
+  @choseDay="sendList(); calculatePeriod()"
 ></FunctionalCalendar>
-<button @click="examPeriod()">log dates</button>
 
     <b-container fluid>
         <b-col>
           <p></p>
-          <button @click="calculatePeriod">Prüfungszeitraum berechnen</button>
-          <h3>Prüfungszeitraum: {{ examPeriodInDays ? examPeriodInDays + ' Tage' : 'bitte die ausgewählten Tage bestätigen' }} </h3>
+          <h4>Prüfungszeitraum: {{ this.totalExamPeriod ? this.totalExamPeriod + ' Tage' : 'bitte Zeitraum auswählen' }}</h4>
           <p></p>
 
 
-          <b-row><!--
-            <p></p>
-            <b-list-group class="list-container" horizontal size="sm" v-for="(day, index) in period.dateArray" :key="index" v-model="period.DatArray">
-              <b-list-group-item  flush horizontal button lg="1">{{ day.locale('de').format('dddd MM.DD.YYYY') }}
-              <b-form-checkbox :checked="selected"></b-form-checkbox>
-              </b-list-group-item>
-            </b-list-group>
-!-->
+          <b-row>
 
-   <!-- Test: 
-            <ul class="object administrator-checkbox-list">
-    <li v-for="module in completePeriod">
-      <label v-bind:for="module.date">
-        <input type="checkbox" v-model="module.selected" v-bind:id="module.date">
-        <span>{{ module.date.locale('de').format('dddd MM.DD.YYYY') }}</span>
-      </label>
-    </li>
-</ul>
-!-->
-
-<b-list-group horizontal size="sm" @click="calculatePeriod" v-for="module in completePeriod">
+<b-list-group horizontal size="sm" @click="calculatePeriod()" v-for="module in completePeriod">
               <b-list-group-item  v-bind:for="module.date" flush horizontal button lg="1">{{ module.date.locale('de').format('dddd MM.DD.YYYY') }}
               <b-form-checkbox v-model="module.selected" v-bind:date="module.date"></b-form-checkbox>
               </b-list-group-item>
             </b-list-group>
 
 
-
-
-
-
-            
-
-
-
-
-
           </b-row>
         </b-col>
-      <b-row>
-        <b-col lg="9">
-          <h2>Fixtermine</h2>
-          <b-table striped hover :items="examOverview" :fields="examOverviewHeader">
-                                    <template #cell(fixdate)="data">
-                                      <b-dropdown text="Datum wählen" size="sm" variant="primary">
-                                        <b-dropdown-item v-for="(day, index) in period.dateArray" :key="index">{{day.locale('de').format('dddd MM.DD.YYYY')}}</b-dropdown-item>
-                                      </b-dropdown>
+    </b-container>
+
+
+    </b-tab>
+    <b-tab title="Fixtermine">
+      <b-container>
+          <b-table responsive :items="ExamOverviewDetails" :fields="examOverviewHeader" head-variant="light">
+
+            <template #cell(action)="row">
+        <b-button variant="primary" size="sm" @click="row.toggleDetails()" class="mr-2"><i class="fa fa-pencil"></i>
+          Termin ändern
+        </b-button>
             </template>
-            <template #cell(fixtime)="data">
-              <b-input-group>
-                <b-form-input v-model="daytime" type="text" placeholder="HH:mm"></b-form-input>
-                <b-input-group-append>
-                  <b-form-timepicker v-model="daytime" button-only right locale='de'></b-form-timepicker>
-                </b-input-group-append>
-              </b-input-group>
+            <template v-slot:cell(fixdate)="row">
+      <b-badge v-if="row.item.fixdate" variant="success">Fixtermin</b-badge>
+      <b-badge v-else variant="warning">Solver</b-badge>
+    </template>
+
+            <template #row-details="row">
+        <b-card>
+          <b-row>
+            <b-col md="2">
+            <h5>Datum</h5>
+            </b-col>
+            <b-col md="6">
+            <b-form-select v-model="fixdateSelection.day" :options="periodOptions" :select-size="5" class="mt-3"></b-form-select>
+            </b-col>
+            <b-col md="4"><b-button class="adddate" variant="primary" @click="row.toggleDetails()"><i class="fa fa-times"></i></b-button></b-col>
+          </b-row>
+          <b-row>
+            <b-col md="2">
+              <h5>Uhrzeit</h5>
+            </b-col>
+            <b-col md="6">
+              <b-form-select v-model="fixdateSelection.time" :options="timeOptions" size="sm" class="mt-3"></b-form-select>
+            </b-col>
+            <b-col md="4"></b-col>
+          </b-row>
+           <b-row>
+            <b-col md="2">
+              <h5>Fixtermin</h5>
+            </b-col>
+            <b-col md="6">
+              <b-form-group>
+                <b-form-radio-group v-model="fixdateYN" :options="fixdateOptions">
+                </b-form-radio-group>
+              </b-form-group>
+            </b-col>
+            <b-col md="4"></b-col>
+          </b-row>
+            <b-button class="adddate" variant="success" @click="saveFixdate(row.item, row.index); row.toggleDetails()"><i class="fa fa-floppy-o"></i>Termin speichern</b-button>            
+        </b-card>
             </template>
           </b-table>
-        </b-col>
-      </b-row>
     </b-container>
+    </b-tab>
+  </b-tabs>
+
+
       <b-container>
     <b-row>
     <b-column sm="5">
     </b-column>
     <b-column sm="3">
-    <solver-settings-input @updateSettings="receiveSettings"></solver-settings-input>
+    <solver-settings-input class="button" @updateSettings="receiveSettings"></solver-settings-input>
     </b-column>
-    <router-link to=/solver tag="b-button" class="continue" ><i class="fa fa-arrow-right"></i>Weiter</router-link>
-    <b-button @click="updateParameters">Parameter speichern</b-button>
+    <parameter-confirmation 
+    :actualExamPeriod="actualExamPeriod" 
+    :totalExamPeriod="totalExamPeriod"
+    :completePeriod="completePeriod"
+    :fixDates="fixDates"
+    :newSettings="newSettings"
+    class="continue"></parameter-confirmation>
+    
     </b-row>
   </b-container>
   </div>
@@ -96,11 +114,12 @@ import moment from "moment";
 import axios from "axios";
 import SolverSettingsInput from "@/components/SolverSettingsInput.vue";
 import { FunctionalCalendar } from "vue-functional-calendar";
+import ParameterConfirmation from "@/components/ParameterConfirmation.vue";
 
 export default {
   data() {
     return {
-      calendarData: [],
+      calendarData: {},
       calendarConfigs: {
         sundayStart: false,
         dateFormat: "yyyy-mm-dd",
@@ -116,20 +135,52 @@ export default {
       startDate: "",
       endDate: "",
       examPeriod: "",
-      myModel: [
-        { name: "Hans", selected: true },
-        { name: "Dieter", selected: false },
-      ],
-      modules: [
+      fixdateSelection: [
         {
-          id: 1,
-          name: "Business",
-          checked: true,
+          day: ''
         },
         {
-          id: 2,
-          name: "Business 2",
-          checked: false,
+          time: ''
+        },
+        {
+          row: ''
+        },
+        {
+          selected: true
+        }
+      ],
+      fixdateYN: true,
+      fixdateOptions: [
+        {
+          text: 'hinzufügen', value: true
+        },
+        {
+          text: 'entfernen', value: false
+        }
+      ],
+      row:[
+        {item:''}
+      ],
+      timeOptions: [
+        {
+          value: 1,
+          text: '08:00 Uhr',
+        },
+        {
+          value: 2,
+          text: '10:00 Uhr'
+        },
+        {
+          value: 3,
+          text: '12:00 Uhr'
+        },
+        {
+          value: 4,
+          text: '14:00 Uhr'
+        },
+        {
+          value: 5,
+          text: '16:00 Uhr'
         },
       ],
       examOverview: [],
@@ -139,56 +190,142 @@ export default {
       daytime: "",
       examOverviewHeader: [
         { key: "EXAM", label: "Prüfung" },
-        { key: "EXAM_ID", label: "PrüfungsID" },
         { key: "Teilnehmer", label: "Teilnehmer" },
-        { key: "fixdate", label: "Datum" },
-        { key: "fixtime", label: "Zeit" },
+        { key: "action", label: "" },
+        { key: "fixdate", label: "Termin" },
       ],
       fixdateValue: "",
-      testUpdateData: {
-        days: 17,
-        days_before: 14,
-        solver_msg: true,
-        solver_time_limit: 20000,
-      },
       days: "",
       dateArray: "",
       checked: false,
       xyz: [],
+      fixDates: [],
+      totalExamPeriod: '',
+      actualExamPeriod: '',
+      periodOptions: [],
+      newSettings: '',
+      ExamOverviewDetails: []
     };
   },
   created() {
     this.getData();
   },
-  computed: {
-
-  },
+  computed: {},
   components: {
     SolverSettingsInput,
     FunctionalCalendar,
+    ParameterConfirmation
   },
   methods: {
-    getData() {
-      axios
+    // get List of all courses from backend (used for fixdates)
+    async getData() {
+      await axios
         .get(this.$IPBE + "/faecherliste")
         .then((res) => {
           this.examOverview = res.data;
-          console.log(res.data);
+          console.log('examOverview:', res.data);
         })
         .catch((error) => {
           console.log(error);
         });
+      // enrich courselist by details information in order to display fixdates later
+      let ExamOverviewDetails = this.ExamOverviewDetails
+      this.examOverview.forEach(element => {
+        ExamOverviewDetails.push({EXAM: element.EXAM, EXAM_ID: element.EXAM_ID, Teilnehmer: element.Teilnehmer, fixdate: false, fixdate_date: '', fixdate_time: ''})
+      })
+      console.log('blablabla', ExamOverviewDetails)
+    },
+    // store fixdate and add to model
+    saveFixdate(item, index) {
+      console.log ('selected row:', item, index)
+      console.log ('ID:', item.EXAM)
+      console.log('date:', this.fixdateSelection.day)
+      console.log('time:', this.fixdateSelection.time)
+      console.log('examOverview:', this.examOverview)
+      console.log('slot:', item.timeOptions)
+
+      console.log('fixdatetruefalse:', this.fixdateYN)
+      // allow to remove fixdate -> ToDo: validation if selected in post method
+      if (this.fixdateYN == true) {
+        item.fixdate = true
+        let time = ''
+      switch (this.fixdateSelection.time) {
+        case 1:
+          time = '08:00';
+          break;
+        case 2:
+          time = '10:00';
+          break;
+        case 3:
+          time = '12:00';
+          break;
+        case 4:
+          time = '14:00';
+          break;
+        case 5:
+          time = '16:00';
+          break;
+      }
+      let fixDates = this.fixDates
+      fixDates.push({EXAM_ID: item.EXAM_ID, EXAM: item.EXAM, date: this.fixdateSelection.day, slot: this.fixdateSelection.time, time: time})
+      console.log('fixdates:', fixDates)
+      this.$bvToast.toast(
+              item.EXAM + ' (' + moment(this.fixdateSelection.day).locale('de').format('dddd, DD.MM.YYYY') + ' - ' + time + ' Uhr) ',
+              { title: 'Fixtermin gespeichert!',
+              autoHideDelay: 20000
+              }             
+          );
+      }
+      else {
+        item.fixdate = false
+        console.log('entfernen:', item, index)
+      console.log('aktuelle EXAMID:', item.EXAM_ID)
+      console.log('current fixdates:', this.fixDates)
+      let position = -1
+      let fixDates = this.fixDates
+      console.log('fixdates as internal variable:', fixDates)
+      for (var i = 0; i<fixDates.length; i++) {
+        if (fixDates[i].EXAM_ID == item.EXAM_ID) {
+          console.log('halloichmöchtediepositionübergeben', i)
+          position = i
+        } 
+      }
+      console.log('position:',position)
+      if (position >= 0) {
+        this.fixDates.splice(position, 1)
+        item.fixdate = false
+        console.log ('item removed from fixDates:', this.fixDates)
+      this.$bvToast.toast(
+              item.EXAM,
+              { title: 'Fixtermin entfernt!',
+              autoHideDelay: 20000
+              }             
+          );
+      } else {
+        console.log('nothing to remove)')
+        alert('Für das ausgewählte Fach ist kein Fixtermin hinterlegt.')
+      }
+      }
+    },
+    onRowClicked(data) {
+      this.itemData = data;
+      //...
+      this.showModal = true;
+      $(".ui.modal").modal("toggle");
+      console.log(`Row with id ${data.id} clicked.`);
     },
     calculatePeriod() {
+      // create Array finalPeriod that contains all dates of exam phase and information if date can be selected for exam or not
       var finalPeriod = new Array();
       this.completePeriod.forEach((element, index) => {
-        if (element.selected == true) {
-          finalPeriod.push({ day: index, date: element.date }); // evtl. JSON.stringify rein
-        }
+          finalPeriod.push({ day: index, date: element.date, selected: element.selected });
       });
-      console.log("period without sundays:", finalPeriod);
-      this.examPeriodInDays = finalPeriod.length;
-      console.log("period in days:", this.examPeriodInDays);
+      if (finalPeriod.length > 1) {
+        
+
+      }
+      // calculate duration of selected exam Period
+      this.totalExamPeriod = finalPeriod.length
     },
     examPeriod() {
       let start = moment(this.calendarData.dateRange.start);
@@ -196,7 +333,6 @@ export default {
       let days = end.diff(start, "days") + 1;
       console.log("Zeitraum:", days);
       this.examPeriod = this.days;
-      console.log("test", examPeriod);
     },
     // Testfunktion um Datumsliste mit selected zu erweitern
     sendList() {
@@ -210,6 +346,27 @@ export default {
         dateArray.push(moment(new Date(firstDate)));
         firstDate = moment(firstDate).add(1, "days");
       }
+
+
+/*
+      let periodOptions = this.periodOptions
+      let firstDateTwo = moment(this.calendarData.dateRange.start);
+      let lastDateTwo = moment(this.calendarData.dateRange.end);
+      // let checkArray = new Array();
+
+
+
+      while (firstDateTwo <= lastDateTwo) {
+        periodOptions.push({'value': moment(new Date(firstDateTwo)), 'text': moment(new Date(firstDateTwo)).locale('de').format('dddd, DD.MM.YYYY')});
+        firstDateTwo = moment(firstDateTwo).add(1, "days");
+      }
+      console.log('Auswahloptionen:', JSON.stringify(periodOptions));
+
+*/
+
+
+
+
       console.log("Zeitraum", dateArray);
       this.period = { dateArray };
       let xyz = new Array();
@@ -223,9 +380,12 @@ export default {
       });
       */
 
-      this.period.dateArray.forEach((element) => {
-        var index = 1;
+      this.period.dateArray.forEach((element, index) => {
+        //////////////////////////////////////////////////
+        // ToDo check and do only push, if no dublette!
+        //////////////////////////////////////////////////
         xyz.push({
+          day: index,
           date: element,
           selected: moment(element).weekday() == 0 ? false : true,
         });
@@ -234,18 +394,25 @@ export default {
       this.completePeriod = xyz;
       console.log("complete period:", this.completePeriod);
 
-      /*
-      for (var i = 1; i <= this.dateArray.length; i++) {
-        this.dateArray.map(this.dateArray.push('test'))
-      }
-      console.log('hallo', this.dateArray)
-     
-      this.period = {dateArray}
-      var datePeriod = new Array();
-      for (var i = 1; i <= this.period.dateArray.length; i++) {
-        datePeriod.push(JSON.stringify(this.period.dateArray))
-      }
-      console.log('test' + this.datePeriod)*/
+      let actualPeriod = []
+      this.completePeriod.forEach(element => {
+        if (element.selected) {
+          actualPeriod.push({'value': element.date, 'text': moment(element.date).locale('de').format('dddd, DD.MM.YYYY')})
+        }
+      })
+      console.log('ichglaubichhabs', actualPeriod)
+      this.periodOptions = actualPeriod
+      console.log('periodOptions:', this.periodOptions)
+
+      this.actualExamPeriod = this.periodOptions.length
+      console.log('dauer ohne Sonntage:', this.actualExamPeriod)
+
+    },
+    calculateActualPeriod() {
+      console.log (this.completePeriod)
+      
+
+
     },
     getDates() {
       let dateArray = new Array();
@@ -266,16 +433,6 @@ export default {
       result.setDate(result.getDate() + 1);
       return result;
     },
-    testtest() {
-      console.log(this.examOverview);
-    },
-    updateParameters() {
-      let days = this.days;
-      let testdaten = { test: this.testUpdateData, dauer: days };
-      testdaten.toJSON;
-      console.log(testdaten);
-      axios.post(this.$IPBE + "/update_parameters");
-    },
     logDates() {
       console.log("start:", moment(this.calendarData.dateRange.start));
       console.log("end:", this.calendarData.dateRange.end);
@@ -289,9 +446,10 @@ export default {
     },
     // send settings to be
     receiveSettings(reply) {
-      let newSettings = reply;
+      let newSettings = this.newSettings
+      newSettings = reply;
       console.log("settings received from child component:", newSettings);
-      newSettings.days = this.testUpdateData.days; // add days from parent component to json object
+      newSettings.days = this.totalExamPeriod; // add days from parent component to json object
       console.log("full settings:", newSettings);
       axios
         .post(this.$IPBE + "/update_parameter", newSettings, {
@@ -317,5 +475,13 @@ export default {
 .list-container {
   display: table; /* Make the container element behave like a table */
   width: 30%; /* Set full-width to expand the whole page */
+}
+.button {
+  float: left;
+  margin-left: 9px;
+}
+.adddate {
+  float: right;
+  margin-left: 9px;
 }
 </style>

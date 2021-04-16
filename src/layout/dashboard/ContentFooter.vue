@@ -4,7 +4,7 @@
       <nav>
         <ul>
           <li>
-            <router-link :to="{path:'/admin'}">Dashboard</router-link>
+<!-- everything added here will be displayed below the content section on every site!-->
           </li>
         </ul>
       </nav>
