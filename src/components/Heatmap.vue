@@ -1,6 +1,5 @@
 <template>
 <div>
-<!-- <b-button @click="getData()">Testget</b-button> !-->
   <apexchart
     type="heatmap"
     :options="chartOptions"
@@ -75,7 +74,6 @@ export default {
   },
   methods: {
     saveChange: function (event, chartContext, config) {
-    
       axios.post(this.$IPBE + "/heatmap_correction", {
         data: {"Slot":"14:00 - 16:00","Tag":"Freitag 12.02.2021"}
       }

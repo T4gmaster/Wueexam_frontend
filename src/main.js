@@ -10,10 +10,12 @@ import VueApexCharts from "vue-apexcharts";
 
 import * as Keycloak from 'keycloak-js';
 
-
 Vue.config.productionTip = false
 Vue.prototype.$IPBE = 'http://132.187.226.24:5000'
 Vue.prototype.$IPOPTIMIZATION = 'http://132.187.226.24:5001'
+Vue.prototype.$NAME = 'test'
+Vue.prototype.$PW = 'test1'
+
 
 Vue.use(VueApexCharts);
 Vue.component("apexchart", VueApexCharts);
@@ -58,4 +60,3 @@ keycloak.init({ onLoad: initOptions.onLoad }).then((auth) => {
 }).catch(() => {
   console.log("Authenticated Failed");
 });
-

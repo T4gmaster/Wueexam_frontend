@@ -20,8 +20,6 @@
 import axios from 'axios';
 import { StatsCard, ChartCard } from "@/components/index";
 
-
-
 export default {
   name: "HelloWorld",
   components: {
@@ -31,10 +29,10 @@ export default {
     return {
       statsCards: [
         {
-          type: "",
-          icon: "ti-pencil-alt",
-          title: "Ø Anmeldungen pro Student",
-          value: "",
+          type: "danger",
+          icon: "ti-info-alt",
+          title: "Studenten mit mehr als 1 Prüfung am Tag",
+          value: null,
         }
       ]
     };
@@ -48,20 +46,11 @@ export default {
       })
       .then(response => {
         this.token = response.data.token
-        const requestOne = axios.get(this.$IPBE + "/anzahl_studenten", {headers: {"Authorization": `Bearer ${this.token}`} });
-        const requestTwo = axios.get(this.$IPBE + "/anzahl_anmeldungen", {headers: {"Authorization": `Bearer ${this.token}`} });
-        axios.all([requestOne, requestTwo])
-        .then(
-          axios.spread((...responses) => {
-            const responseOne = responses[0];
-            const responseTwo = responses[1];
-            let average = responseTwo.data / responseOne.data;
-            this.statsCards[0].value = average.toFixed(2);
-          console.log(average);  
-          })
-        )
-        .catch(error => {
-          console.log(error)
+        axios.get(this.$IPBE + "/summe_ueberschneidungen", {
+          headers: {
+          "Authorization": `Bearer ${this.token}`
+        }})
+        .then(res => {this.statsCards[0].value = res.data;
         })
       })
     }

@@ -39,12 +39,23 @@ export default {
   },
   methods: {
     getData () {
-      axios.get(this.$IPBE + "/pruefungen_pro_tag")
-      .then(res => {this.statsCards[0].value = res.data.toFixed(2);
-        console.log(res.data);
+      let token = ""
+      axios.post(this.$IPBE + "/login", {
+        name: this.$NAME,
+        password: this.$PW
       })
-      .catch(error => {
-        console.log(error)
+      .then(response => {
+        this.token = response.data.token
+        axios.get(this.$IPBE + "/pruefungen_pro_tag", {
+          headers: {
+          "Authorization": `Bearer ${this.token}`
+        }})
+        .then(res => {this.statsCards[0].value = res.data.toFixed(2);
+          console.log(res.data);
+        })
+        .catch(error => {
+          console.log(error)
+        })
       })
     }
   },

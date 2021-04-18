@@ -47,7 +47,7 @@ export default {
   },
   data() {
     return {
-      solverstatus: false
+      solverstatus: false,
     };
   },
   methods: {
