@@ -33,9 +33,6 @@ import UploadRegistrations from "@/components/UploadRegistrations.vue"
       RegistrationList,
       UploadRegistrations
     },
-    created() {
-      this.getData()
-    },
     computed: {
     },
     methods: {

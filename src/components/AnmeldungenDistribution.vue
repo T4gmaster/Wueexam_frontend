@@ -66,15 +66,26 @@ export default {
   },
   methods: {
     getData () {
-      axios.get(this.$IPBE + "/anmeldungen_distribution")
-      .then(res => {
-        this.chartOptionsBar.xAxis.data = res.data.Anmeldungen;
-        this.chartOptionsBar.series.data = res.data.Anzahl;
-        console.log(res.data.Anmeldungen);
-        console.log(res.data.Anzahl);
+      let token = ""
+      axios.post(this.$IPBE + "/login", {
+        name: this.$NAME,
+        password: this.$PW
       })
-      .catch(error => {
-        console.log(error)
+      .then(response => {
+        this.token = response.data.token
+        axios.get(this.$IPBE + "/anmeldungen_distribution", {
+          headers: {
+          "Authorization": `Bearer ${this.token}`
+        }})
+        .then(res => {
+          this.chartOptionsBar.xAxis.data = res.data.Anmeldungen;
+          this.chartOptionsBar.series.data = res.data.Anzahl;
+          console.log(res.data.Anmeldungen);
+          console.log(res.data.Anzahl);
+        })
+        .catch(error => {
+          console.log(error)
+        })
       })
     }
   },

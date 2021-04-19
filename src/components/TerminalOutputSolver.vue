@@ -31,12 +31,23 @@ export default {
   },
   methods: {
     getData() {
-      axios.get(this.$IPBE + "/fake_sentence")
-      .then(res => {this.content = res.data;
-      console.log(res.data);
+      let token = ""
+      axios.post(this.$IPBE + "/login", {
+        name: this.$NAME,
+        password: this.$PW
       })
-      .catch(error => {
-        console.log(error)
+      .then(response => {
+        this.token = response.data.token
+        axios.get(this.$IPBE + "/fake_sentence", {
+          headers: {
+          "Authorization": `Bearer ${this.token}`
+        }})
+        .then(res => {this.content = res.data;
+        console.log(res.data);
+        })
+        .catch(error => {
+          console.log(error)
+        })
       })
     },
     startIntervall () {

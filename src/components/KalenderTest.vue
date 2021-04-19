@@ -23,12 +23,23 @@ export default {
   },
   methods: {
     getData () {
-      axios.get(this.$IPBE + "/kalender")
-      .then(res => {this.events = res.data;
-      console.log(res.data);
+      let token = ""
+      axios.post(this.$IPBE + "/login", {
+        name: this.$NAME,
+        password: this.$PW
       })
-      .catch(error => {
-        console.log(error)
+      .then(response => {
+        this.token = response.data.token
+        axios.get(this.$IPBE + "/kalender", {
+          headers: {
+          "Authorization": `Bearer ${this.token}`
+        }})
+        .then(res => {this.events = res.data;
+        console.log(res.data);
+        })
+        .catch(error => {
+          console.log(error)
+        })
       })
     },
     startKalender() {

@@ -133,12 +133,23 @@ export default {
     },
     // get exam select options from backend
     getExams() {
-      axios.get(this.$IPBE + "/faecherliste")
-      .then(res=> {this.ExamSelectOptions= res.data;
-      console.log('Faecherliste from backend: ', res.data);
+      let token = ""
+      axios.post(this.$IPBE + "/login", {
+        name: this.$NAME,
+        password: this.$PW
       })
-      .catch(error => {
-        console.log(error)
+      .then(response => {
+        this.token = response.data.token
+        axios.get(this.$IPBE + "/faecherliste", {
+          headers: {
+          "Authorization": `Bearer ${this.token}`
+        }})
+        .then(res=> {this.ExamSelectOptions= res.data;
+        console.log('Faecherliste from backend: ', res.data);
+        })
+        .catch(error => {
+          console.log(error)
+        })
       })
     }
   },

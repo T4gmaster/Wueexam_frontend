@@ -247,14 +247,24 @@ export default {
         }
     },
     created() {
-        
-        axios.get(this.$IPBE + "/download_day_mapping")
-            .then(res => {
-              this.examPeriod = res.data;
-              console.log('daymapping from be: ', this.examPeriod)})
-            .catch(error => {
-              console.log(error)
-            })
+      let token = ""
+      axios.post(this.$IPBE + "/login", {
+        name: this.$NAME,
+        password: this.$PW
+      })
+      .then(response => {
+        this.token = response.data.token
+        axios.get(this.$IPBE + "/download_day_mapping", {
+          headers: {
+          "Authorization": `Bearer ${this.token}`
+        }})
+        .then(res => {
+          this.examPeriod = res.data;
+          console.log('daymapping from be: ', this.examPeriod)})
+        .catch(error => {
+          console.log(error)
+        })
+      })  
     },
     methods: {
         showRooms () {

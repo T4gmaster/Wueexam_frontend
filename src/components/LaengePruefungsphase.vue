@@ -55,15 +55,26 @@ export default {
       },
       methods: {
         getData () {
-          axios.get(this.$IPBE + "/abbildung_dauer")
-          .then(res => {
-            this.series[0].data = res.data.values;
-            this.chartOptions.xaxis.categories = res.data.labels
-            console.log(res.data.values, res.data.labels);
-            this.componentKey += 1;
+          let token = ""
+          axios.post(this.$IPBE + "/login", {
+            name: this.$NAME,
+            password: this.$PW
           })
-          .catch(error => {
-            console.log(error)
+          .then(response => {
+            this.token = response.data.token
+            axios.get(this.$IPBE + "/abbildung_dauer", {
+              headers: {
+              "Authorization": `Bearer ${this.token}`
+            }})
+            .then(res => {
+              this.series[0].data = res.data.values;
+              this.chartOptions.xaxis.categories = res.data.labels
+              console.log(res.data.values, res.data.labels);
+              this.componentKey += 1;
+            })
+            .catch(error => {
+              console.log(error)
+            })
           })
         }
       },

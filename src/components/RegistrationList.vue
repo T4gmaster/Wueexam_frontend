@@ -64,13 +64,24 @@ import DataTable from "vue-materialize-datatable";
     },
     methods: {
       getData () {
-        axios.get(this.$IPBE + '/anmeldeliste')
-        .then(res => {this.tableRows1 = res.data;
-          console.log(res.data);
-        })
-        .catch(error => {
-          console.log(error)
-        })
+		let token = ""
+		axios.post(this.$IPBE + "/login", {
+			name: this.$NAME,
+			password: this.$PW
+		})
+		.then(response => {
+			this.token = response.data.token
+			axios.get(this.$IPBE + '/anmeldeliste', {
+			headers: {
+			"Authorization": `Bearer ${this.token}`
+			}})
+			.then(res => {this.tableRows1 = res.data;
+			console.log(res.data);
+			})
+			.catch(error => {
+			console.log(error)
+			})
+		})
       }
     },
     created() {
