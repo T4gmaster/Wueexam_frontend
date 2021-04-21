@@ -119,6 +119,7 @@ import ParameterConfirmation from "@/components/ParameterConfirmation.vue";
 export default {
   data() {
     return {
+      token: "",
       calendarData: {},
       calendarConfigs: {
         sundayStart: false,
@@ -208,7 +209,8 @@ export default {
     };
   },
   created() {
-    this.getData();
+    this.getLogin();
+    setTimeout(() => this.getData(),1000);
   },
   computed: {},
   components: {
@@ -218,22 +220,35 @@ export default {
   },
   methods: {
     // get List of all courses from backend (used for fixdates)
-    async getData() {
+   async getData() {
       await axios
-        .get(this.$IPBE + "/faecherliste")
-        .then((res) => {
-          this.examOverview = res.data;
-          console.log('examOverview:', res.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      .get(this.$IPBE + "/faecherliste", {
+        headers: {
+        "Authorization": `Bearer ${this.token}`
+      }})
+      .then((res) => {
+        this.examOverview = res.data;
+        console.log('examOverview:', res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
       // enrich courselist by details information in order to display fixdates later
       let ExamOverviewDetails = this.ExamOverviewDetails
       this.examOverview.forEach(element => {
         ExamOverviewDetails.push({EXAM: element.EXAM, EXAM_ID: element.EXAM_ID, Teilnehmer: element.Teilnehmer, fixdate: false, fixdate_date: '', fixdate_time: ''})
       })
       console.log('blablabla', ExamOverviewDetails)
+    },
+    getLogin() {
+      axios.post(this.$IPBE + "/login", {
+        name: this.$NAME,
+        password: this.$PW 
+      })
+      .then(response => {
+        this.token = response.data.token
+        console.log(this.token)
+      })
     },
     // store fixdate and add to model
     saveFixdate(item, index) {
