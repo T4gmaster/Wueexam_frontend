@@ -17,7 +17,7 @@
         <b-button v-on:click="startSolver()" @click="startTerminal()" variant="primary"><i class="fa fa-play"></i>Optimierung starten</b-button>
       </div>
       <div>  
-        <b-button v-on:click="stopSolver()" variant="primary"><i class="fa fa-stop"></i>Optimierung stoppen</b-button>
+        <b-button v-on:click="stopSolver()" @click="stopTerminal()" variant="primary"><i class="fa fa-stop"></i>Optimierung stoppen</b-button>
       </div>    
     </div>
     <solver-status v-if="solverstatus"></solver-status>
@@ -73,6 +73,9 @@ export default {
     },
     startTerminal () {
       this.$refs.form.startIntervall()
+    },
+    stopTerminal () {
+      this.$refs.form.stopIntervall()
     }
   }
 };

@@ -94,7 +94,7 @@
       <b-col md="10">
         <b-card-body title="Prüfungsplan">
           <b-card-text>
-            Hier wird nach der Berechnung der fertige Prüfungsplan angezeigt. Zusätzlich lassen sich hier, falls nötig, Prüfungstermine verschieben.
+            Hier wird nach der Berechnung der fertige Prüfungsplan angezeigt. Zusätzlich lassen sich hier, falls nötig, Prüfungstermine verschieben
           </b-card-text>
         </b-card-body>
       </b-col>

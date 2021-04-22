@@ -4,8 +4,8 @@
       <b-col>
       <anzahl-studenten class="testttt" />
       <anzahl-pruefungen class="testttt"/>
-      <durchschnitt-anmeldungen class="testttt" />
       <durchschnitt-pruefungen class="testttt" />
+      <durchschnitt-anmeldungen class="testttt" />
       <kpi-solver class="testttt"/>
       </b-col>
       <b-col cols="8">
