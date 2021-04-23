@@ -80,8 +80,6 @@ export default {
         .then(res => {
           this.chartOptionsBar.xAxis.data = res.data.Anmeldungen;
           this.chartOptionsBar.series.data = res.data.Anzahl;
-          console.log(res.data.Anmeldungen);
-          console.log(res.data.Anzahl);
         })
         .catch(error => {
           console.log(error)

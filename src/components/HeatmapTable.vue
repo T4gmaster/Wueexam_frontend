@@ -75,7 +75,6 @@ import Heatmap from "@/components/Heatmap.vue";
 			},
 			transformResponse: [(data) => { 
 				this.parentmessage = JSON.parse(data);
-				console.log(data)
 			}]
 		})
 		this.pruefungsAuswahl = row.exam_name
@@ -93,7 +92,6 @@ import Heatmap from "@/components/Heatmap.vue";
 			"Authorization": `Bearer ${this.token}`
 			}})
 			.then(res => {this.tableRows1 = res.data;
-			console.log(res.data);
 			})
 			.catch(error => {
 			console.log(error)

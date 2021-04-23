@@ -28,6 +28,7 @@ export default {
       // Ensures we have some semblance of lines
       return this.ansi.ansi_to_html(this.content).replace(/\n/gm, '<br>')
     }
+    
   },
   methods: {
     getData() {
@@ -38,12 +39,13 @@ export default {
       })
       .then(response => {
         this.token = response.data.token
-        axios.get(this.$IPBE + "/fake_sentence", {
+        axios.get(this.$IPBE + "/solver_output", {
           headers: {
           "Authorization": `Bearer ${this.token}`
         }})
-        .then(res => {this.content = res.data;
-        console.log(res.data);
+        .then(res => {
+        this.content = JSON.stringify(res.data);
+        console.log(JSON.stringify(res.data));
         })
         .catch(error => {
           console.log(error)

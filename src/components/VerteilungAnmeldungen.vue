@@ -1,6 +1,6 @@
 <template>
 <div id="chart">
-  <apexchart :key="componentKey" type="bar" height="550" :options="chartOptions" :series="series"></apexchart>
+  <apexchart :key="componentKey" type="bar" height="510" :options="chartOptions" :series="series"></apexchart>
 </div>
 </template>
 
@@ -83,7 +83,6 @@ export default {
             .then(res => {
               this.series[0].data = res.data.Anzahl;
               this.chartOptions.xaxis.categories = res.data.Anmeldungen
-              console.log(res.data.Anzahl);
               this.componentKey += 1;
             })
             .catch(error => {

@@ -51,7 +51,6 @@ export default {
           "Authorization": `Bearer ${this.token}`
         }})
         .then(res => {this.statsCards[0].value = res.data;
-          console.log(res.data);
         })
         .catch(error => {
           console.log(error)

@@ -57,7 +57,6 @@ export default {
             const responseTwo = responses[1];
             let average = responseTwo.data / responseOne.data;
             this.statsCards[0].value = average.toFixed(2);
-          console.log(average);  
           })
         )
         .catch(error => {

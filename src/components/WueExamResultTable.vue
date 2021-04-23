@@ -64,7 +64,6 @@ import DataTable from "vue-materialize-datatable";
 			"Authorization": `Bearer ${this.token}`
 			}})
 			.then(res => {this.tableRows1 = res.data;
-			console.log(res.data);
 			})
 			.catch(error => {
 			console.log(error)

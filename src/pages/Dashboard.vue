@@ -63,7 +63,7 @@ export default {
 <style>
 .testttt {
   cursor: pointer;
-  width: 250%;
+  width: 350%;
 }
 
 

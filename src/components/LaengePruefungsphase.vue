@@ -69,7 +69,6 @@ export default {
             .then(res => {
               this.series[0].data = res.data.values;
               this.chartOptions.xaxis.categories = res.data.labels
-              console.log(res.data.values, res.data.labels);
               this.componentKey += 1;
             })
             .catch(error => {
