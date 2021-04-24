@@ -26,7 +26,7 @@ export default {
   computed: {
     html () {
       // Ensures we have some semblance of lines
-      return this.ansi.ansi_to_html(this.content).replace(/\n/gm, '<br>')
+     return this.ansi.ansi_to_html(this.content).replace(/\,/gm, '<br>')
     }
     
   },
@@ -44,7 +44,7 @@ export default {
           "Authorization": `Bearer ${this.token}`
         }})
         .then(res => {
-        this.content = JSON.stringify(res.data);
+        this.content = JSON.stringify(res.data.list);
         console.log(JSON.stringify(res.data));
         })
         .catch(error => {
@@ -53,7 +53,8 @@ export default {
       })
     },
     startIntervall () {
-      this.interval = setInterval(() => this.getData(), 2000);
+      this.getData()
+      this.interval = setInterval(() => this.getData(), 5000);
     },
     stopIntervall() {
      clearInterval(this.interval);
