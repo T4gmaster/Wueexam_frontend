@@ -58,11 +58,9 @@
             text-field="EXAM"
             size="sm"
             class="mt-3"
+            @change="calculateName"
           ></b-form-select>
           <p>ID: {{ registration.examID }}</p>
-          <!--<h3>Fach: {{  }}</h3>
-            geht wenn ich die zeile auskommentiere und wieder einfüge!-->
-          <p>Name: {{  }}</p>
           </b-col>
         </b-row>
       </b-card>
@@ -97,22 +95,10 @@ export default {
       ExamSelectOptions: [],
     };
   },
-  computed: {
-    selectedOption: function() {
-      const report = this.ExamSelectOptions.find( option => option.EXAM_ID === this.registration.examID);
-      // ToDo: map name into registration.exam variable
-      console.log(report)
-      return option.EXAM
-    },
-    currentValue() {
-      // let registration.examID = t
-      const result = this.ExamSelectOptions.find(option => option.value /* oder option.EXAM_ID */ === this.registration.examID)
-    }
-  },
   methods: {
     // send new registration to parent component and show confirmation
     showRegistration(event) {
-      let registrationArray = ({EXAM: 'placeholder', EXAM_ID: this.registration.examID, LAST_NAME: this.registration.lastName, FIRST_NAME: this.registration.firstName, MATRICULATION_NUMBER: this.registration.matriculationNumber, COURSE: this.registration.course})
+      let registrationArray = ({EXAM: this.registration.exam, EXAM_ID: this.registration.examID, LAST_NAME: this.registration.lastName, FIRST_NAME: this.registration.firstName, MATRICULATION_NUMBER: this.registration.matriculationNumber, COURSE: this.registration.course})
       this.$emit("updateRegistration", registrationArray);
       console.log('Registration handed over to parent component:', registrationArray);
       this.$bvModal.hide('modal-add-participant');
@@ -130,6 +116,12 @@ export default {
       this.registration.exam='';
       this.registration.examID='';
       this.registration.course='';
+    },
+    calculateName() {
+      console.log('apsfhapigh')
+      let report = this.ExamSelectOptions.find( option => option.EXAM_ID === this.registration.examID);
+      console.log(report)
+      this.registration.exam = report.EXAM
     },
     // get exam select options from backend
     getExams() {

@@ -12,7 +12,7 @@
             <label v-b-tooltip.hover title="Faktor, wie viele Klausuren stattdessen am nächsten Tag geschrieben werden müssten, um eine Klausur am gleichen Tag zu verhindern">gleicher Tag</label>
           </b-col>
           <b-col sm="3">
-            <b-form-spinbutton min="0" max="10000" step="10" v-model="settings.days_before0" inline></b-form-spinbutton>
+            <b-form-spinbutton min="0" max="10000" step="10" v-model="days_before0" inline></b-form-spinbutton>
           </b-col>
         </b-row>
         <p></p>
@@ -21,7 +21,7 @@
             <label v-b-tooltip.hover title="Faktor, wie viele Klausuren stattdessen am nächsten Tag geschrieben werden müssten, um eine Klausur einen Tag nach der vorangegangenen Klausur zu verhindern">nächster Tag</label>
           </b-col>
           <b-col sm="3">
-            <b-form-spinbutton min="0" max="10000" step="5" v-model="settings.days_before1" inline></b-form-spinbutton>
+            <b-form-spinbutton min="0" max="10000" step="5" v-model="days_before1" inline></b-form-spinbutton>
           </b-col>
         </b-row>
         <p></p>
@@ -30,7 +30,7 @@
             <label v-b-tooltip.hover title="Faktor, wie viele Klausuren stattdessen am nächsten Tag geschrieben werden müssten, um eine Klausur zwei Tage nach der vorangegangenen Klausur zu verhindern">übernächster Tag </label>
           </b-col>
           <b-col sm="3">
-            <b-form-spinbutton min="0" max="10000" step="1" v-model="settings.days_before2" inline></b-form-spinbutton>
+            <b-form-spinbutton min="0" max="10000" step="1" v-model="days_before2" inline></b-form-spinbutton>
           </b-col>
         </b-row>
 
@@ -43,7 +43,7 @@
             <label v-b-tooltip.hover title="">bis 4 Klausuren</label>
           </b-col>
           <b-col sm="3">
-            <b-form-spinbutton min="0" max="1" step="0.01" v-model="settings.normalization4" inline></b-form-spinbutton>
+            <b-form-spinbutton min="0" max="1" step="0.01" v-model="normalization4" inline></b-form-spinbutton>
           </b-col>
         </b-row>
         <p></p>
@@ -52,7 +52,7 @@
             <label v-b-tooltip.hover title="">bis 6 Klausuren</label>
           </b-col>
           <b-col sm="3">
-            <b-form-spinbutton min="0" max="1" step="0.01" v-model="settings.normalization6" inline></b-form-spinbutton>
+            <b-form-spinbutton min="0" max="1" step="0.01" v-model="normalization6" inline></b-form-spinbutton>
           </b-col>
         </b-row>
         <p></p>
@@ -61,7 +61,7 @@
             <label v-b-tooltip.hover title="">bis 7 Klausuren</label>
           </b-col>
           <b-col sm="3">
-            <b-form-spinbutton min="0" max="1" step="0.01" v-model="settings.normalization7" inline></b-form-spinbutton>
+            <b-form-spinbutton min="0" max="1" step="0.01" v-model="normalization7" inline></b-form-spinbutton>
           </b-col>
         </b-row>
         <p></p>
@@ -70,7 +70,7 @@
             <label v-b-tooltip.hover title="">bis 8 Klausuren</label>
           </b-col>
           <b-col sm="3">
-            <b-form-spinbutton min="0" max="1" step="0.01" v-model="settings.normalization8" inline></b-form-spinbutton>
+            <b-form-spinbutton min="0" max="1" step="0.01" v-model="normalization8" inline></b-form-spinbutton>
           </b-col>
         </b-row>
         <p></p>
@@ -79,7 +79,7 @@
             <label v-b-tooltip.hover title="">bis 9 Klausuren</label>
           </b-col>
           <b-col sm="3">
-            <b-form-spinbutton min="0" max="1" step="0.01" v-model="settings.normalization9" inline></b-form-spinbutton>
+            <b-form-spinbutton min="0" max="1" step="0.01" v-model="normalization9" inline></b-form-spinbutton>
           </b-col>
         </b-row>
         <p></p>
@@ -88,13 +88,11 @@
             <label v-b-tooltip.hover title="">mehr als 10 Klausuren</label>
           </b-col>
           <b-col sm="3">
-            <b-form-spinbutton min="0" max="1" step="0.01" v-model="settings.normalization1000" inline></b-form-spinbutton>
+            <b-form-spinbutton min="0" max="1" step="0.01" v-model="normalization1000" inline></b-form-spinbutton>
           </b-col>
         </b-row>
-
-
-
       </b-card>
+
       <!--Technische Einstellungen !-->
       <b-card title="Technische Einstellungen">
         <p></p>
@@ -105,20 +103,65 @@
             >
           </b-col>
           <b-col sm="3">
-            <b-form-spinbutton min="1" max="100000" step="60" v-model="settings.solver_time_limit" inline></b-form-spinbutton>
+            <b-form-spinbutton min="1" max="100000" step="60" v-model="solver_time_limit" inline></b-form-spinbutton>
+          </b-col>
+        </b-row>
+        <p></p>
+        <b-row>
+          <b-col sm="5">
+            <label v-b-tooltip.hover title="Prüfungen, die auf einmal geplant werden. Je größer, desto optimaler das Ergebnis. Verlängert jedoch auch die Laufzeit des Solvers"
+              >Wave Size</label
+            >
+          </b-col>
+          <b-col sm="3">
+            <b-form-spinbutton min="1" max="1000" step="1" v-model="wave_size" inline></b-form-spinbutton>
+          </b-col>
+        </b-row>
+        <p></p>
+        <b-row>
+          <b-col sm="5">
+            <label v-b-tooltip.hover title="Faktor, um verschiedene Klausuren zur gleichen Zeit und im gleichen Raum zu vermeiden (>1) oder zu ermöglichen (<1)"
+              >Room Split</label
+            >
+          </b-col>
+          <b-col sm="3">
+            <b-form-spinbutton min="0" max="100" step="0.1" v-model="room_split_weight" inline></b-form-spinbutton>
+          </b-col>
+        </b-row>
+        <p></p>
+        <b-row>
+          <b-col sm="5">
+            <label v-b-tooltip.hover title="Faktor, um das Aufteilen einer Klausur auf mehrere Räume zu vermeiden (>1) oder zu ermöglichen (<1)"
+              >Exam Split</label
+            >
+          </b-col>
+          <b-col sm="3">
+            <b-form-spinbutton min="0" max="100" step="0.1" v-model="exam_split_weight" inline></b-form-spinbutton>
+          </b-col>
+        </b-row>
+        <p></p>
+        <b-row>
+          <b-col sm="5">
+            <label v-b-tooltip.hover title="Faktor, um leere Räume zu bestrafen"
+              >Missing Rooms</label
+            >
+          </b-col>
+          <b-col sm="3">
+            <b-form-spinbutton min="0" max="100" step="1" v-model="weight_missing_room" inline></b-form-spinbutton>
           </b-col>
         </b-row>
       </b-card>
-      <b-button class="confirm" @click="addSettings" variant="success">hinzufügen</b-button>
+      <b-button class="confirm" @click="saveSettings" variant="success">hinzufügen</b-button>
     </b-modal>
   </div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
-      settings: {
         days_before0: 1000,
         days_before1: 50,
         days_before2: 5,
@@ -128,8 +171,12 @@ export default {
         normalization8: 0.7,
         normalization9: 0.5,
         normalization1000: 0.1,
-        solver_time_limit: 20000
-      },
+        solver_time_limit: 20000,
+        solver_msg: 0,
+        wave_size: 8,
+        exam_split_weight: 1,
+        room_split_weight: 1,
+        weight_missing_room: 20
     };
   },
   methods: {
@@ -146,6 +193,30 @@ export default {
           title: 'Solver Parameter geändert!',
           autoHideDelay: 20000,
           });
+    },
+    saveSettings() {
+      console.log('settings:', )
+      let settings = []
+      let days_before = {"zero": this.days_before0, "one": this.days_before1, "two": this.days_before2}
+      let normalization = {"four": this.normalization4, "six": this.normalization6, "seven": this.normalization7, "eight": this.normalization8, "nine": this.normalization9, "ten": this.normalization1000}
+      let solver_parameters = {"solver_time_limit": this.solver_time_limit, "wave_size": this.wave_size, "exam_split_weight": this.exam_split_weight, "room_split_weight": this.room_split_weight, "weight_missing_room": this.weight_missing_room}
+      console.log('days before:', days_before)
+      console.log('normalization:', normalization)
+      settings.push({'days_before': days_before, 'normalization': normalization, 'solver_parameters': solver_parameters})
+      console.log('settings:', settings)
+      console.log(JSON.stringify(settings))
+      axios
+        .post(this.$IPBE + "/update_parameter", settings, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+        .then(function (response) {
+          console.log('success:', response);
+        })
+        .catch(function (error) {
+          console.log('error:', error);
+        });
     }
   }
 };

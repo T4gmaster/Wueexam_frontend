@@ -1,5 +1,7 @@
 <template>
 <div>
+  <add-room class="button_margin" @updateRoom="receiveRoom"></add-room>
+  <p></p>
 
 <!-- Tabelle !-->
 <b-table :items="rooms" :fields="roomsHeader" head-variant="light">
@@ -144,13 +146,9 @@
 
 
 <b-row>
-  <add-room class="button" @updateRoom="receiveRoom"></add-room>
-  <b-button class="button" variant="primary">Zeitslots festlegen</b-button>
-  <b-button class="button" variant="primary" @click="storeRooms">Räume speichern</b-button>
+  
   <router-link to=/solver tag="b-button" class="continue" ><i class="fa fa-arrow-right"></i>Weiter</router-link>
-  <button @click="logRoomArray">log room array</button>
-  <button @click="logData">log data from other site</button>
-  <button @click="fillArray">test array</button>
+  <button @click="fillArray">test</button>
 </b-row>
 </div>
 </template>
@@ -354,6 +352,21 @@ export default {
 
           console.log('final list:', JSON.stringify(finalList))
 
+          axios
+          .post(this.$IPBE + "/room_availability", finalList, {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+          .then(function (response) {
+            console.log('success:', response);
+          })
+          .catch(function (error) {
+            console.log('error:', error);
+          });
+
+        
+
 
 
         },
@@ -362,6 +375,25 @@ export default {
           console.log('ichbindieposition', index)
           this.slotModalDay = item
           console.log('slotmodal:', this.slotModalDay)
+          console.log('blablabla.room', this.slotModalRoom)
+          console.log('dassindalleslots:', this.slots)
+          let room = this.slotModalRoom
+          let day = item.day_ordered
+          let updateSlot = []
+          updateSlot.push({'room': room, 'day': day, 'slots': this.slots})
+          console.log('gute nacht:', JSON.stringify(updateSlot))
+          axios
+          .post(this.$IPBE + "/rooms_update", updateSlot, {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+          .then(function (response) {
+            console.log('success:', response);
+          })
+          .catch(function (error) {
+            console.log('error:', error);
+          });
         },
         logSlots() {
           console.log('dassindalleslots:', this.slots)
@@ -386,6 +418,11 @@ export default {
 .button {
   float: left;
   margin-left: 9px;
+}
+.button_margin {
+  float: left;
+  margin-left: 9px;
+  margin-bottom: 9px;
 }
 .confirm {
   float: right;

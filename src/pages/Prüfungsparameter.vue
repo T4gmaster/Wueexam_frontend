@@ -94,7 +94,6 @@
     <b-column sm="5">
     </b-column>
     <b-column sm="3">
-    <solver-settings-input class="button" @updateSettings="receiveSettings"></solver-settings-input>
     </b-column>
     <parameter-confirmation 
     :actualExamPeriod="actualExamPeriod" 

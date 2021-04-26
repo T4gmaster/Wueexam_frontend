@@ -1,9 +1,10 @@
 <template>
   <div>
+    <solver-settings-input></solver-settings-input>
     <h2>Informationen:</h2>
     <b-row>
      <b-col cols="4">
-      <start-datum class="datum"/>
+      <start-datum  class="datum"/>
       <end-datum class="datum" />
       </b-col>
       <b-col cols="8">
@@ -21,63 +22,72 @@
       </div>    
     </div>
     <solver-status v-if="solverstatus"></solver-status>
-    <router-link to=/pruefungsplan tag="b-button" ><i class="fa fa-arrow-right"></i>Weiter</router-link>
+    <router-link to=/pruefungsplan class="continue" tag="b-button" ><i class="fa fa-arrow-right"></i>Weiter</router-link>
     <p></p>
     <terminal-output-solver ref="form"/>
 </div>
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 import AnzahlStudenten from "@/components/AnzahlStudenten.vue";
 import AnzahlPruefungen from "@/components/AnzahlPrüfungen.vue";
-import SolverStatus from '@/components/SolverStatus.vue';
-import StartDatum from '@/components/StartDatum.vue';
-import EndDatum from '@/components/EndDatum.vue';
-import TerminalOutputSolver from '@/components/TerminalOutputSolver.vue';
+import SolverStatus from "@/components/SolverStatus.vue";
+import StartDatum from "@/components/StartDatum.vue";
+import EndDatum from "@/components/EndDatum.vue";
+import TerminalOutputSolver from "@/components/TerminalOutputSolver.vue";
+import SolverSettingsInput from "@/components/SolverSettingsInput.vue";
 
-export default { 
-  components: { 
+export default {
+  components: {
     SolverStatus,
     AnzahlStudenten,
     AnzahlPruefungen,
     StartDatum,
     EndDatum,
-    TerminalOutputSolver
+    TerminalOutputSolver,
+    SolverSettingsInput,
   },
   data() {
     return {
+      token: '',
       solverstatus: false,
+      examPeriod: '',
+      startDate: '',
+      endDate: ''
     };
   },
   methods: {
-    startSolver(){
-      axios.get(this.$IPOPTIMIZATION + "/startsolver")
-      .then(function (response) {
-        this.solverstatus = true
-        console.log(response);
-      })
-      .catch(function() {
-       console.log('Solver wurde gestartet');
-      });
+    startSolver() {
+      axios
+        .get(this.$IPOPTIMIZATION + "/startsolver")
+        .then(function (response) {
+          this.solverstatus = true;
+          console.log(response);
+        })
+        .catch(function () {
+          console.log("Solver wurde gestartet");
+        });
     },
-    stopSolver(){
-      axios.get(this.$IPOPTIMIZATION + "/stopsolver")
-      .then(function (response) {
-        this.solverstatus = false
-        console.log("Solver wurde gestoppt");
-      })
-      .catch(function () {
-        console.log("Solver konnte nicht gestoppt werden");
-      });
+    stopSolver() {
+      axios
+        .get(this.$IPOPTIMIZATION + "/stopsolver")
+        .then(function (response) {
+          this.solverstatus = false;
+          console.log("Solver wurde gestoppt");
+        })
+        .catch(function () {
+          console.log("Solver konnte nicht gestoppt werden");
+        });
     },
-    startTerminal () {
-      this.$refs.form.startIntervall()
+    startTerminal() {
+      this.$refs.form.startIntervall();
     },
-    stopTerminal () {
-      this.$refs.form.stopIntervall()
-    }
-  }
+    stopTerminal() {
+      this.$refs.form.stopIntervall();
+    },
+    
+  },
 };
 </script>
 <style>
@@ -95,5 +105,9 @@ export default {
 .datum {
   width: 225%;
   max-width: 225%;
+}
+.continue{
+  float: right;
+  margin-left: 100px
 }
 </style>

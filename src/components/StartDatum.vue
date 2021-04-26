@@ -8,7 +8,7 @@
         </div>
         <div class="numbers" slot="content">
           <p>{{stats.title}}</p>
-          {{stats.value}}
+          {{startDate}}
         </div>
       </stats-card>
     </div>
@@ -18,7 +18,9 @@
 
 <script>
 import axios from 'axios';
+import moment from 'moment';
 import { StatsCard, ChartCard } from "@/components/index";
+
 
 export default {
   name: "HelloWorld",
@@ -34,8 +36,58 @@ export default {
           title: "Start:",
           value: "01.03.2021"
         }
-      ]
+      ],
+      token: '',
+      examPeriod: '',
+      startDate: ''
     };
+  },
+  async created() {
+    await this.getLogin();
+    setTimeout(() => this.getFirstDate(),1000);
+  },
+  methods: {
+    getFirstDate () {
+      axios.get(this.$IPBE + "/download_day_mapping", {
+          headers: {
+          "Authorization": `Bearer ${this.token}`
+        }})
+        .then(res => {
+          this.examPeriod = res.data;
+          console.log('daymapping from be: ', this.examPeriod)})
+        .catch(error => {
+          console.log(error)
+        })
+    },
+    getLogin() {
+      axios.post(this.$IPBE + "/login", {
+        name: this.$NAME,
+        password: this.$PW 
+      })
+      .then(response => {
+        this.token = response.data.token
+        console.log(this.token)
+      })
+    },
+    async getFirstDate() {
+          await axios
+            .get(this.$IPBE + "/download_day_mapping", {
+              headers: {
+                Authorization: `Bearer ${this.token}`,
+              },
+            })
+            .then((res) => {
+              this.examPeriod = res.data;
+              console.log("daymapping from be: ", this.examPeriod);
+              this.startDate = moment(this.examPeriod[0].ISO_date).format('DD.MM.YYYY')
+              this.startDate = this.startDate.setDate(+1)
+              console.log('done', this.startDate)
+
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+    },
   }
 };
 </script>

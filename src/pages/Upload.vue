@@ -2,12 +2,13 @@
 <div>
   <b-row>
     <upload-registrations></upload-registrations>
+    <add-participant @updateRegistration="receiveRegistration" class="button" />
+    <students-bigger-ten class="button" />
     <b-button class ="button-icon" @click="forceRerender()"><i class="fa fa-refresh"></i></b-button>
   </b-row>
   <registration-list class="upload" :key="componentKey" />
   <b-row>
-  <add-participant @updateRegistration="receiveRegistration" class="button" />
-  <students-bigger-ten class="button" />
+  
   <router-link to=/pruefungsparamter tag="b-button" class="continue" ><i class="fa fa-arrow-right"></i>Weiter</router-link>
   </b-row>
 </div>  
@@ -69,7 +70,7 @@ import UploadRegistrations from "@/components/UploadRegistrations.vue"
 <style>
 .continue{
   float: right;
-  margin-left: 250px
+  margin-left: 650px
 }
 .button{
   float: left;
