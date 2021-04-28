@@ -3,10 +3,12 @@
   <div class="console" v-html="html">
   </div>
   <p />
+<!--
   <div>
   <b-button @click="startIntervall()">Start</b-button>
   <b-button @click="stopIntervall()">Stop</b-button>
   </div>
+!-->
 </div>
 </template>
 
