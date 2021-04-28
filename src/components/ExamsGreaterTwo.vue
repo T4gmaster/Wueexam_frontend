@@ -30,8 +30,8 @@ export default {
       statsCards: [
         {
           type: "danger",
-          icon: "ti-alert",
-          title: "Studenten mit mehr als 1 Prüfung am Tag",
+          icon: "ti-info-alt",
+          title: "Prüfungen größer 2",
           value: null,
         }
       ]
@@ -46,11 +46,11 @@ export default {
       })
       .then(response => {
         this.token = response.data.token
-        axios.get(this.$IPBE + "/summe_ueberschneidungen", {
+        axios.get(this.$IPBE + "/solver_kpi", {
           headers: {
           "Authorization": `Bearer ${this.token}`
         }})
-        .then(res => {this.statsCards[0].value = res.data.wert;
+        .then(res => {this.statsCards[0].value = res.data[0].exams_greater_two;
         })
       })
     }

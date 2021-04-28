@@ -1,6 +1,5 @@
 <template>
   <div>
-    <solver-settings-input></solver-settings-input>
     <h2>Informationen:</h2>
     <b-row>
      <b-col cols="4">
@@ -14,6 +13,9 @@
     </b-row>
       <h2>Optimierung starten</h2>
     <div class="grid2-container">
+      <div>
+        <solver-settings-input></solver-settings-input>
+      </div>
       <div>
         <b-button v-on:click="startSolver()" @click="startTerminal()" variant="primary"><i class="fa fa-play"></i>Optimierung starten</b-button>
       </div>
@@ -93,7 +95,7 @@ export default {
 <style>
 .grid2-container {
   display: inline-grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: auto auto auto;
   grid-gap: 2px;
   background-color: #0000000;
   padding: 10px;
@@ -103,8 +105,8 @@ export default {
   max-width: 100%;
 }
 .datum {
-  width: 225%;
-  max-width: 225%;
+  width: 275%;
+  max-width: 275%;
 }
 .continue{
   float: right;

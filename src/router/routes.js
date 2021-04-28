@@ -7,7 +7,7 @@ import Home from "@/pages/Home.vue";
 import Solver from "@/pages/Solver.vue";
 import Upload from "@/pages/Upload.vue";
 import Pruefungsplan from "@/pages/Pruefungsplan.vue";
-import Pruefungsparameter from "@/pages/Prüfungsparameter.vue";
+import Pruefungszeitraum from "@/pages/Prüfungszeitraum.vue";
 import Dashboard from "@/pages/Dashboard.vue";
 import Räume from "@/pages/Räume.vue";
 
@@ -38,9 +38,9 @@ const routes = [
         component: Upload
       },
       {
-        path: "pruefungsparamter",
-        name: "pruefungsparamter",
-        component: Pruefungsparameter
+        path: "pruefungszeitraum",
+        name: "pruefungszeitraum",
+        component: Pruefungszeitraum
       },
       {
         path: "dashboard",

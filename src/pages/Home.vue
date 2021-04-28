@@ -23,18 +23,18 @@
   </router-link>
     </div>
     <div>
-    <router-link to=/pruefungsparamter>
+    <router-link to=/pruefungszeitraum>
       <b-card no-body class="overflow-hidden" style="max-width: 540px;">
       <b-row no-gutters>
       <b-col md="2">
           
-            <span class="ti-panel fa-5x" id="icontest"></span>
+            <span class="ti-calendar fa-5x" id="icontest"></span>
          
       </b-col>
       <b-col md="10">
-        <b-card-body title="Prüfungsparameter">
+        <b-card-body title="Prüfungszeitraum">
           <b-card-text>
-            Hier werden Einstellungen vorgenommen (Prüfungszeitraum, Fixtermine festlegen, etc.) und die Optimierung vorbereitet
+            Hier werden Einstellungen zu Prüfungszeitraum und Fixterminen vorgenommen, um den Zeitraum für die Optimierung vorzubereiten
           </b-card-text>
         </b-card-body>
       </b-col>

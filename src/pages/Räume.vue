@@ -159,7 +159,7 @@ import rooms from "@/assets/rooms.json";
 import DataTable from "vue-materialize-datatable";
 import AddRoom from "@/components/AddRoom.vue";
 import SetSlots from "@/components/SetSlots.vue";
-import {test} from "@/pages/Prüfungsparameter.vue"
+import {test} from "@/pages/Prüfungszeitraum.vue"
 import axios from 'axios';
 
 

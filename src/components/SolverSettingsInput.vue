@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-button id="show-btn" @click="$bvModal.show('modal-settings-input')" variant="primary"
-      >technische Parameter ändern</b-button
+      ><i class="fa fa-sliders"></i>technische Parameter ändern</b-button
     >
     <b-modal id="modal-settings-input" title="Solvereinstellungen ändern" size="xl" hide-footer>
         <!--Days before !-->

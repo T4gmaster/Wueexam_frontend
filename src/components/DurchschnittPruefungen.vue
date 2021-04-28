@@ -46,11 +46,13 @@ export default {
       })
       .then(response => {
         this.token = response.data.token
-        axios.get(this.$IPBE + "/pruefungen_pro_tag", {
+        //axios.get(this.$IPBE + "/pruefungen_pro_tag", {
+        axios.get(this.$IPBE + "/solver_kpi", {          
           headers: {
           "Authorization": `Bearer ${this.token}`
         }})
-        .then(res => {this.statsCards[0].value = res.data.toFixed(2);
+        //.then(res => {this.statsCards[0].value = res.data.toFixed(2);
+        .then(res => {this.statsCards[0].value = res.data[0].exams_per_day;
         })
         .catch(error => {
           console.log(error)

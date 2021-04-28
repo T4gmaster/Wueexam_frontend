@@ -4,9 +4,8 @@
       <b-col>
       <anzahl-studenten class="testttt" />
       <anzahl-pruefungen class="testttt"/>
-      <durchschnitt-pruefungen class="testttt" />
+      <anzahl-anmeldungen class="testttt"/>
       <durchschnitt-anmeldungen class="testttt" />
-      <kpi-solver class="testttt"/>
       </b-col>
       <b-col cols="8">
       <b-card>
@@ -31,6 +30,19 @@
     </b-card>
     </b-col>
     </b-row>
+    <b-row>
+      <b-col cols="8">
+      <infringing-exams />
+      </b-col>
+      <b-col>
+      <durchschnitt-pruefungen class="testttt" />
+      <kpi-solver class="testttt"/>
+      <exams-greater-one class="testttt"/>
+      <exams-greater-two class="testttt"/>
+      <avg-time-exams class="testttt"/>
+      <overlap-coeff class="testttt"/>
+      </b-col>
+    </b-row>
 </div>
 </template>
 
@@ -44,6 +56,17 @@ import VerteilungAnmeldungen from "@/components/VerteilungAnmeldungen.vue";
 import DurchschnittPruefungen from "@/components/DurchschnittPruefungen.vue";
 import LaengePruefungsphase from "@/components/LaengePruefungsphase.vue";
 import KpiSolver from "@/components/KPISolver.vue";
+import AnzahlAnmeldungen from "@/components/AnzahlAnmeldungen.vue";
+import InfringingExams from "@/components/InfringingExams.vue";
+import ExamsGreaterOne from "@/components/ExamsGreaterOne.vue";
+import ExamsGreaterTwo from "@/components/ExamsGreaterTwo.vue";
+import AvgTimeExams from "@/components/AvgTimeExams.vue";
+import OverlapCoeff from "@/components/OverlapCoeff.vue";
+
+
+
+
+
 
 
 export default { 
@@ -56,7 +79,13 @@ export default {
     VerteilungStudiengaenge,
     DurchschnittPruefungen,
     LaengePruefungsphase,
-    KpiSolver
+    KpiSolver,
+    AnzahlAnmeldungen,
+    InfringingExams,
+    ExamsGreaterOne,
+    ExamsGreaterTwo,
+    AvgTimeExams,
+    OverlapCoeff
   }
 }
 </script>
@@ -66,6 +95,4 @@ export default {
   cursor: pointer;
   width: 350%;
 }
-
-
 </style>

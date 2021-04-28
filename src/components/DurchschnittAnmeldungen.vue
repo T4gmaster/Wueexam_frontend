@@ -40,6 +40,7 @@ export default {
     };
   },
   methods: {
+    /*
     getData () {
       let token = ""
       axios.post(this.$IPBE + "/login", {
@@ -59,6 +60,25 @@ export default {
             this.statsCards[0].value = average.toFixed(2);
           })
         )
+        .catch(error => {
+          console.log(error)
+        })
+      })
+    */
+     getData () {
+      let token = ""
+      axios.post(this.$IPBE + "/login", {
+        name: this.$NAME,
+        password: this.$PW
+      })
+      .then(response => {
+        this.token = response.data.token
+        axios.get(this.$IPBE + "/solver_kpi", {          
+          headers: {
+          "Authorization": `Bearer ${this.token}`
+        }})
+        .then(res => {this.statsCards[0].value = res.data[0].enroll_per_student;
+        })
         .catch(error => {
           console.log(error)
         })
