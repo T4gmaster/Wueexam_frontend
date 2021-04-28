@@ -31,7 +31,7 @@ export default {
         {
           type: "danger",
           icon: "ti-info-alt",
-          title: "Prüfungen größer 2",
+          title: "Klausuren am Vortag",
           value: null,
         }
       ]

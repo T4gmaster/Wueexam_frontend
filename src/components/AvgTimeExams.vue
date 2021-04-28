@@ -31,7 +31,7 @@ export default {
         {
           type: "",
           icon: "ti-time",
-          title: "avg_time_exams",
+          title: "Zeit zwischen Prüfungen",
           value: null,
         }
       ]

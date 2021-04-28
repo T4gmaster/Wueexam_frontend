@@ -31,7 +31,7 @@ export default {
         {
           type: "info",
           icon: "ti-paragraph",
-          title: "overlap_coeff",
+          title: "Anzahl Überschneidungen",
           value: null,
         }
       ]

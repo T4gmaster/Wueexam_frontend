@@ -31,7 +31,7 @@ export default {
         {
           type: "danger",
           icon: "ti-info-alt",
-          title: "Prüfungen größer 1",
+          title: "Klausuren am selben Tag",
           value: null,
         }
       ]
