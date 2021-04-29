@@ -50,7 +50,7 @@ export default {
           headers: {
           "Authorization": `Bearer ${this.token}`
         }})
-        .then(res => {this.statsCards[0].value = res.data[0].overlap_coeff;
+        .then(res => {this.statsCards[0].value = res.data[0].overlap_faktor;
         })
       })
     }
