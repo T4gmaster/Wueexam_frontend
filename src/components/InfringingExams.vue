@@ -59,17 +59,18 @@ import DataTable from "vue-materialize-datatable";
 		})
 		.then(response => {
 			this.token = response.data.token
-			axios.get(this.$IPBE + "/pruefungsansicht", {
+			axios.get(this.$IPBE + "/solver_kpi", {
 			headers: {
 			"Authorization": `Bearer ${this.token}`
 			}})
-			.then(res => {this.tableRows1 = res.data;
+			.then(res => {
+			this.tableRows1 = [res.data[0].infringing_exams]
 			})
 			.catch(error => {
 			console.log(error)
 			})
 		})
-      }
+      },
     },
     created() {
       this.getData()

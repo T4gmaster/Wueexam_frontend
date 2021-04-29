@@ -50,7 +50,7 @@ export default {
           headers: {
           "Authorization": `Bearer ${this.token}`
         }})
-        .then(res => {this.statsCards[0].value = res.data[0].avg_time_exams;
+        .then(res => {this.statsCards[0].value = Number(res.data[0].avg_time_exams).toFixed(2);
         })
       })
     }

@@ -9,7 +9,7 @@
   <registration-list class="upload" :key="componentKey" />
   <b-row>
   
-  <router-link to=/pruefungsparamter tag="b-button" class="continue" ><i class="fa fa-arrow-right"></i>Weiter</router-link>
+  <router-link to=/pruefungszeitraum tag="b-button" class="continue" ><i class="fa fa-arrow-right"></i>Weiter</router-link>
   </b-row>
 </div>  
 </template>
