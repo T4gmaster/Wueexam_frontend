@@ -67,7 +67,7 @@ export default {
                 {
                   from: 1000000,
                   to: 1000000,
-                  color: "#adadad",
+                  color: "#000000",
                   name: "Termine die nicht wahrgenommen werden können"
                 }
               ]
