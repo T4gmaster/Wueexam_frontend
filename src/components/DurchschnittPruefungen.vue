@@ -52,7 +52,7 @@ export default {
           "Authorization": `Bearer ${this.token}`
         }})
         //.then(res => {this.statsCards[0].value = res.data.toFixed(2);
-        .then(res => {this.statsCards[0].value = res.data[0].exams_per_day;
+        .then(res => {this.statsCards[0].value = Number(res.data[0].exams_per_day).toFixed(2);
         })
         .catch(error => {
           console.log(error)

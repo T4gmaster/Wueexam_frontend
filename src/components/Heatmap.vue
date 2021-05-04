@@ -63,6 +63,12 @@ export default {
                   to: 100,
                   color: "#e30800",
                   name: "Mögliche Termine (je dunkler, desto schlechter die Alternative)"
+                },
+                {
+                  from: 1000000,
+                  to: 1000000,
+                  color: "#000000",
+                  name: "Termine die nicht wahrgenommen werden können"
                 }
               ]
             } 

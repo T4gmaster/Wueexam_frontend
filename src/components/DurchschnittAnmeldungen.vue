@@ -77,7 +77,10 @@ export default {
           headers: {
           "Authorization": `Bearer ${this.token}`
         }})
-        .then(res => {this.statsCards[0].value = res.data[0].enroll_per_student;
+        .then(res => {
+          let average = Number(res.data[0].enroll_per_student)
+          console.log(res.data)
+          this.statsCards[0].value = average.toFixed(2);
         })
         .catch(error => {
           console.log(error)
