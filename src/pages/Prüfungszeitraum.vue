@@ -9,13 +9,14 @@
   v-model="calendarData"
   :configs="calendarConfigs"  
   :is-date-range='true'
-  @choseDay="sendList(); calculatePeriod()"
+  @choseDay="sendList(); calculatePeriod(); calculateActualPeriod()"
 ></FunctionalCalendar>
 
     <b-container fluid>
         <b-col>
           <p></p>
           <h4>Prüfungszeitraum: {{ this.totalExamPeriod ? this.totalExamPeriod + ' Tage' : 'bitte Zeitraum auswählen' }}</h4>
+          <h4>Tage mit Klausuren: {{ totalExamDaysLength == 0 ? 'bitte Zeitraum auswählen' : totalExamDaysLength + ' Tage'}}</h4>
           <p></p>
 
 
@@ -23,7 +24,7 @@
 
 <b-list-group horizontal size="sm" @click="calculatePeriod()" v-for="module in completePeriod">
               <b-list-group-item  v-bind:for="module.date" flush horizontal button lg="1">{{ module.date.locale('de').format('dddd MM.DD.YYYY') }}
-              <b-form-checkbox v-model="module.selected" v-bind:date="module.date"></b-form-checkbox>
+              <b-form-checkbox @change="calculateActualPeriod()" v-model="module.selected" v-bind:date="module.date"></b-form-checkbox>
               </b-list-group-item>
             </b-list-group>
 
@@ -182,7 +183,13 @@ export default {
           value: 5,
           text: '16:00 Uhr'
         },
+        {
+          value: 6,
+          text: '18:00 Uhr'
+        }
       ],
+      totalExamDays: [],
+      totalExamDaysLength: 0,
       examOverview: [],
       examPeriodInDays: "",
       period: "",
@@ -204,14 +211,16 @@ export default {
       actualExamPeriod: '',
       periodOptions: [],
       newSettings: '',
-      ExamOverviewDetails: []
+      ExamOverviewDetails: [],
+      daysTotal: []
     };
   },
   created() {
     this.getLogin();
     setTimeout(() => this.getData(),1000);
   },
-  computed: {},
+  computed: {
+  },
   components: {
     SolverSettingsInput,
     FunctionalCalendar,
@@ -279,6 +288,9 @@ export default {
         case 5:
           time = '16:00';
           break;
+        case 6:
+          time = '18:00';
+          break;
       }
       let fixDates = this.fixDates
       fixDates.push({EXAM_ID: item.EXAM_ID, EXAM: item.EXAM, date: this.fixdateSelection.day, slot: this.fixdateSelection.time, time: time})
@@ -334,12 +346,9 @@ export default {
       this.completePeriod.forEach((element, index) => {
           finalPeriod.push({ day: index, date: element.date, selected: element.selected });
       });
-      if (finalPeriod.length > 1) {
-        
-
-      }
       // calculate duration of selected exam Period
       this.totalExamPeriod = finalPeriod.length
+
     },
     examPeriod() {
       let start = moment(this.calendarData.dateRange.start);
@@ -423,7 +432,30 @@ export default {
 
     },
     calculateActualPeriod() {
+      console.log('asdasdasdasd')
+      console.log(this.completePeriod)
+      var totalExamDaysLength = 0
+      for(var i = 0; i < this.completePeriod.length; ++i){
+          if(this.completePeriod[i].selected == true)
+              totalExamDaysLength++;
+      }
+      console.log(totalExamDaysLength)
+      this.totalExamDaysLength = totalExamDaysLength
+      /*
       console.log (this.completePeriod)
+      let totalExamDays = this.totalExamDays
+      this.completePeriod.forEach((item) => {
+        if (item.selected) {
+          totalExamDays.push(item.date)
+        }
+      })
+      this.totalExamDaysLength = totalExamDays.length
+      console.log('sum of days with exams:', this.totalExamDaysLength)
+      */
+      
+
+
+
       
 
 

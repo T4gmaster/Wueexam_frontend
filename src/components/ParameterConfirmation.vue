@@ -46,10 +46,6 @@
         </b-col>
       </b-row>
 
-      <b-card title="Solvereinstellungen"
-        ><p>// ToDo --> hier oder auf SolverStartseite?</p></b-card
-      >
-
       <b-button
         to="/raeume"
         variant="primary"

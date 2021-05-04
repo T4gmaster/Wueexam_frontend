@@ -1,15 +1,15 @@
 <template>
 <div>
   <b-row>
-    <upload-registrations></upload-registrations>
+    <upload-registrations class="button"></upload-registrations>
     <add-participant @updateRegistration="receiveRegistration" class="button" />
     <students-bigger-ten class="button" />
-    <b-button class ="button-icon" @click="forceRerender()"><i class="fa fa-refresh"></i></b-button>
+    <b-button class="button" @click="forceRerender()"><i class="fa fa-refresh"></i></b-button>
   </b-row>
   <registration-list class="upload" :key="componentKey" />
   <b-row>
   
-  <router-link to=/pruefungsparamter tag="b-button" class="continue" ><i class="fa fa-arrow-right"></i>Weiter</router-link>
+  <router-link to=/pruefungszeitraum tag="b-button" class="continue" ><i class="fa fa-arrow-right"></i>Weiter</router-link>
   </b-row>
 </div>  
 </template>

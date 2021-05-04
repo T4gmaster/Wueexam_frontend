@@ -60,10 +60,12 @@ Spaltenbezeichnungen anpassen
     <b-col sm="4"><b-form-input v-model="columns.COURSE" placeholder="Spaltenbezeichnung in Excel"></b-form-input></b-col>
 </b-row>
 
-<b-button @click="uploadRegistration" type="submit" variant="primary">Anmeldungen hochladen</b-button>
-<b-button @click="cancel" class="cancel">abbrechen</b-button>
+</b-card>
 
-      </b-card>
+<b-button @click="uploadRegistration" type="submit" class="cancel" variant="primary">Anmeldungen hochladen</b-button>
+
+
+      
       
     </b-modal>
   </div>

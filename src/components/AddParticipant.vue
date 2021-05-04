@@ -64,7 +64,7 @@
           </b-col>
         </b-row>
       </b-card>
-      <b-button @click="showRegistration" variant="primary">hinzufügen</b-button> 
+      <b-button @click="showRegistration" type="submit" class="cancel" variant="primary">hinzufügen</b-button> 
     </b-modal>
   </div>
 </template>
@@ -150,3 +150,11 @@ export default {
   }
 };
 </script>
+
+
+<style>
+.cancel{
+  float: right;
+  margin-left: 250px
+}
+</style>

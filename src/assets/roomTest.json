@@ -1,0 +1,169 @@
+[
+    {
+       "room": "HS166 (Brose)",
+       "capacity": 80,
+       "selected": true,
+       "proctor": 2,
+       "slots": [
+           {"one": 80},
+           {"two": 80},
+           {"three": 80},
+           {"four": 90},
+           {"five": 80},
+           {"six": 80}
+       ],
+       "period": {}
+    },
+    {
+       "room": "Audimax",
+       "capacity": 140,
+       "selected": true,
+       "proctor": 3,
+       "slots": [
+           {"one": 140},
+           {"two": 140},
+           {"three": 140},
+           {"four": 140},
+           {"five": 140},
+           {"six": 140}
+           
+       ],
+       "period": {}
+    },
+    {
+       "room": "Sparkassen-HS",
+       "capacity": 80,
+       "selected": true,
+       "proctor": 2,
+       "slots": [
+           {"one": 80},
+           {"two": 80},
+           {"three": 80},
+           {"four": 80},
+           {"five": 80},
+           {"six": 80}
+           
+       ],
+       "period": {}
+    },
+    {
+       "room": "Interimsmensa",
+       "capacity": 100,
+       "selected": true,
+       "proctor": 3,
+       "slots": [
+           {"one": 100},
+           {"two": 100},
+           {"three": 100},
+           {"four": 100},
+           {"five": 100},
+           {"six": 100}
+       ],
+       "period": {}
+    },
+    {
+       "room": "Shedhalle",
+       "capacity": 70,
+       "selected": true,
+       "proctor": 2,
+       "slots": [
+           {"one": 70},
+           {"two": 70},
+           {"three": 70},
+           {"four": 70},
+           {"five": 70},
+           {"six": 70}
+       ],
+       "period": {}
+    },
+    {
+       "room": "Heisenberg 3",
+       "capacity": 50,
+       "selected": true,
+       "proctor": 2,
+       "slots": [
+           {"one": 50},
+           {"two": 50},
+           {"three": 50},
+           {"four": 50},
+           {"five": 50},
+           {"six": 50}
+       ],
+       "period": {}
+    },
+    {
+       "room": "Posthalle",
+       "capacity": 300,
+       "selected": true,
+       "proctor": 4,
+       "slots": [
+           {"one": 300},
+           {"two": 300},
+           {"three": 300},
+           {"four": 300},
+           {"five": 300},
+           {"six": 300}
+       ],
+       "period": {}
+    },
+    {
+       "room": "Zeltbau Julia",
+       "capacity": 400,
+       "selected": true,
+       "proctor": 4,
+       "slots": [
+           {"one": 400},
+           {"two": 400},
+           {"three": 400},
+           {"four": 400},
+           {"five": 400},
+           {"six": 400}
+       ],
+       "period": {}
+    },
+    {
+       "room": "Zeltbau Maximilian",
+       "capacity": 250,
+       "selected": true,
+       "proctor": 4,
+       "slots": [
+           {"one": 250},
+           {"two": 250},
+           {"three": 250},
+           {"four": 250},
+           {"five": 250},
+           {"six": 250}
+       ],
+       "period": {}
+    },
+    {
+       "room": "Teilbibliothek",
+       "capacity": 30,
+       "selected": true,
+       "proctor": 2,
+       "slots": [
+           {"one": 30},
+           {"two": 30},
+           {"three": 30},
+           {"four": 30},
+           {"five": 30},
+           {"six": 30}
+       ],
+       "period": {}
+    },
+    {
+       "room": "HS004",
+       "capacity": 200,
+       "selected": true,
+       "proctor": 4,
+       "slots": [
+           {"one": 200},
+           {"two": 200},
+           {"three": 200},
+           {"four": 200},
+           {"five": 200},
+           {"six": 200}
+       ],
+       "period": {}
+    }
+ ]
