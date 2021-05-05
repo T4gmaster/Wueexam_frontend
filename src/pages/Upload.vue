@@ -1,7 +1,7 @@
 <template>
 <div>
   <b-row>
-    <upload-registrations class="button"></upload-registrations>
+    <upload-registrations @upload="forceRerender" class="button"></upload-registrations>
     <add-participant @updateRegistration="receiveRegistration" class="button" />
     <students-bigger-ten class="button" />
     <b-button class="button" @click="forceRerender()"><i class="fa fa-refresh"></i></b-button>

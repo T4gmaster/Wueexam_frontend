@@ -78,12 +78,12 @@ export default {
     data() {
         return {
           columns: {
-                EXAM: 'prüfung',
-                EXAM_ID: 'prüfungid',
-                LAST_NAME: 'nachname',
-                FIRST_NAME: 'vorname',
-                MATRICULATION_NUMBER: 'immatrikulationsnummer',
-                COURSE: 'studiengang',
+                EXAM: 'exam',
+                EXAM_ID: 'exam_id',
+                LAST_NAME: 'last_name',
+                FIRST_NAME: 'first_name',
+                MATRICULATION_NUMBER: 'matriculation_number',
+                COURSE: 'course',
             }
 
         }
@@ -114,7 +114,10 @@ export default {
         })
         .then(function (response) {
           console.log('Datei wurde hochgeladen', response);
+          this.$emit("upload"); //force rerender
+          console.log('tralalaichwillsehenobdasmodalgeschlossenwird')
           this.$bvModal.hide('modal-upload-registrations')
+          console.log('undobeintoastkommt')
           this.$bvToast.toast(`Anmeldeliste wurde hochgeladen!`, {
           title: 'Status',
           autoHideDelay: 5000,

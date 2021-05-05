@@ -1,24 +1,21 @@
 <template>
 <div>
   <add-room class="button_margin" @updateRoom="receiveRoom"></add-room>
-  <b-button class="button_margin" variant="primary">Einzeltage Bearbeiten</b-button>
+  <!-- <b-button class="button_margin" variant="primary">Einzeltage Bearbeiten</b-button> !-->
   <p></p>
-
-
 <!-- show either calender selection or UI selection !-->
 <!-- move in row.details !-->
-
 <!--
 <room-calender v-show="calenderView == true" :roomTest="roomTest" :examPeriod="examPeriod"></room-calender>
 !-->
+
 <!-- Tabelle !-->
 <b-table :items="roomTest" :fields="roomsHeader" head-variant="light">
   <template template #cell(capacity)="row">
     <b-badge class="selectitem" @click="show = true; sendRoomCapacity(row.item)" variant="success">{{row.item.capacity}}</b-badge>
-    <!-- evtl. macht template Einordnung Probleme !-->
   
-
-  <b-modal v-model="show" hide-footer id="modal-set-capacity">
+<!-- Vue Bug: Modal mit schwarzen Hintergrund: https://github.com/bootstrap-vue/bootstrap-vue/issues/3540 !-->
+  <b-modal v-model="show" hide-footer id="modal-set-capacity" >
     <template #modal-title><b>Raumkapazität ändern:</b> <br> {{ selectedRoomCapacity.room }}</template>
     <b-card>
     <p></p>
@@ -31,7 +28,7 @@
           </b-col>
         </b-row>
     </b-card>
-    <b-button @click="changeRoomcapacity(); show = false" class="adddate" variant="primary">speichern</b-button>
+    <b-button @click="changeRoomCapacity(); show = false" class="adddate" variant="primary">speichern</b-button>
   </b-modal>
   </template>
 
@@ -62,7 +59,10 @@
             <b-col sm="3"><b-button class="adddate" variant="primary" @click="row.toggleDetails()"><i class="fa fa-times"></i></b-button></b-col></b-row>
           <b-table sticky-header :select-mode="selectMode" :items="examPeriod" :fields="examPeriodHeader">
             <template #cell(period)="row">
+
+         
               {{moment(row.item.date).locale('de').format('dddd, DD.MM.YYYY')}}
+
 
             </template>
             <!--
@@ -72,8 +72,8 @@
     !-->
             <template class="mouseClick" #cell(capacity)="row" >
 
-            <b-badge class="selectitem" v-if="row.item.slotRestriction" @click="testLog(row.item, row.index)" v-b-modal.modal-set-slots variant="success">80</b-badge>
-      <b-badge class="selectitem" @click="testLog(row.item, row.index)" v-b-modal.modal-set-slots v-else variant="warning">eingeschränkt</b-badge>
+            <b-badge class="selectitem" v-if="row.item.slotRestriction" @click="testLog(row.item, row.index); sendRoomSlotIndex(row.item, row.index)" v-b-modal.modal-set-slots variant="success">80</b-badge>
+      <b-badge class="selectitem" @click="setSlotsToChange(row.item, row.index); sendRoomSlotIndex(row.item, row.index)" v-b-modal.modal-set-slots v-else variant="warning">eingeschränkt</b-badge>
             </template>
 
 
@@ -91,7 +91,7 @@
             <label v-b-tooltip.hover title="">08:00 Uhr</label>
           </b-col>
           <b-col sm="3">
-            <b-form-input size="sm" v-model="slots.one" ></b-form-input>
+            <b-form-input type="number" :number="true" size="sm" v-model="roomTest[indexOfRoom]" ></b-form-input>
           </b-col>
         </b-row>
         <p></p>
@@ -100,7 +100,7 @@
             <label v-b-tooltip.hover title="">10:00 Uhr</label>
           </b-col>
           <b-col sm="3">
-            <b-form-input size="sm" v-model="slots.two" ></b-form-input>
+            <b-form-input type="number" :number="true" size="sm" v-model="slots.two" ></b-form-input>
           </b-col>
         </b-row>
         <p></p>
@@ -109,7 +109,7 @@
             <label v-b-tooltip.hover title="">12:00 Uhr</label>
           </b-col>
           <b-col sm="3">
-            <b-form-input size="sm" v-model="slots.three" ></b-form-input>
+            <b-form-input type="number" :number="true" size="sm" v-model="slots.three" ></b-form-input>
           </b-col>
         </b-row>
         <p></p>
@@ -118,7 +118,7 @@
             <label v-b-tooltip.hover title="">14:00 Uhr</label>
           </b-col>
           <b-col sm="3">
-            <b-form-input size="sm" v-model="slots.four" ></b-form-input>
+            <b-form-input type="number" :number="true" size="sm" v-model="slots.four" ></b-form-input>
           </b-col>
         </b-row>
         <p></p>
@@ -127,7 +127,7 @@
             <label v-b-tooltip.hover title="">16:00 Uhr</label>
           </b-col>
           <b-col sm="3">
-            <b-form-input size="sm" v-model="slots.five" ></b-form-input>
+            <b-form-input type="number" :number="true" size="sm" v-model="slots.five" ></b-form-input>
           </b-col>
         </b-row>
         <p></p>
@@ -136,13 +136,13 @@
             <label v-b-tooltip.hover title="">18:00 Uhr</label>
           </b-col>
           <b-col sm="3">
-            <b-form-input size="sm" v-model="slots.six" ></b-form-input>
+            <b-form-input type="number" :number="true" size="sm" v-model="slots.six" ></b-form-input>
           </b-col>
         </b-row>
 
       </b-card>
 
-      <b-button variant="primary" class="adddate" @click="$bvModal.hide('modal-set-slots'); logSlots()"><i class="fa fa-floppy-o"></i>speichern</b-button>
+      <b-button variant="primary" class="adddate" @click="$bvModal.hide('modal-set-slots'); changeSlots()"><i class="fa fa-floppy-o"></i>speichern</b-button>
           
           </b-modal>
 
@@ -241,10 +241,21 @@ export default {
         six: "200"
       },
       selectedRoomCapacity: [],
+      selectedRoomSlot: [],
       // add dummy data to exam period until rounting available
       examPeriod: [],
       indexToReplceRoomCapacity: '',
+      indexInPeriod:'',  
+      dayInPeriod: '',
+      indexOfRoom:'',    
       slotModalDay: "",
+      //remove and replace by routing
+      offlineDayMapping: [
+        {day_ordered:1,date:1617148800000},
+        {day_ordered:2,date:1617235200000},
+        {day_ordered:3,date:1617321600000},
+        {day_ordered:5,date:1617494400000},
+        {day_ordered:6,date:1617580800000}],
       slotModalRoom: "",
       infoModal: {
         id: "info-modal",
@@ -259,28 +270,24 @@ export default {
     setTimeout(() => this.addPeriodToRoomArray(), 6000);
   },
   methods: {
-    showRooms() {
-      console.log("Räume:", this.rooms);
+    toggleDetails() {
+      // hide and show row
     },
-    toggleDetails() {},
     sendRoomCapacity(item) {
-      console.log('selected room to change capacity:', item)
-      this.selectedRoomCapacity = item
-      console.log('allgemeine Variable um Kapa zu ändern:', this.selectedRoomCapacity)
-
+      this.selectedRoomCapacity = item // hand over row to global variable
+      console.log('selected row to change', this.selectedRoomCapacity)
     },
-    changeRoomcapacity() {
+    changeRoomCapacity() {
       /*
       find Index of room which capacity should be changed
       */
-      console.log('Kapa wird jetzt geändert', this.roomTest)
       var indexToReplceRoomCapacity = this.indexToReplceRoomCapacity
       this.roomTest.forEach ((item, index) => {
         if (item.room == this.selectedRoomCapacity.room) {
           indexToReplceRoomCapacity = index
         }
       })
-     console.log('indexin room array', indexToReplceRoomCapacity)
+     console.log('index in room array', indexToReplceRoomCapacity)
      this.roomTest[indexToReplceRoomCapacity].capacity = this.selectedRoomCapacity.capacity // change capacity in room array
      this.$bvToast.toast(
               this.selectedRoomCapacity.room + ': ' + this.roomTest[indexToReplceRoomCapacity].capacity + ' Plätze',
@@ -288,8 +295,83 @@ export default {
               autoHideDelay: 20000
               }             
           );
+    },
+    sendRoomSlotIndex(item, index) {
+      this.selectedRoomSlot =item // hand over row of selected day to global variable
+      let indexInPeriod = this.indexInPeriod
+      indexInPeriod = index
+      this.dayInPeriod = item.ISO_date // hand over index of item
+      console.log('selected day to change', this.selectedRoomSlot)
+      console.log('index of day that is replaced', indexInPeriod)
+    },
+    setSlotsToChange(item) {
+      console.log('room selected', this.slotModalRoom)
+      this.slotModalDay = item;
+      /*
+      get index of selected room
+      */
+      var indexOfRoom = this.indexOfRoom
+      this.roomTest.forEach((room, index) => {
+        if (room.room == this.slotModalRoom) {
+          indexOfRoom = index
+          }
+        })
+      console.log('index of room', indexOfRoom);
+      console.log('ahhhhhhhhhhhhhh', JSON.stringify(this.roomTest[indexOfRoom].period))
+      console.log("slotmodal:", this.slotModalDay)
+      const selectedRoom = this.slotModalRoom
+      const slots = this.slots
+      this.roomTest.forEach((item) => {
+        if (item.room == selectedRoom) {
+          slots.one = item.capacity
+          slots.two = item.capacity
+          slots.three = item.capacity
+          slots.four = item.capacity
+          slots.five = item.capacity
+          slots.six = item.capacity
+        }
+      })
+      console.log('v-model to update slots', slots)
+    },
+    changeSlots() {
+      /*
+      get index of selected room
+      */
+      var indexOfRoom = this.indexOfRoom
+      this.roomTest.forEach((room, index) => {
+        if (room.room == this.slotModalRoom) {
+          indexOfRoom = index
+          }
+        })
+      console.log('index of room', indexOfRoom)
+      /*
+      insert slots into room v-model
+      */
+     var indexInPeriod = this.indexInPeriod
+     let slots = this.slots
+     console.log(indexInPeriod)
+     console.log('selected date', this.dayInPeriod)
+     console.log('path', this.roomTest[indexOfRoom].period)
+     this.roomTest[indexOfRoom].period[indexInPeriod] = slots
+     console.log('apskjdhfsdipgsapf', this.roomTest[indexOfRoom].period[indexInPeriod])
+     console.log('new asdasd', this.roomTest)
+     /*
+     this.roomTest.forEach((item) => [
+       item.period.forEach((day) => {
+         console.log('testamabend', item.day)
+       })
+     ])
+     */
+     // make sure period and period have both the same range
+     // if so, make sure both start at same index // object.entries & object.keys verwenden evtlüüüüüüüüüüüüüüüüüüüüüüüüüüü
+     // add index to roomTest as well
+     // object.keys auf index und dann mit this.indexInPeriod vergleichen
+     // an position slots einfügen
+
+
 
     },
+
     info(item, index, button) {
       this.infoModal.title = `Row index: ${index}`;
       this.infoModal.content = JSON.stringify(
@@ -347,14 +429,12 @@ export default {
       this.examPeriod.forEach((element) => {
         period.push(element.ISO_date);
       });
-
       // Step 2: add the respective slots for each room/period[day] constellation
       roomTest.forEach((item) => {
         period.forEach((key) => {
           item.period[key] = item.slots;
         });
       });
-
       // Step 3: replace period Object by array
       /*
       roomTest.forEach((item) => {
@@ -365,11 +445,9 @@ export default {
           item.period = periodArray
       })
       */
-
       console.log("final room v-model:", roomTest);
       console.log("JSON", JSON.stringify(roomTest))
     },
-
     removeRow(index) {
       this.rows.pop(index);
     },
@@ -415,7 +493,7 @@ export default {
       console.log("rauminformation aus dieser zeile", item, index);
       console.log("rooms:", rooms);
 
-      this.slotModalRoom = item.room;
+      this.slotModalRoom = item.room; // set global variable to store room
       console.log("item.room", this.slotModalRoom);
 
       console.log("asd:", this.examPeriod);
@@ -457,8 +535,6 @@ export default {
         });
     },
     testLog(item, index) {
-      console.log("hallo ich bin ein Datum", item);
-      console.log("ichbindieposition", index);
       this.slotModalDay = item;
       console.log("slotmodal:", this.slotModalDay);
       console.log("blablabla.room", this.slotModalRoom);
@@ -480,9 +556,6 @@ export default {
         .catch(function (error) {
           console.log("error:", error);
         });
-    },
-    logSlots() {
-      console.log("dassindalleslots:", this.slots);
     },
     halloTest(item) {
       console.log("easy", item);
