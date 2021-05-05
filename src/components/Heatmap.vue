@@ -53,22 +53,28 @@ export default {
             colorScale: {
               ranges: [
                 {
-                  from: 0,
+                  from: -100,
                   to: 0,
                   color: "#1bcf1b",
-                  name: "Aktuelles Datum"
+                  name: "Bessere Termine"
+                },
+                {
+                  from: 0,
+                  to: 0,
+                  color: "#ffff00",
+                  name: "Vergleichbare Termine"
                 },
                 {
                   from: 0.1,
                   to: 100,
                   color: "#e30800",
-                  name: "Mögliche Termine (je dunkler, desto schlechter die Alternative)"
+                  name: "Mögliche alternativ Termine (je dunkler, desto schlechter die Alternative)"
                 },
                 {
                   from: 1000000,
                   to: 1000000,
                   color: "#000000",
-                  name: "Termine die nicht wahrgenommen werden können"
+                  name: "Termine, die nicht wahrgenommen werden können"
                 }
               ]
             } 
