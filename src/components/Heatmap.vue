@@ -53,12 +53,6 @@ export default {
             colorScale: {
               ranges: [
                 {
-                  from: -100,
-                  to: 0,
-                  color: "#1bcf1b",
-                  name: "Bessere Termine"
-                },
-                {
                   from: 0,
                   to: 0,
                   color: "#ffff00",

@@ -31,7 +31,7 @@ export default {
         {
           type: "danger",
           icon: "ti-info-alt",
-          title: "Klausuren am selben Tag",
+          title: "Überschneidungen am selben Tag",
           value: null,
         }
       ]
