@@ -56,7 +56,7 @@ export default {
     },
     startIntervall () {
       this.getData()
-      this.interval = setInterval(() => this.getData(), 5000);
+//    this.interval = setInterval(() => this.getData(), 5000);
     },
     stopIntervall() {
      clearInterval(this.interval);

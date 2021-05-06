@@ -31,7 +31,7 @@ export default {
         {
           type: "info",
           icon: "ti-paragraph",
-          title: "Anzahl Überschneidungen",
+          title: "Vernetzungsfaktor",
           value: null,
         }
       ]

@@ -37,7 +37,7 @@ export default {
     var yyyy = today.getFullYear();
     today = mm + '/' + dd + '/' + yyyy;
 
-    scheduler.init(this.$refs.scheduler, today, "week");
+    scheduler.init(this.$refs.scheduler, new Date(2019, 7, 12), "week");
     scheduler.parse(this.$props.events);
     scheduler.config.first_hour = 8;
     scheduler.config.last_hour = 20;
