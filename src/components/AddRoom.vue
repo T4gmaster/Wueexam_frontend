@@ -73,7 +73,7 @@ export default {
   computed: {},
   methods: {
       addRoom() {
-          let newRoom = ({id: '', room: this.room.name, capacity: this.room.capacity, selected: this.room.selected, proctor: ''})
+          let newRoom = ({id: '', room: this.room.name, capacity: this.room.capacity, selected: this.room.selected, proctor: '', slots: [{one: this.room.capacity}, {two: this.room.capacity}, {three: this.room.capacity}, {four: this.room.capacity}, {five: this.room.capacity}, {six: this.room.capacity}], period: {}})
           this.$emit("updateRoom", newRoom)
           console.log('Room handed over to parent:', newRoom)
           this.$bvModal.hide('modal-add-room');

@@ -28,7 +28,7 @@
           </b-col>
         </b-row>
     </b-card>
-    <b-button @click="changeRoomCapacity(); show = false" class="adddate" variant="primary">speichern</b-button>
+    <b-button @click="changeRoomCapacity(item); show = false" class="adddate" variant="primary">speichern</b-button>
   </b-modal>
   </template>
 
@@ -40,7 +40,7 @@
 <!-- Button: Kapazität festlegen !-->
     <template v-slot:cell(actions)="row">
         <div>
-        <b-button @click="row.toggleDetails(); fillArray(row.item, row.index)" class="button" variant="primary"><i class="fa fa-wrench"></i>Kapazität einschränken</b-button>
+        <b-button @click="row.toggleDetails(); fillArray(row.item, row.index); getRoomCapacity(row.item, row.index)" class="button" variant="primary"><i class="fa fa-wrench"></i>Kapazität einschränken</b-button>
         </div>
     </template>
 <!-- Kapazität je Raum !-->
@@ -72,8 +72,8 @@
     !-->
             <template class="mouseClick" #cell(capacity)="row" >
 
-            <b-badge class="selectitem" v-if="row.item.slotRestriction" @click="testLog(row.item, row.index); sendRoomSlotIndex(row.item, row.index)" v-b-modal.modal-set-slots variant="success">80</b-badge>
-      <b-badge class="selectitem" @click="setSlotsToChange(row.item, row.index); sendRoomSlotIndex(row.item, row.index)" v-b-modal.modal-set-slots v-else variant="warning">eingeschränkt</b-badge>
+            <b-badge class="selectitem" v-if="row.item.slotRestriction" @click="testLog(row.item, row.index); setSlotsToChange(row.item, row.index); sendRoomSlotIndex(row.item, row.index)" v-b-modal.modal-set-slots variant="success">eingeschränkt</b-badge>
+      <b-badge class="selectitem" @click="daDum(row.item); setSlotsToChange(row.item, row.index); sendRoomSlotIndex(row.item, row.index)" v-b-modal.modal-set-slots v-else variant="warning">{{rowCapacity}}</b-badge>
             </template>
 
 
@@ -91,7 +91,7 @@
             <label v-b-tooltip.hover title="">08:00 Uhr</label>
           </b-col>
           <b-col sm="3">
-            <b-form-input type="number" :number="true" size="sm" v-model="roomTest[indexOfRoom]" ></b-form-input>
+            <b-form-input type="number" :number="true" size="sm" v-model="slots.one" ></b-form-input>
           </b-col>
         </b-row>
         <p></p>
@@ -142,7 +142,7 @@
 
       </b-card>
 
-      <b-button variant="primary" class="adddate" @click="$bvModal.hide('modal-set-slots'); changeSlots()"><i class="fa fa-floppy-o"></i>speichern</b-button>
+      <b-button variant="primary" class="adddate" @click="$bvModal.hide('modal-set-slots'); changeSlots(); interesting(item)"><i class="fa fa-floppy-o"></i>speichern</b-button>
           
           </b-modal>
 
@@ -165,7 +165,6 @@
 <b-row>
   
   <router-link to=/solver tag="b-button" class="continue" ><i class="fa fa-arrow-right"></i>Weiter</router-link>
-  <button @click="fillArray">test</button>
 </b-row>
 
 
@@ -257,6 +256,7 @@ export default {
         {day_ordered:5,date:1617494400000},
         {day_ordered:6,date:1617580800000}],
       slotModalRoom: "",
+      rowCapacity: '',
       infoModal: {
         id: "info-modal",
         title: "",
@@ -277,7 +277,8 @@ export default {
       this.selectedRoomCapacity = item // hand over row to global variable
       console.log('selected row to change', this.selectedRoomCapacity)
     },
-    changeRoomCapacity() {
+    changeRoomCapacity(item) {
+      console.log('modalitem', item)
       /*
       find Index of room which capacity should be changed
       */
@@ -333,6 +334,12 @@ export default {
       })
       console.log('v-model to update slots', slots)
     },
+    getRoomCapacity (item, index) {
+      console.log('asdddddddddddddddddddddddddddddd', item)
+      console.log('index', index)
+      this.rowCapacity = item.capacity
+      console.log('leckmiiiiiiiiiiiiiiiiiiich', this.rowCapacity)
+    },
     changeSlots() {
       /*
       get index of selected room
@@ -353,8 +360,16 @@ export default {
      console.log('selected date', this.dayInPeriod)
      console.log('path', this.roomTest[indexOfRoom].period)
      this.roomTest[indexOfRoom].period[indexInPeriod] = slots
+     console.log('aaaaaaaaaaaaaaaaaaaaaaaaassssssssssssssssssssssssssshole', this.roomTest[indexOfRoom])
      console.log('apskjdhfsdipgsapf', this.roomTest[indexOfRoom].period[indexInPeriod])
      console.log('new asdasd', this.roomTest)
+     this.$bvToast.toast(
+              this.slotModalRoom + ' (' + moment(this.dayInPeriod).locale('de').format('dddd, DD.MM.YYYY') + ') ' + '(' + Object.values(slots) + ')',
+              { title: 'Kapazität eingeschränkt!',
+              autoHideDelay: 20000
+              }             
+          );
+
      /*
      this.roomTest.forEach((item) => [
        item.period.forEach((day) => {
@@ -385,7 +400,7 @@ export default {
     receiveRoom(reply) {
       let newRoom = reply;
       console.log("room received from child:", newRoom);
-      this.rooms.push(newRoom);
+      this.roomTest.push(newRoom);
       console.log("new roomlist:", this.rooms);
     },
     logFinalArray(item, index) {
@@ -430,23 +445,45 @@ export default {
         period.push(element.ISO_date);
       });
       // Step 2: add the respective slots for each room/period[day] constellation
+      let updated = false
       roomTest.forEach((item) => {
         period.forEach((key) => {
-          item.period[key] = item.slots;
+          item.period[key] = {slots: item.slots, updated: updated};
         });
       });
+
+
+      
       // Step 3: replace period Object by array
-      /*
+/*
+      roomTest.forEach((item) => {
+        item.period.forEach((subitem) => {
+          item.period[subitem] = item.slots
+        })
+      })
+      */
+      
       roomTest.forEach((item) => {
          var periodArray = [];
           for(var i in item.period){
-          periodArray.push({[i]:item.period[i]});
+          periodArray.push(item.period[i]);
           }
           item.period = periodArray
       })
+      
+      /*
+      roomTest.forEach((item) => {
+        item.period.forEach((subitem) => {
+          item.period[subitem] = item.slots
+        })
+      })
       */
+      
       console.log("final room v-model:", roomTest);
       console.log("JSON", JSON.stringify(roomTest))
+    },
+    removeRow(index) {
+      this.rows.pop(index);
     },
     removeRow(index) {
       this.rows.pop(index);
@@ -534,6 +571,11 @@ export default {
           console.log("error:", error);
         });
     },
+    daDum(item) {
+      console.log('dadum', item)
+      item.asd = true
+
+    },
     testLog(item, index) {
       this.slotModalDay = item;
       console.log("slotmodal:", this.slotModalDay);
@@ -556,6 +598,9 @@ export default {
         .catch(function (error) {
           console.log("error:", error);
         });
+    },
+    interesting(item) {
+      console.log('interesting', item)
     },
     halloTest(item) {
       console.log("easy", item);
