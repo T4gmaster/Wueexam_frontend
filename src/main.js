@@ -11,8 +11,8 @@ import VueApexCharts from "vue-apexcharts";
 import * as Keycloak from 'keycloak-js';
 
 Vue.config.productionTip = false
-Vue.prototype.$IPBE = 'http://132.187.226.24:5000'
-Vue.prototype.$IPOPTIMIZATION = 'http://132.187.226.24:5001'
+Vue.prototype.$IPBE = 'localhost:5000'  //'http://132.187.226.24:5000'
+Vue.prototype.$IPOPTIMIZATION = 'localhost:5001'//'http://132.187.226.24:5001'
 Vue.prototype.$NAME = 'test'
 Vue.prototype.$PW = 'test1'
 
@@ -24,8 +24,8 @@ Vue.component("apexchart", VueApexCharts);
 Vue.use(PaperDashboard);
 
 let initOptions = {
-  url: 'http://132.187.226.24:8080/auth', realm: 'WueExam', clientId: 'app-wueexam', onLoad: 'login-required'
-}
+  url: 'localhost:8080/auth', realm: 'WueExam', clientId: 'app-wueexam', onLoad: 'login-required'
+} //'http://132.187.226.24:8080/auth'
 
 let keycloak = Keycloak(initOptions);
 Vue.prototype.$keycloak = keycloak;
