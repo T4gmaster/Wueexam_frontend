@@ -369,27 +369,6 @@ export default {
         dateArray.push(moment(new Date(firstDate)));
         firstDate = moment(firstDate).add(1, "days");
       }
-
-
-/*
-      let periodOptions = this.periodOptions
-      let firstDateTwo = moment(this.calendarData.dateRange.start);
-      let lastDateTwo = moment(this.calendarData.dateRange.end);
-      // let checkArray = new Array();
-
-
-
-      while (firstDateTwo <= lastDateTwo) {
-        periodOptions.push({'value': moment(new Date(firstDateTwo)), 'text': moment(new Date(firstDateTwo)).locale('de').format('dddd, DD.MM.YYYY')});
-        firstDateTwo = moment(firstDateTwo).add(1, "days");
-      }
-      console.log('Auswahloptionen:', JSON.stringify(periodOptions));
-
-*/
-
-
-
-
       console.log("Zeitraum", dateArray);
       this.period = { dateArray };
       let xyz = new Array();
@@ -441,24 +420,6 @@ export default {
       }
       console.log(totalExamDaysLength)
       this.totalExamDaysLength = totalExamDaysLength
-      /*
-      console.log (this.completePeriod)
-      let totalExamDays = this.totalExamDays
-      this.completePeriod.forEach((item) => {
-        if (item.selected) {
-          totalExamDays.push(item.date)
-        }
-      })
-      this.totalExamDaysLength = totalExamDays.length
-      console.log('sum of days with exams:', this.totalExamDaysLength)
-      */
-      
-
-
-
-      
-
-
     },
     getDates() {
       let dateArray = new Array();
