@@ -196,13 +196,13 @@ export default {
     },
     saveSettings() {
       console.log('settings:', )
-      let settings = []
+      let settings = {}
       let days_before = {"zero": this.days_before0, "one": this.days_before1, "two": this.days_before2}
       let normalization = {"four": this.normalization4, "six": this.normalization6, "seven": this.normalization7, "eight": this.normalization8, "nine": this.normalization9, "ten": this.normalization1000}
       let solver_parameters = {"solver_time_limit": this.solver_time_limit, "wave_size": this.wave_size, "exam_split_weight": this.exam_split_weight, "room_split_weight": this.room_split_weight, "weight_missing_room": this.weight_missing_room}
       console.log('days before:', days_before)
       console.log('normalization:', normalization)
-      settings.push({'days_before': days_before, 'normalization': normalization, 'solver_parameters': solver_parameters})
+      settings = {'days_before': days_before, 'normalization': normalization, 'solver_parameters': solver_parameters}
       console.log('settings:', settings)
       console.log(JSON.stringify(settings))
       axios
